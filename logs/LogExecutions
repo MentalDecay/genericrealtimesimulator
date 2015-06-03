@@ -1,0 +1,35 @@
+Time : 0
+New job executing : 0 from : t1.
+Time : 1
+Job (0) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (0) from t1 ended its execution.
+Time : 2
+New job executing : 0 from : t2.
+Time : 3
+Job (0) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 4
+Job (0) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (0) from t2 ended its execution.
+Time : 5
+New job executing : 0 from : t3.
+Time : 6
+Job (0) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 7
+Job (1) from t1 is preempting job (0) from t3Job (0) from t3 stops. 3 unit(s) of time remaining.
+Time : 8
+Job (1) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (1) from t1 ended its execution.
+Time : 9
+New job executing : 0 from : t3.
+Time : 10
+Job (0) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 11
+Job (1) from t2 is preempting job (0) from t3Job (0) from t3 stops. 1 unit(s) of time remaining.
+Time : 12
+Job (1) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 13
+Job (1) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (1) from t2 ended its execution.
+Time : 14
+New job executing : 2 from : t1.
+Job (0) from t3 just missed its deadline.

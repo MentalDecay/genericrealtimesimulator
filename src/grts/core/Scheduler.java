@@ -1,8 +1,9 @@
-package GRTS.core;
+package grts.core;
 
-import GRTS.core.schedulable.Job;
-import GRTS.core.priority.policies.IPriorityPolicy;
-import GRTS.core.taskset.ITaskSet;
+import grts.logger.Logger;
+import grts.core.schedulable.Job;
+import grts.core.priority.policies.IPriorityPolicy;
+import grts.core.taskset.ITaskSet;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,9 +15,11 @@ public class Scheduler {
     private final IPriorityPolicy policy;
     private final List<Job> activeJobs = new LinkedList<>();
     private Job executingJob;
+    private final Logger logger;
 
 
-    public Scheduler(ITaskSet taskSet, IPriorityPolicy policy) {
+    public Scheduler(ITaskSet taskSet, IPriorityPolicy policy, Logger logger) {
+        this.logger = logger;
         this.taskSet = Objects.requireNonNull(taskSet);
         this.policy = Objects.requireNonNull(policy);
     }
@@ -28,13 +31,14 @@ public class Scheduler {
     public void schedule(long maxTime){
         long time = 0;
         while(time < maxTime){
-            System.out.println("Time : " + time);
+            //System.out.println("Time : " + time);
+            logger.writeTime(time);
             activateJobs(time);
             Job jobToExecute = policy.choseJobToExecute(activeJobs, time);
 
-
+            logger.writeJobExecution(jobToExecute, executingJob);
             if(jobToExecute != null){
-                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 // Disgusting displays to move
                 if (executingJob == null) {
                     System.out.println("New job executing : " + jobToExecute.getJobId() +
@@ -50,25 +54,25 @@ public class Scheduler {
                 }
 
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                // End disgusting displays
+                // End disgusting displays*/
                 executeJob(jobToExecute);
             }
 
             if(checkDeadlineMissed(time)){
-                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 // Disgusting displays to move
                 taskSet.getRecurrentTasks().forEach(System.out::println);
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                // End disgusting displays
+                // End disgusting displays*/
                 return;
             }
             time++;
         }
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Disgusting displays to move
         taskSet.getRecurrentTasks().forEach(System.out::println);
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // End disgusting displays
+        // End disgusting displays*/
     }
 
     /**
@@ -79,7 +83,8 @@ public class Scheduler {
         executingJob = job;
         executingJob.execute();
         if(executingJob.getRemainingTime() == 0){
-            System.out.println("Job (" + executingJob.getJobId() + ") from " + executingJob.getTask().getName() + " ended its execution.");
+            //System.out.println("Job (" + executingJob.getJobId() + ") from " + executingJob.getTask().getName() + " ended its execution.");
+            logger.writeEndExecution(job);
             activeJobs.remove(executingJob);
             executingJob = null;
         }
@@ -90,11 +95,16 @@ public class Scheduler {
      * @param time time when the job is activated
      */
     private void activateJobs(long time) {
+        LinkedList<Job> activatedJobs = new LinkedList<>();
         taskSet.getRecurrentTasks().stream().filter(task -> time == task.getNextActivationTime(time)).forEach(task -> {
             Job jobToAdd = task.getNextJob(time);
-            System.out.println("activating job : " + jobToAdd.getJobId() + " from " + jobToAdd.getTask().getName());
+            activatedJobs.add(jobToAdd);
+            //System.out.println("activating job : " + jobToAdd.getJobId() + " from " + jobToAdd.getTask().getName());
             activeJobs.add(jobToAdd);
         });
+        if(activatedJobs.size() > 0) {
+            logger.writeJobActivation(activatedJobs, time);
+        }
     }
 
     /**
@@ -105,7 +115,8 @@ public class Scheduler {
     private boolean checkDeadlineMissed(long time) {
         for(Job job : activeJobs){
             if(job.deadlineMissed(time)){
-                System.out.println("Job (" + job.getJobId() + ") from " + job.getTask().getName() + " just missed its deadline at " + time);
+                //System.out.println("Job (" + job.getJobId() + ") from " + job.getTask().getName() + " just missed its deadline at " + time);
+                logger.writeMissedDeadline(job);
                 return true;
             }
         }

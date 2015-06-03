@@ -1,4 +1,4 @@
-package GRTS.core.schedulable;
+package grts.core.schedulable;
 
 public abstract class AbstractRecurrentTask implements ITask {
     private final long minimumInterArrivalTime;

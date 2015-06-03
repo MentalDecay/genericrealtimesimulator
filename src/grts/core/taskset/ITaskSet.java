@@ -1,6 +1,6 @@
-package GRTS.core.taskset;
+package grts.core.taskset;
 
-import GRTS.core.schedulable.AbstractRecurrentTask;
+import grts.core.schedulable.AbstractRecurrentTask;
 
 import java.util.List;
 

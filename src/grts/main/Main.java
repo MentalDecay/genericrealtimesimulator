@@ -1,12 +1,20 @@
-package GRTS.main;
+package grts.main;
 
-import GRTS.core.priority.policies.*;
-import GRTS.core.schedulable.AbstractRecurrentTask;
-import GRTS.core.Scheduler;
-import GRTS.core.schedulable.PeriodicTask;
-import GRTS.core.taskset.ITaskSet;
-import GRTS.core.taskset.TaskSet;
+import grts.core.priority.policies.*;
+import grts.core.schedulable.AbstractRecurrentTask;
+import grts.core.Scheduler;
+import grts.core.schedulable.PeriodicTask;
+import grts.core.taskset.ITaskSet;
+import grts.core.taskset.TaskSet;
+import grts.logger.Logger;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,13 +30,26 @@ public class Main {
 //        AbstractRecurrentTask t1 = new SporadicTask(7, 2, 7, 0, "t1");
 //        AbstractRecurrentTask t2 = new SporadicTask(11, 3, 11, 0, "t2");
 //        AbstractRecurrentTask t3 = new SporadicTask(13, 5, 13, 0, "t3");
+
+
         List<AbstractRecurrentTask> tasks = new LinkedList<>();
         tasks.add(t1);
         tasks.add(t2);
         tasks.add(t3);
         ITaskSet ts = new TaskSet(tasks);
-        IPriorityPolicy policy = new EarliestDeadlineFirst(ts);
-        Scheduler scheduler = new Scheduler(ts, policy);
+        IPriorityPolicy policy = new RateMonotonic(ts);
+        Logger logger = null;
+        try {
+            logger = new Logger("logs");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Fail logger creation");
+            return;
+        }
+        Scheduler scheduler = new Scheduler(ts, policy, logger);
         scheduler.schedule(ts.getHyperPeriod());
+        logger.silentlyClose();
+
+
     }
 }

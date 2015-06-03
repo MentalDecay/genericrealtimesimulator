@@ -1,6 +1,6 @@
-package GRTS.core.priority.policies;
+package grts.core.priority.policies;
 
-import GRTS.core.taskset.ITaskSet;
+import grts.core.taskset.ITaskSet;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package GRTS.core.schedulable;
+package grts.core.schedulable;
 
 import umontreal.iro.lecuyer.randvar.ExponentialGen;
 import umontreal.iro.lecuyer.rng.LFSR113;

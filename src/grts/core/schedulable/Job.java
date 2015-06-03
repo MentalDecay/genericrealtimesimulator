@@ -1,4 +1,4 @@
-package GRTS.core.schedulable;
+package grts.core.schedulable;
 
 import java.util.Objects;
 

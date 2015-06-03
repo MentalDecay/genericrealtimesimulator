@@ -1,0 +1,12 @@
+Time : 0
+activating job : 0 from t1
+activating job : 0 from t2
+activating job : 0 from t3
+Time : 7
+activating job : 1 from t1
+Time : 11
+activating job : 1 from t2
+Time : 13
+activating job : 1 from t3
+Time : 14
+activating job : 2 from t1

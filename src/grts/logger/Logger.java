@@ -1,6 +1,6 @@
-package GRTS.Logger;
+package grts.logger;
 
-import GRTS.core.schedulable.Job;
+import grts.core.schedulable.Job;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -15,8 +15,8 @@ public class Logger {
     private final BufferedWriter executionWriter;
 
     public Logger(String path) throws IOException {
-        activationWriter = Files.newBufferedWriter(Paths.get(path, "LogActivations"), Charset.defaultCharset(), StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
-        executionWriter = Files.newBufferedWriter(Paths.get(path, "LogExecutions"), Charset.defaultCharset(), StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
+        activationWriter = Files.newBufferedWriter(Paths.get(path, "LogActivations").toAbsolutePath(), Charset.defaultCharset(), StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
+        executionWriter = Files.newBufferedWriter(Paths.get(path, "LogExecutions").toAbsolutePath(), Charset.defaultCharset(), StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
     }
 
     public Logger() throws IOException {
@@ -48,30 +48,54 @@ public class Logger {
         }
     }
 
-    public void writeJobExecution(Job jobToExecute, Job executingJob, long time) {
+    public void writeJobExecution(Job jobToExecute, Job executingJob) {
         try {
-            executionWriter.write("Time : " + time + "\n");
             if (jobToExecute != null) {
                 if (executingJob == null) {
                     executionWriter.write("New job executing : " + jobToExecute.getJobId() +
-                            " from : " + jobToExecute.getTask().getName());
+                            " from : " + jobToExecute.getTask().getName() + ".\n");
                 } else if (jobToExecute != executingJob) {
                     executionWriter.write("Job (" + jobToExecute.getJobId() + ") from " + jobToExecute.getTask().getName() +
                             " is preempting job (" + executingJob.getJobId() + ") from " + executingJob.getTask().getName());
                     executionWriter.write("Job (" + executingJob.getJobId() + ") from " + executingJob.getTask().getName() +
-                            " stops. " + executingJob.getRemainingTime() + " unit(s) of time remaining.");
+                            " stops. " + executingJob.getRemainingTime() + " unit(s) of time remaining.\n");
                 } else {
                     executionWriter.write("Job (" + executingJob.getJobId() + ") from " + executingJob.getTask().getName() +
-                            " continue its execution. " + executingJob.getRemainingTime() + " unit(s) of time remaining");
+                            " continue its execution. " + executingJob.getRemainingTime() + " unit(s) of time remaining.\n");
                 }
             }
             else{
                 executionWriter.write("Nothing is executing at this time\n");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Can't write on the execution file.");
         }
-
-
     }
+
+    public void writeEndExecution(Job job){
+        try {
+            executionWriter.write("Job (" + job.getJobId() + ") from " + job.getTask().getName() + " ended its execution.\n");
+        } catch (IOException e) {
+            System.err.println("Can't write on the execution file.");
+        }
+    }
+
+    public void writeMissedDeadline(Job job){
+        try {
+            executionWriter.write("Job (" + job.getJobId() + ") from " + job.getTask().getName() + " just missed its deadline.\n");
+        } catch (IOException e) {
+            System.err.println("Can't write on the execution file.");
+        }
+    }
+
+    public void writeTime(long time){
+        try {
+            executionWriter.write("Time : " + time + "\n");
+        } catch (IOException e) {
+            System.err.println("Can't write on the execution file.");
+        }
+    }
+
+
+
 }

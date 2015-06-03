@@ -1,6 +1,6 @@
-package GRTS.core.priority.policies;
+package grts.core.priority.policies;
 
-import GRTS.core.schedulable.Job;
+import grts.core.schedulable.Job;
 
 import java.util.List;
 
