@@ -6,30 +6,2535 @@ Job (0) from t1 ended its execution.
 Time : 2
 New job executing : 0 from : t2.
 Time : 3
-Job (0) from t2 continue its execution. 2 unit(s) of time remaining.
+Job (0) from t3 is preempting job (0) from t2
+Job (0) from t2 stops. 2 unit(s) of time remaining.
 Time : 4
-Job (0) from t2 continue its execution. 1 unit(s) of time remaining.
-Job (0) from t2 ended its execution.
+Job (0) from t2 is preempting job (0) from t3
+Job (0) from t3 stops. 4 unit(s) of time remaining.
 Time : 5
-New job executing : 0 from : t3.
+Job (0) from t3 is preempting job (0) from t2
+Job (0) from t2 stops. 1 unit(s) of time remaining.
 Time : 6
-Job (0) from t3 continue its execution. 4 unit(s) of time remaining.
+Job (0) from t2 is preempting job (0) from t3
+Job (0) from t3 stops. 3 unit(s) of time remaining.
+Job (0) from t2 ended its execution.
 Time : 7
-Job (1) from t1 is preempting job (0) from t3Job (0) from t3 stops. 3 unit(s) of time remaining.
+New job executing : 0 from : t3.
 Time : 8
+Job (0) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 9
+Job (0) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (0) from t3 ended its execution.
+Time : 10
+New job executing : 1 from : t1.
+Time : 11
 Job (1) from t1 continue its execution. 1 unit(s) of time remaining.
 Job (1) from t1 ended its execution.
-Time : 9
-New job executing : 0 from : t3.
-Time : 10
-Job (0) from t3 continue its execution. 2 unit(s) of time remaining.
-Time : 11
-Job (1) from t2 is preempting job (0) from t3Job (0) from t3 stops. 1 unit(s) of time remaining.
 Time : 12
-Job (1) from t2 continue its execution. 2 unit(s) of time remaining.
+New job executing : 1 from : t2.
 Time : 13
-Job (1) from t2 continue its execution. 1 unit(s) of time remaining.
-Job (1) from t2 ended its execution.
+Job (1) from t2 continue its execution. 2 unit(s) of time remaining.
 Time : 14
-New job executing : 2 from : t1.
-Job (0) from t3 just missed its deadline.
+Job (2) from t1 is preempting job (1) from t2
+Job (1) from t2 stops. 1 unit(s) of time remaining.
+Time : 15
+Job (2) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (2) from t1 ended its execution.
+Time : 16
+New job executing : 1 from : t2.
+Job (1) from t2 ended its execution.
+Time : 17
+New job executing : 1 from : t3.
+Time : 18
+Job (1) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 19
+Job (1) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 20
+Job (1) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 21
+Job (1) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (1) from t3 ended its execution.
+Time : 22
+New job executing : 3 from : t1.
+Time : 23
+Job (3) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (3) from t1 ended its execution.
+Time : 24
+New job executing : 2 from : t2.
+Time : 25
+Job (2) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 26
+Job (2) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (2) from t2 ended its execution.
+Time : 27
+New job executing : 2 from : t3.
+Time : 28
+Job (4) from t1 is preempting job (2) from t3
+Job (2) from t3 stops. 4 unit(s) of time remaining.
+Time : 29
+Job (4) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (4) from t1 ended its execution.
+Time : 30
+New job executing : 2 from : t3.
+Time : 31
+Job (2) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 32
+Job (2) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 33
+Job (2) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (2) from t3 ended its execution.
+Time : 34
+New job executing : 3 from : t2.
+Time : 35
+Job (5) from t1 is preempting job (3) from t2
+Job (3) from t2 stops. 2 unit(s) of time remaining.
+Time : 36
+Job (5) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (5) from t1 ended its execution.
+Time : 37
+New job executing : 3 from : t2.
+Time : 38
+Job (3) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (3) from t2 ended its execution.
+Time : 39
+New job executing : 3 from : t3.
+Time : 40
+Job (3) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 41
+Job (3) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 42
+Job (6) from t1 is preempting job (3) from t3
+Job (3) from t3 stops. 2 unit(s) of time remaining.
+Time : 43
+Job (6) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (6) from t1 ended its execution.
+Time : 44
+New job executing : 3 from : t3.
+Time : 45
+Job (3) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (3) from t3 ended its execution.
+Time : 46
+New job executing : 4 from : t2.
+Time : 47
+Job (4) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 48
+Job (4) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (4) from t2 ended its execution.
+Time : 49
+New job executing : 7 from : t1.
+Time : 50
+Job (7) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (7) from t1 ended its execution.
+Time : 51
+Nothing is executing at this time
+Time : 52
+New job executing : 4 from : t3.
+Time : 53
+Job (4) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 54
+Job (4) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 55
+Job (4) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 56
+Job (8) from t1 is preempting job (4) from t3
+Job (4) from t3 stops. 1 unit(s) of time remaining.
+Time : 57
+Job (8) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (8) from t1 ended its execution.
+Time : 58
+New job executing : 5 from : t2.
+Time : 59
+Job (4) from t3 is preempting job (5) from t2
+Job (5) from t2 stops. 2 unit(s) of time remaining.
+Job (4) from t3 ended its execution.
+Time : 60
+New job executing : 5 from : t2.
+Time : 61
+Job (5) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (5) from t2 ended its execution.
+Time : 62
+Nothing is executing at this time
+Time : 63
+New job executing : 9 from : t1.
+Time : 64
+Job (9) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (9) from t1 ended its execution.
+Time : 65
+New job executing : 5 from : t3.
+Time : 66
+Job (5) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 67
+Job (6) from t2 is preempting job (5) from t3
+Job (5) from t3 stops. 3 unit(s) of time remaining.
+Time : 68
+Job (5) from t3 is preempting job (6) from t2
+Job (6) from t2 stops. 2 unit(s) of time remaining.
+Time : 69
+Job (6) from t2 is preempting job (5) from t3
+Job (5) from t3 stops. 2 unit(s) of time remaining.
+Time : 70
+Job (10) from t1 is preempting job (6) from t2
+Job (6) from t2 stops. 1 unit(s) of time remaining.
+Time : 71
+Job (5) from t3 is preempting job (10) from t1
+Job (10) from t1 stops. 1 unit(s) of time remaining.
+Time : 72
+Job (6) from t2 is preempting job (5) from t3
+Job (5) from t3 stops. 1 unit(s) of time remaining.
+Job (6) from t2 ended its execution.
+Time : 73
+New job executing : 10 from : t1.
+Job (10) from t1 ended its execution.
+Time : 74
+New job executing : 5 from : t3.
+Job (5) from t3 ended its execution.
+Time : 75
+Nothing is executing at this time
+Time : 76
+Nothing is executing at this time
+Time : 77
+New job executing : 11 from : t1.
+Time : 78
+Job (11) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (11) from t1 ended its execution.
+Time : 79
+New job executing : 7 from : t2.
+Time : 80
+Job (7) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 81
+Job (6) from t3 is preempting job (7) from t2
+Job (7) from t2 stops. 1 unit(s) of time remaining.
+Time : 82
+Job (7) from t2 is preempting job (6) from t3
+Job (6) from t3 stops. 4 unit(s) of time remaining.
+Job (7) from t2 ended its execution.
+Time : 83
+New job executing : 6 from : t3.
+Time : 84
+Job (6) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 85
+Job (6) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 86
+Job (12) from t1 is preempting job (6) from t3
+Job (6) from t3 stops. 1 unit(s) of time remaining.
+Time : 87
+Job (6) from t3 is preempting job (12) from t1
+Job (12) from t1 stops. 1 unit(s) of time remaining.
+Job (6) from t3 ended its execution.
+Time : 88
+New job executing : 12 from : t1.
+Job (12) from t1 ended its execution.
+Time : 89
+New job executing : 8 from : t2.
+Time : 90
+Job (8) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 91
+Job (13) from t1 is preempting job (8) from t2
+Job (8) from t2 stops. 1 unit(s) of time remaining.
+Time : 92
+Job (13) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (13) from t1 ended its execution.
+Time : 93
+New job executing : 8 from : t2.
+Job (8) from t2 ended its execution.
+Time : 94
+New job executing : 7 from : t3.
+Time : 95
+Job (7) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 96
+Job (7) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 97
+Job (7) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 98
+Job (7) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (7) from t3 ended its execution.
+Time : 99
+New job executing : 14 from : t1.
+Time : 100
+Job (14) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (14) from t1 ended its execution.
+Time : 101
+New job executing : 9 from : t2.
+Time : 102
+Job (9) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 103
+Job (9) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (9) from t2 ended its execution.
+Time : 104
+New job executing : 8 from : t3.
+Time : 105
+Job (15) from t1 is preempting job (8) from t3
+Job (8) from t3 stops. 4 unit(s) of time remaining.
+Time : 106
+Job (15) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (15) from t1 ended its execution.
+Time : 107
+New job executing : 8 from : t3.
+Time : 108
+Job (8) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 109
+Job (8) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 110
+Job (8) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (8) from t3 ended its execution.
+Time : 111
+New job executing : 10 from : t2.
+Time : 112
+Job (16) from t1 is preempting job (10) from t2
+Job (10) from t2 stops. 2 unit(s) of time remaining.
+Time : 113
+Job (16) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (16) from t1 ended its execution.
+Time : 114
+New job executing : 10 from : t2.
+Time : 115
+Job (10) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (10) from t2 ended its execution.
+Time : 116
+Nothing is executing at this time
+Time : 117
+New job executing : 9 from : t3.
+Time : 118
+Job (9) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 119
+Job (17) from t1 is preempting job (9) from t3
+Job (9) from t3 stops. 3 unit(s) of time remaining.
+Time : 120
+Job (17) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (17) from t1 ended its execution.
+Time : 121
+New job executing : 9 from : t3.
+Time : 122
+Job (9) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 123
+Job (9) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (9) from t3 ended its execution.
+Time : 124
+New job executing : 11 from : t2.
+Time : 125
+Job (11) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 126
+Job (11) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (11) from t2 ended its execution.
+Time : 127
+New job executing : 18 from : t1.
+Time : 128
+Job (18) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (18) from t1 ended its execution.
+Time : 129
+Nothing is executing at this time
+Time : 130
+New job executing : 10 from : t3.
+Time : 131
+Job (10) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 132
+Job (10) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 133
+Job (19) from t1 is preempting job (10) from t3
+Job (10) from t3 stops. 2 unit(s) of time remaining.
+Time : 134
+Job (19) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (19) from t1 ended its execution.
+Time : 135
+New job executing : 12 from : t2.
+Time : 136
+Job (10) from t3 is preempting job (12) from t2
+Job (12) from t2 stops. 2 unit(s) of time remaining.
+Time : 137
+Job (12) from t2 is preempting job (10) from t3
+Job (10) from t3 stops. 1 unit(s) of time remaining.
+Time : 138
+Job (10) from t3 is preempting job (12) from t2
+Job (12) from t2 stops. 1 unit(s) of time remaining.
+Job (10) from t3 ended its execution.
+Time : 139
+New job executing : 12 from : t2.
+Job (12) from t2 ended its execution.
+Time : 140
+New job executing : 20 from : t1.
+Time : 141
+Job (20) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (20) from t1 ended its execution.
+Time : 142
+Nothing is executing at this time
+Time : 143
+New job executing : 13 from : t2.
+Time : 144
+Job (11) from t3 is preempting job (13) from t2
+Job (13) from t2 stops. 2 unit(s) of time remaining.
+Time : 145
+Job (13) from t2 is preempting job (11) from t3
+Job (11) from t3 stops. 4 unit(s) of time remaining.
+Time : 146
+Job (11) from t3 is preempting job (13) from t2
+Job (13) from t2 stops. 1 unit(s) of time remaining.
+Time : 147
+Job (21) from t1 is preempting job (11) from t3
+Job (11) from t3 stops. 3 unit(s) of time remaining.
+Time : 148
+Job (13) from t2 is preempting job (21) from t1
+Job (21) from t1 stops. 1 unit(s) of time remaining.
+Job (13) from t2 ended its execution.
+Time : 149
+New job executing : 11 from : t3.
+Time : 150
+Job (21) from t1 is preempting job (11) from t3
+Job (11) from t3 stops. 2 unit(s) of time remaining.
+Job (21) from t1 ended its execution.
+Time : 151
+New job executing : 11 from : t3.
+Time : 152
+Job (11) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (11) from t3 ended its execution.
+Time : 153
+Nothing is executing at this time
+Time : 154
+New job executing : 22 from : t1.
+Time : 155
+Job (22) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (22) from t1 ended its execution.
+Time : 156
+New job executing : 14 from : t2.
+Time : 157
+Job (14) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 158
+Job (14) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (14) from t2 ended its execution.
+Time : 159
+New job executing : 12 from : t3.
+Time : 160
+Job (12) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 161
+Job (12) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 162
+Job (23) from t1 is preempting job (12) from t3
+Job (12) from t3 stops. 2 unit(s) of time remaining.
+Time : 163
+Job (12) from t3 is preempting job (23) from t1
+Job (23) from t1 stops. 1 unit(s) of time remaining.
+Time : 164
+Job (23) from t1 is preempting job (12) from t3
+Job (12) from t3 stops. 1 unit(s) of time remaining.
+Job (23) from t1 ended its execution.
+Time : 165
+New job executing : 12 from : t3.
+Job (12) from t3 ended its execution.
+Time : 166
+New job executing : 15 from : t2.
+Time : 167
+Job (15) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 168
+Job (24) from t1 is preempting job (15) from t2
+Job (15) from t2 stops. 1 unit(s) of time remaining.
+Time : 169
+Job (24) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (24) from t1 ended its execution.
+Time : 170
+New job executing : 15 from : t2.
+Job (15) from t2 ended its execution.
+Time : 171
+New job executing : 13 from : t3.
+Time : 172
+Job (13) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 173
+Job (13) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 174
+Job (13) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 175
+Job (25) from t1 is preempting job (13) from t3
+Job (13) from t3 stops. 1 unit(s) of time remaining.
+Time : 176
+Job (13) from t3 is preempting job (25) from t1
+Job (25) from t1 stops. 1 unit(s) of time remaining.
+Job (13) from t3 ended its execution.
+Time : 177
+New job executing : 25 from : t1.
+Job (25) from t1 ended its execution.
+Time : 178
+New job executing : 16 from : t2.
+Time : 179
+Job (16) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 180
+Job (16) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (16) from t2 ended its execution.
+Time : 181
+Nothing is executing at this time
+Time : 182
+New job executing : 26 from : t1.
+Time : 183
+Job (26) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (26) from t1 ended its execution.
+Time : 184
+New job executing : 14 from : t3.
+Time : 185
+Job (14) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 186
+Job (14) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 187
+Job (14) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 188
+Job (14) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (14) from t3 ended its execution.
+Time : 189
+New job executing : 27 from : t1.
+Time : 190
+Job (17) from t2 is preempting job (27) from t1
+Job (27) from t1 stops. 1 unit(s) of time remaining.
+Time : 191
+Job (27) from t1 is preempting job (17) from t2
+Job (17) from t2 stops. 2 unit(s) of time remaining.
+Job (27) from t1 ended its execution.
+Time : 192
+New job executing : 17 from : t2.
+Time : 193
+Job (17) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (17) from t2 ended its execution.
+Time : 194
+Nothing is executing at this time
+Time : 195
+New job executing : 15 from : t3.
+Time : 196
+Job (28) from t1 is preempting job (15) from t3
+Job (15) from t3 stops. 4 unit(s) of time remaining.
+Time : 197
+Job (28) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (28) from t1 ended its execution.
+Time : 198
+New job executing : 15 from : t3.
+Time : 199
+Job (15) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 200
+Job (15) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 201
+Job (18) from t2 is preempting job (15) from t3
+Job (15) from t3 stops. 1 unit(s) of time remaining.
+Time : 202
+Job (15) from t3 is preempting job (18) from t2
+Job (18) from t2 stops. 2 unit(s) of time remaining.
+Job (15) from t3 ended its execution.
+Time : 203
+New job executing : 18 from : t2.
+Time : 204
+Job (18) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (18) from t2 ended its execution.
+Time : 205
+New job executing : 29 from : t1.
+Time : 206
+Job (29) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (29) from t1 ended its execution.
+Time : 207
+Nothing is executing at this time
+Time : 208
+New job executing : 16 from : t3.
+Time : 209
+Job (16) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 210
+Job (30) from t1 is preempting job (16) from t3
+Job (16) from t3 stops. 3 unit(s) of time remaining.
+Time : 211
+Job (30) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (30) from t1 ended its execution.
+Time : 212
+New job executing : 19 from : t2.
+Time : 213
+Job (16) from t3 is preempting job (19) from t2
+Job (19) from t2 stops. 2 unit(s) of time remaining.
+Time : 214
+Job (19) from t2 is preempting job (16) from t3
+Job (16) from t3 stops. 2 unit(s) of time remaining.
+Time : 215
+Job (16) from t3 is preempting job (19) from t2
+Job (19) from t2 stops. 1 unit(s) of time remaining.
+Time : 216
+Job (19) from t2 is preempting job (16) from t3
+Job (16) from t3 stops. 1 unit(s) of time remaining.
+Job (19) from t2 ended its execution.
+Time : 217
+New job executing : 16 from : t3.
+Job (16) from t3 ended its execution.
+Time : 218
+New job executing : 31 from : t1.
+Time : 219
+Job (31) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (31) from t1 ended its execution.
+Time : 220
+New job executing : 20 from : t2.
+Time : 221
+Job (20) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 222
+Job (17) from t3 is preempting job (20) from t2
+Job (20) from t2 stops. 1 unit(s) of time remaining.
+Time : 223
+Job (20) from t2 is preempting job (17) from t3
+Job (17) from t3 stops. 4 unit(s) of time remaining.
+Job (20) from t2 ended its execution.
+Time : 224
+New job executing : 32 from : t1.
+Time : 225
+Job (17) from t3 is preempting job (32) from t1
+Job (32) from t1 stops. 1 unit(s) of time remaining.
+Time : 226
+Job (32) from t1 is preempting job (17) from t3
+Job (17) from t3 stops. 3 unit(s) of time remaining.
+Job (32) from t1 ended its execution.
+Time : 227
+New job executing : 17 from : t3.
+Time : 228
+Job (17) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 229
+Job (17) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (17) from t3 ended its execution.
+Time : 230
+Nothing is executing at this time
+Time : 231
+New job executing : 33 from : t1.
+Time : 232
+Job (33) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (33) from t1 ended its execution.
+Time : 233
+New job executing : 21 from : t2.
+Time : 234
+Job (21) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 235
+Job (21) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (21) from t2 ended its execution.
+Time : 236
+New job executing : 18 from : t3.
+Time : 237
+Job (18) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 238
+Job (34) from t1 is preempting job (18) from t3
+Job (18) from t3 stops. 3 unit(s) of time remaining.
+Time : 239
+Job (18) from t3 is preempting job (34) from t1
+Job (34) from t1 stops. 1 unit(s) of time remaining.
+Time : 240
+Job (34) from t1 is preempting job (18) from t3
+Job (18) from t3 stops. 2 unit(s) of time remaining.
+Job (34) from t1 ended its execution.
+Time : 241
+New job executing : 18 from : t3.
+Time : 242
+Job (18) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (18) from t3 ended its execution.
+Time : 243
+New job executing : 22 from : t2.
+Time : 244
+Job (22) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 245
+Job (35) from t1 is preempting job (22) from t2
+Job (22) from t2 stops. 1 unit(s) of time remaining.
+Time : 246
+Job (35) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (35) from t1 ended its execution.
+Time : 247
+New job executing : 22 from : t2.
+Job (22) from t2 ended its execution.
+Time : 248
+New job executing : 19 from : t3.
+Time : 249
+Job (19) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 250
+Job (19) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 251
+Job (19) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 252
+Job (36) from t1 is preempting job (19) from t3
+Job (19) from t3 stops. 1 unit(s) of time remaining.
+Time : 253
+Job (36) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (36) from t1 ended its execution.
+Time : 254
+New job executing : 19 from : t3.
+Job (19) from t3 ended its execution.
+Time : 255
+New job executing : 23 from : t2.
+Time : 256
+Job (23) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 257
+Job (23) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (23) from t2 ended its execution.
+Time : 258
+Nothing is executing at this time
+Time : 259
+New job executing : 37 from : t1.
+Time : 260
+Job (37) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (37) from t1 ended its execution.
+Time : 261
+New job executing : 20 from : t3.
+Time : 262
+Job (20) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 263
+Job (20) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 264
+Job (20) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 265
+Job (20) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (20) from t3 ended its execution.
+Time : 266
+New job executing : 38 from : t1.
+Time : 267
+Job (24) from t2 is preempting job (38) from t1
+Job (38) from t1 stops. 1 unit(s) of time remaining.
+Time : 268
+Job (38) from t1 is preempting job (24) from t2
+Job (24) from t2 stops. 2 unit(s) of time remaining.
+Job (38) from t1 ended its execution.
+Time : 269
+New job executing : 24 from : t2.
+Time : 270
+Job (24) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (24) from t2 ended its execution.
+Time : 271
+Nothing is executing at this time
+Time : 272
+Nothing is executing at this time
+Time : 273
+New job executing : 39 from : t1.
+Time : 274
+Job (39) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (39) from t1 ended its execution.
+Time : 275
+New job executing : 21 from : t3.
+Time : 276
+Job (21) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 277
+Job (21) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 278
+Job (25) from t2 is preempting job (21) from t3
+Job (21) from t3 stops. 2 unit(s) of time remaining.
+Time : 279
+Job (21) from t3 is preempting job (25) from t2
+Job (25) from t2 stops. 2 unit(s) of time remaining.
+Time : 280
+Job (25) from t2 is preempting job (21) from t3
+Job (21) from t3 stops. 1 unit(s) of time remaining.
+Time : 281
+Job (21) from t3 is preempting job (25) from t2
+Job (25) from t2 stops. 1 unit(s) of time remaining.
+Job (21) from t3 ended its execution.
+Time : 282
+New job executing : 25 from : t2.
+Job (25) from t2 ended its execution.
+Time : 283
+New job executing : 40 from : t1.
+Time : 284
+Job (40) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (40) from t1 ended its execution.
+Time : 285
+Nothing is executing at this time
+Time : 286
+New job executing : 26 from : t2.
+Time : 287
+Job (41) from t1 is preempting job (26) from t2
+Job (26) from t2 stops. 2 unit(s) of time remaining.
+Time : 288
+Job (41) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (41) from t1 ended its execution.
+Time : 289
+New job executing : 22 from : t3.
+Time : 290
+Job (26) from t2 is preempting job (22) from t3
+Job (22) from t3 stops. 4 unit(s) of time remaining.
+Time : 291
+Job (22) from t3 is preempting job (26) from t2
+Job (26) from t2 stops. 1 unit(s) of time remaining.
+Time : 292
+Job (26) from t2 is preempting job (22) from t3
+Job (22) from t3 stops. 3 unit(s) of time remaining.
+Job (26) from t2 ended its execution.
+Time : 293
+New job executing : 22 from : t3.
+Time : 294
+Job (22) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 295
+Job (22) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (22) from t3 ended its execution.
+Time : 296
+New job executing : 42 from : t1.
+Time : 297
+Job (42) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (42) from t1 ended its execution.
+Time : 298
+New job executing : 27 from : t2.
+Time : 299
+Job (27) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 300
+Job (27) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (27) from t2 ended its execution.
+Time : 301
+New job executing : 43 from : t1.
+Time : 302
+Job (23) from t3 is preempting job (43) from t1
+Job (43) from t1 stops. 1 unit(s) of time remaining.
+Time : 303
+Job (43) from t1 is preempting job (23) from t3
+Job (23) from t3 stops. 4 unit(s) of time remaining.
+Job (43) from t1 ended its execution.
+Time : 304
+New job executing : 23 from : t3.
+Time : 305
+Job (23) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 306
+Job (23) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 307
+Job (23) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (23) from t3 ended its execution.
+Time : 308
+New job executing : 44 from : t1.
+Time : 309
+Job (44) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (44) from t1 ended its execution.
+Time : 310
+New job executing : 28 from : t2.
+Time : 311
+Job (28) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 312
+Job (28) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (28) from t2 ended its execution.
+Time : 313
+New job executing : 24 from : t3.
+Time : 314
+Job (24) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 315
+Job (45) from t1 is preempting job (24) from t3
+Job (24) from t3 stops. 3 unit(s) of time remaining.
+Time : 316
+Job (45) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (45) from t1 ended its execution.
+Time : 317
+New job executing : 24 from : t3.
+Time : 318
+Job (24) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 319
+Job (24) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (24) from t3 ended its execution.
+Time : 320
+New job executing : 29 from : t2.
+Time : 321
+Job (29) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 322
+Job (46) from t1 is preempting job (29) from t2
+Job (29) from t2 stops. 1 unit(s) of time remaining.
+Time : 323
+Job (46) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (46) from t1 ended its execution.
+Time : 324
+New job executing : 29 from : t2.
+Job (29) from t2 ended its execution.
+Time : 325
+New job executing : 25 from : t3.
+Time : 326
+Job (25) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 327
+Job (25) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 328
+Job (25) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 329
+Job (47) from t1 is preempting job (25) from t3
+Job (25) from t3 stops. 1 unit(s) of time remaining.
+Time : 330
+Job (47) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (47) from t1 ended its execution.
+Time : 331
+New job executing : 25 from : t3.
+Job (25) from t3 ended its execution.
+Time : 332
+New job executing : 30 from : t2.
+Time : 333
+Job (30) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 334
+Job (30) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (30) from t2 ended its execution.
+Time : 335
+Nothing is executing at this time
+Time : 336
+New job executing : 48 from : t1.
+Time : 337
+Job (48) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (48) from t1 ended its execution.
+Time : 338
+New job executing : 26 from : t3.
+Time : 339
+Job (26) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 340
+Job (26) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 341
+Job (26) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 342
+Job (31) from t2 is preempting job (26) from t3
+Job (26) from t3 stops. 1 unit(s) of time remaining.
+Time : 343
+Job (49) from t1 is preempting job (31) from t2
+Job (31) from t2 stops. 2 unit(s) of time remaining.
+Time : 344
+Job (49) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (49) from t1 ended its execution.
+Time : 345
+New job executing : 26 from : t3.
+Job (26) from t3 ended its execution.
+Time : 346
+New job executing : 31 from : t2.
+Time : 347
+Job (31) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (31) from t2 ended its execution.
+Time : 348
+Nothing is executing at this time
+Time : 349
+Nothing is executing at this time
+Time : 350
+New job executing : 50 from : t1.
+Time : 351
+Job (50) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (50) from t1 ended its execution.
+Time : 352
+New job executing : 27 from : t3.
+Time : 353
+Job (27) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 354
+Job (32) from t2 is preempting job (27) from t3
+Job (27) from t3 stops. 3 unit(s) of time remaining.
+Time : 355
+Job (27) from t3 is preempting job (32) from t2
+Job (32) from t2 stops. 2 unit(s) of time remaining.
+Time : 356
+Job (32) from t2 is preempting job (27) from t3
+Job (27) from t3 stops. 2 unit(s) of time remaining.
+Time : 357
+Job (27) from t3 is preempting job (32) from t2
+Job (32) from t2 stops. 1 unit(s) of time remaining.
+Time : 358
+Job (32) from t2 is preempting job (27) from t3
+Job (27) from t3 stops. 1 unit(s) of time remaining.
+Job (32) from t2 ended its execution.
+Time : 359
+New job executing : 51 from : t1.
+Time : 360
+Job (27) from t3 is preempting job (51) from t1
+Job (51) from t1 stops. 1 unit(s) of time remaining.
+Job (27) from t3 ended its execution.
+Time : 361
+New job executing : 51 from : t1.
+Job (51) from t1 ended its execution.
+Time : 362
+Nothing is executing at this time
+Time : 363
+New job executing : 33 from : t2.
+Time : 364
+Job (52) from t1 is preempting job (33) from t2
+Job (33) from t2 stops. 2 unit(s) of time remaining.
+Time : 365
+Job (52) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (52) from t1 ended its execution.
+Time : 366
+New job executing : 33 from : t2.
+Time : 367
+Job (28) from t3 is preempting job (33) from t2
+Job (33) from t2 stops. 1 unit(s) of time remaining.
+Time : 368
+Job (33) from t2 is preempting job (28) from t3
+Job (28) from t3 stops. 4 unit(s) of time remaining.
+Job (33) from t2 ended its execution.
+Time : 369
+New job executing : 28 from : t3.
+Time : 370
+Job (28) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 371
+Job (28) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 372
+Job (28) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (28) from t3 ended its execution.
+Time : 373
+New job executing : 53 from : t1.
+Time : 374
+Job (53) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (53) from t1 ended its execution.
+Time : 375
+New job executing : 34 from : t2.
+Time : 376
+Job (34) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 377
+Job (34) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (34) from t2 ended its execution.
+Time : 378
+New job executing : 54 from : t1.
+Time : 379
+Job (54) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (54) from t1 ended its execution.
+Time : 380
+New job executing : 29 from : t3.
+Time : 381
+Job (29) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 382
+Job (29) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 383
+Job (29) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 384
+Job (29) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (29) from t3 ended its execution.
+Time : 385
+New job executing : 55 from : t1.
+Time : 386
+Job (55) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (55) from t1 ended its execution.
+Time : 387
+New job executing : 35 from : t2.
+Time : 388
+Job (35) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 389
+Job (35) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (35) from t2 ended its execution.
+Time : 390
+New job executing : 30 from : t3.
+Time : 391
+Job (30) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 392
+Job (56) from t1 is preempting job (30) from t3
+Job (30) from t3 stops. 3 unit(s) of time remaining.
+Time : 393
+Job (56) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (56) from t1 ended its execution.
+Time : 394
+New job executing : 30 from : t3.
+Time : 395
+Job (30) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 396
+Job (30) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (30) from t3 ended its execution.
+Time : 397
+New job executing : 36 from : t2.
+Time : 398
+Job (36) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 399
+Job (57) from t1 is preempting job (36) from t2
+Job (36) from t2 stops. 1 unit(s) of time remaining.
+Time : 400
+Job (57) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (57) from t1 ended its execution.
+Time : 401
+New job executing : 36 from : t2.
+Job (36) from t2 ended its execution.
+Time : 402
+Nothing is executing at this time
+Time : 403
+New job executing : 31 from : t3.
+Time : 404
+Job (31) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 405
+Job (31) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 406
+Job (58) from t1 is preempting job (31) from t3
+Job (31) from t3 stops. 2 unit(s) of time remaining.
+Time : 407
+Job (58) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (58) from t1 ended its execution.
+Time : 408
+New job executing : 31 from : t3.
+Time : 409
+Job (31) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (31) from t3 ended its execution.
+Time : 410
+New job executing : 37 from : t2.
+Time : 411
+Job (37) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 412
+Job (37) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (37) from t2 ended its execution.
+Time : 413
+New job executing : 59 from : t1.
+Time : 414
+Job (59) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (59) from t1 ended its execution.
+Time : 415
+Nothing is executing at this time
+Time : 416
+New job executing : 32 from : t3.
+Time : 417
+Job (32) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 418
+Job (32) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 419
+Job (38) from t2 is preempting job (32) from t3
+Job (32) from t3 stops. 2 unit(s) of time remaining.
+Time : 420
+Job (60) from t1 is preempting job (38) from t2
+Job (38) from t2 stops. 2 unit(s) of time remaining.
+Time : 421
+Job (60) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (60) from t1 ended its execution.
+Time : 422
+New job executing : 32 from : t3.
+Time : 423
+Job (38) from t2 is preempting job (32) from t3
+Job (32) from t3 stops. 1 unit(s) of time remaining.
+Time : 424
+Job (32) from t3 is preempting job (38) from t2
+Job (38) from t2 stops. 1 unit(s) of time remaining.
+Job (32) from t3 ended its execution.
+Time : 425
+New job executing : 38 from : t2.
+Job (38) from t2 ended its execution.
+Time : 426
+Nothing is executing at this time
+Time : 427
+New job executing : 61 from : t1.
+Time : 428
+Job (61) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (61) from t1 ended its execution.
+Time : 429
+New job executing : 39 from : t2.
+Time : 430
+Job (33) from t3 is preempting job (39) from t2
+Job (39) from t2 stops. 2 unit(s) of time remaining.
+Time : 431
+Job (39) from t2 is preempting job (33) from t3
+Job (33) from t3 stops. 4 unit(s) of time remaining.
+Time : 432
+Job (33) from t3 is preempting job (39) from t2
+Job (39) from t2 stops. 1 unit(s) of time remaining.
+Time : 433
+Job (39) from t2 is preempting job (33) from t3
+Job (33) from t3 stops. 3 unit(s) of time remaining.
+Job (39) from t2 ended its execution.
+Time : 434
+New job executing : 33 from : t3.
+Time : 435
+Job (62) from t1 is preempting job (33) from t3
+Job (33) from t3 stops. 2 unit(s) of time remaining.
+Time : 436
+Job (33) from t3 is preempting job (62) from t1
+Job (62) from t1 stops. 1 unit(s) of time remaining.
+Time : 437
+Job (62) from t1 is preempting job (33) from t3
+Job (33) from t3 stops. 1 unit(s) of time remaining.
+Job (62) from t1 ended its execution.
+Time : 438
+New job executing : 33 from : t3.
+Job (33) from t3 ended its execution.
+Time : 439
+Nothing is executing at this time
+Time : 440
+New job executing : 40 from : t2.
+Time : 441
+Job (63) from t1 is preempting job (40) from t2
+Job (40) from t2 stops. 2 unit(s) of time remaining.
+Time : 442
+Job (63) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (63) from t1 ended its execution.
+Time : 443
+New job executing : 40 from : t2.
+Time : 444
+Job (40) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (40) from t2 ended its execution.
+Time : 445
+New job executing : 34 from : t3.
+Time : 446
+Job (34) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 447
+Job (34) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 448
+Job (34) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 449
+Job (64) from t1 is preempting job (34) from t3
+Job (34) from t3 stops. 1 unit(s) of time remaining.
+Time : 450
+Job (34) from t3 is preempting job (64) from t1
+Job (64) from t1 stops. 1 unit(s) of time remaining.
+Job (34) from t3 ended its execution.
+Time : 451
+New job executing : 64 from : t1.
+Job (64) from t1 ended its execution.
+Time : 452
+New job executing : 41 from : t2.
+Time : 453
+Job (41) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 454
+Job (41) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (41) from t2 ended its execution.
+Time : 455
+New job executing : 65 from : t1.
+Time : 456
+Job (65) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (65) from t1 ended its execution.
+Time : 457
+New job executing : 35 from : t3.
+Time : 458
+Job (35) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 459
+Job (35) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 460
+Job (35) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 461
+Job (35) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (35) from t3 ended its execution.
+Time : 462
+New job executing : 66 from : t1.
+Time : 463
+Job (66) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (66) from t1 ended its execution.
+Time : 464
+New job executing : 42 from : t2.
+Time : 465
+Job (42) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 466
+Job (42) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (42) from t2 ended its execution.
+Time : 467
+Nothing is executing at this time
+Time : 468
+New job executing : 36 from : t3.
+Time : 469
+Job (67) from t1 is preempting job (36) from t3
+Job (36) from t3 stops. 4 unit(s) of time remaining.
+Time : 470
+Job (67) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (67) from t1 ended its execution.
+Time : 471
+New job executing : 36 from : t3.
+Time : 472
+Job (36) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 473
+Job (36) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 474
+Job (36) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (36) from t3 ended its execution.
+Time : 475
+New job executing : 43 from : t2.
+Time : 476
+Job (68) from t1 is preempting job (43) from t2
+Job (43) from t2 stops. 2 unit(s) of time remaining.
+Time : 477
+Job (43) from t2 is preempting job (68) from t1
+Job (68) from t1 stops. 1 unit(s) of time remaining.
+Time : 478
+Job (68) from t1 is preempting job (43) from t2
+Job (43) from t2 stops. 1 unit(s) of time remaining.
+Job (68) from t1 ended its execution.
+Time : 479
+New job executing : 43 from : t2.
+Job (43) from t2 ended its execution.
+Time : 480
+Nothing is executing at this time
+Time : 481
+New job executing : 37 from : t3.
+Time : 482
+Job (37) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 483
+Job (69) from t1 is preempting job (37) from t3
+Job (37) from t3 stops. 3 unit(s) of time remaining.
+Time : 484
+Job (69) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (69) from t1 ended its execution.
+Time : 485
+New job executing : 37 from : t3.
+Time : 486
+Job (37) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 487
+Job (44) from t2 is preempting job (37) from t3
+Job (37) from t3 stops. 1 unit(s) of time remaining.
+Time : 488
+Job (37) from t3 is preempting job (44) from t2
+Job (44) from t2 stops. 2 unit(s) of time remaining.
+Job (37) from t3 ended its execution.
+Time : 489
+New job executing : 44 from : t2.
+Time : 490
+Job (44) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (44) from t2 ended its execution.
+Time : 491
+New job executing : 70 from : t1.
+Time : 492
+Job (70) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (70) from t1 ended its execution.
+Time : 493
+Nothing is executing at this time
+Time : 494
+New job executing : 38 from : t3.
+Time : 495
+Job (38) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 496
+Job (45) from t2 is preempting job (38) from t3
+Job (38) from t3 stops. 3 unit(s) of time remaining.
+Time : 497
+Job (71) from t1 is preempting job (45) from t2
+Job (45) from t2 stops. 2 unit(s) of time remaining.
+Time : 498
+Job (71) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (71) from t1 ended its execution.
+Time : 499
+New job executing : 38 from : t3.
+Time : 500
+Job (45) from t2 is preempting job (38) from t3
+Job (38) from t3 stops. 2 unit(s) of time remaining.
+Time : 501
+Job (38) from t3 is preempting job (45) from t2
+Job (45) from t2 stops. 1 unit(s) of time remaining.
+Time : 502
+Job (45) from t2 is preempting job (38) from t3
+Job (38) from t3 stops. 1 unit(s) of time remaining.
+Job (45) from t2 ended its execution.
+Time : 503
+New job executing : 38 from : t3.
+Job (38) from t3 ended its execution.
+Time : 504
+New job executing : 72 from : t1.
+Time : 505
+Job (72) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (72) from t1 ended its execution.
+Time : 506
+New job executing : 46 from : t2.
+Time : 507
+Job (46) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 508
+Job (39) from t3 is preempting job (46) from t2
+Job (46) from t2 stops. 1 unit(s) of time remaining.
+Time : 509
+Job (46) from t2 is preempting job (39) from t3
+Job (39) from t3 stops. 4 unit(s) of time remaining.
+Job (46) from t2 ended its execution.
+Time : 510
+New job executing : 39 from : t3.
+Time : 511
+Job (73) from t1 is preempting job (39) from t3
+Job (39) from t3 stops. 3 unit(s) of time remaining.
+Time : 512
+Job (39) from t3 is preempting job (73) from t1
+Job (73) from t1 stops. 1 unit(s) of time remaining.
+Time : 513
+Job (73) from t1 is preempting job (39) from t3
+Job (39) from t3 stops. 2 unit(s) of time remaining.
+Job (73) from t1 ended its execution.
+Time : 514
+New job executing : 39 from : t3.
+Time : 515
+Job (39) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (39) from t3 ended its execution.
+Time : 516
+Nothing is executing at this time
+Time : 517
+New job executing : 47 from : t2.
+Time : 518
+Job (74) from t1 is preempting job (47) from t2
+Job (47) from t2 stops. 2 unit(s) of time remaining.
+Time : 519
+Job (74) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (74) from t1 ended its execution.
+Time : 520
+New job executing : 47 from : t2.
+Time : 521
+Job (47) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (47) from t2 ended its execution.
+Time : 522
+New job executing : 40 from : t3.
+Time : 523
+Job (40) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 524
+Job (40) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 525
+Job (75) from t1 is preempting job (40) from t3
+Job (40) from t3 stops. 2 unit(s) of time remaining.
+Time : 526
+Job (40) from t3 is preempting job (75) from t1
+Job (75) from t1 stops. 1 unit(s) of time remaining.
+Time : 527
+Job (75) from t1 is preempting job (40) from t3
+Job (40) from t3 stops. 1 unit(s) of time remaining.
+Job (75) from t1 ended its execution.
+Time : 528
+New job executing : 40 from : t3.
+Job (40) from t3 ended its execution.
+Time : 529
+New job executing : 48 from : t2.
+Time : 530
+Job (48) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 531
+Job (48) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (48) from t2 ended its execution.
+Time : 532
+New job executing : 76 from : t1.
+Time : 533
+Job (76) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (76) from t1 ended its execution.
+Time : 534
+New job executing : 41 from : t3.
+Time : 535
+Job (41) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 536
+Job (41) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 537
+Job (41) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 538
+Job (41) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (41) from t3 ended its execution.
+Time : 539
+New job executing : 77 from : t1.
+Time : 540
+Job (77) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (77) from t1 ended its execution.
+Time : 541
+New job executing : 49 from : t2.
+Time : 542
+Job (49) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 543
+Job (49) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (49) from t2 ended its execution.
+Time : 544
+Nothing is executing at this time
+Time : 545
+Nothing is executing at this time
+Time : 546
+New job executing : 78 from : t1.
+Time : 547
+Job (78) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (78) from t1 ended its execution.
+Time : 548
+New job executing : 42 from : t3.
+Time : 549
+Job (42) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 550
+Job (42) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 551
+Job (42) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 552
+Job (42) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (42) from t3 ended its execution.
+Time : 553
+New job executing : 50 from : t2.
+Time : 554
+Job (79) from t1 is preempting job (50) from t2
+Job (50) from t2 stops. 2 unit(s) of time remaining.
+Time : 555
+Job (50) from t2 is preempting job (79) from t1
+Job (79) from t1 stops. 1 unit(s) of time remaining.
+Time : 556
+Job (79) from t1 is preempting job (50) from t2
+Job (50) from t2 stops. 1 unit(s) of time remaining.
+Job (79) from t1 ended its execution.
+Time : 557
+New job executing : 50 from : t2.
+Job (50) from t2 ended its execution.
+Time : 558
+Nothing is executing at this time
+Time : 559
+New job executing : 43 from : t3.
+Time : 560
+Job (80) from t1 is preempting job (43) from t3
+Job (43) from t3 stops. 4 unit(s) of time remaining.
+Time : 561
+Job (80) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (80) from t1 ended its execution.
+Time : 562
+New job executing : 43 from : t3.
+Time : 563
+Job (43) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 564
+Job (51) from t2 is preempting job (43) from t3
+Job (43) from t3 stops. 2 unit(s) of time remaining.
+Time : 565
+Job (43) from t3 is preempting job (51) from t2
+Job (51) from t2 stops. 2 unit(s) of time remaining.
+Time : 566
+Job (51) from t2 is preempting job (43) from t3
+Job (43) from t3 stops. 1 unit(s) of time remaining.
+Time : 567
+Job (43) from t3 is preempting job (51) from t2
+Job (51) from t2 stops. 1 unit(s) of time remaining.
+Job (43) from t3 ended its execution.
+Time : 568
+New job executing : 51 from : t2.
+Job (51) from t2 ended its execution.
+Time : 569
+New job executing : 81 from : t1.
+Time : 570
+Job (81) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (81) from t1 ended its execution.
+Time : 571
+Nothing is executing at this time
+Time : 572
+New job executing : 52 from : t2.
+Time : 573
+Job (44) from t3 is preempting job (52) from t2
+Job (52) from t2 stops. 2 unit(s) of time remaining.
+Time : 574
+Job (82) from t1 is preempting job (44) from t3
+Job (44) from t3 stops. 4 unit(s) of time remaining.
+Time : 575
+Job (82) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (82) from t1 ended its execution.
+Time : 576
+New job executing : 52 from : t2.
+Time : 577
+Job (44) from t3 is preempting job (52) from t2
+Job (52) from t2 stops. 1 unit(s) of time remaining.
+Time : 578
+Job (52) from t2 is preempting job (44) from t3
+Job (44) from t3 stops. 3 unit(s) of time remaining.
+Job (52) from t2 ended its execution.
+Time : 579
+New job executing : 44 from : t3.
+Time : 580
+Job (44) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 581
+Job (44) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (44) from t3 ended its execution.
+Time : 582
+New job executing : 83 from : t1.
+Time : 583
+Job (83) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (83) from t1 ended its execution.
+Time : 584
+New job executing : 53 from : t2.
+Time : 585
+Job (53) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 586
+Job (53) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (53) from t2 ended its execution.
+Time : 587
+New job executing : 45 from : t3.
+Time : 588
+Job (84) from t1 is preempting job (45) from t3
+Job (45) from t3 stops. 4 unit(s) of time remaining.
+Time : 589
+Job (45) from t3 is preempting job (84) from t1
+Job (84) from t1 stops. 1 unit(s) of time remaining.
+Time : 590
+Job (84) from t1 is preempting job (45) from t3
+Job (45) from t3 stops. 3 unit(s) of time remaining.
+Job (84) from t1 ended its execution.
+Time : 591
+New job executing : 45 from : t3.
+Time : 592
+Job (45) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 593
+Job (45) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (45) from t3 ended its execution.
+Time : 594
+New job executing : 54 from : t2.
+Time : 595
+Job (85) from t1 is preempting job (54) from t2
+Job (54) from t2 stops. 2 unit(s) of time remaining.
+Time : 596
+Job (85) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (85) from t1 ended its execution.
+Time : 597
+New job executing : 54 from : t2.
+Time : 598
+Job (54) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (54) from t2 ended its execution.
+Time : 599
+New job executing : 46 from : t3.
+Time : 600
+Job (46) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 601
+Job (46) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 602
+Job (86) from t1 is preempting job (46) from t3
+Job (46) from t3 stops. 2 unit(s) of time remaining.
+Time : 603
+Job (86) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (86) from t1 ended its execution.
+Time : 604
+New job executing : 46 from : t3.
+Time : 605
+Job (46) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (46) from t3 ended its execution.
+Time : 606
+New job executing : 55 from : t2.
+Time : 607
+Job (55) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 608
+Job (55) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (55) from t2 ended its execution.
+Time : 609
+New job executing : 87 from : t1.
+Time : 610
+Job (87) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (87) from t1 ended its execution.
+Time : 611
+New job executing : 47 from : t3.
+Time : 612
+Job (47) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 613
+Job (47) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 614
+Job (47) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 615
+Job (47) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (47) from t3 ended its execution.
+Time : 616
+New job executing : 88 from : t1.
+Time : 617
+Job (88) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (88) from t1 ended its execution.
+Time : 618
+New job executing : 56 from : t2.
+Time : 619
+Job (56) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 620
+Job (56) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (56) from t2 ended its execution.
+Time : 621
+Nothing is executing at this time
+Time : 622
+Nothing is executing at this time
+Time : 623
+New job executing : 89 from : t1.
+Time : 624
+Job (89) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (89) from t1 ended its execution.
+Time : 625
+New job executing : 48 from : t3.
+Time : 626
+Job (48) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 627
+Job (48) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 628
+Job (48) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 629
+Job (57) from t2 is preempting job (48) from t3
+Job (48) from t3 stops. 1 unit(s) of time remaining.
+Time : 630
+Job (90) from t1 is preempting job (57) from t2
+Job (57) from t2 stops. 2 unit(s) of time remaining.
+Time : 631
+Job (48) from t3 is preempting job (90) from t1
+Job (90) from t1 stops. 1 unit(s) of time remaining.
+Job (48) from t3 ended its execution.
+Time : 632
+New job executing : 57 from : t2.
+Time : 633
+Job (90) from t1 is preempting job (57) from t2
+Job (57) from t2 stops. 1 unit(s) of time remaining.
+Job (90) from t1 ended its execution.
+Time : 634
+New job executing : 57 from : t2.
+Job (57) from t2 ended its execution.
+Time : 635
+Nothing is executing at this time
+Time : 636
+Nothing is executing at this time
+Time : 637
+New job executing : 91 from : t1.
+Time : 638
+Job (91) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (91) from t1 ended its execution.
+Time : 639
+New job executing : 49 from : t3.
+Time : 640
+Job (49) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 641
+Job (58) from t2 is preempting job (49) from t3
+Job (49) from t3 stops. 3 unit(s) of time remaining.
+Time : 642
+Job (49) from t3 is preempting job (58) from t2
+Job (58) from t2 stops. 2 unit(s) of time remaining.
+Time : 643
+Job (58) from t2 is preempting job (49) from t3
+Job (49) from t3 stops. 2 unit(s) of time remaining.
+Time : 644
+Job (49) from t3 is preempting job (58) from t2
+Job (58) from t2 stops. 1 unit(s) of time remaining.
+Time : 645
+Job (58) from t2 is preempting job (49) from t3
+Job (49) from t3 stops. 1 unit(s) of time remaining.
+Job (58) from t2 ended its execution.
+Time : 646
+New job executing : 49 from : t3.
+Job (49) from t3 ended its execution.
+Time : 647
+New job executing : 92 from : t1.
+Time : 648
+Job (92) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (92) from t1 ended its execution.
+Time : 649
+New job executing : 59 from : t2.
+Time : 650
+Job (59) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 651
+Job (93) from t1 is preempting job (59) from t2
+Job (59) from t2 stops. 1 unit(s) of time remaining.
+Time : 652
+Job (93) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (93) from t1 ended its execution.
+Time : 653
+New job executing : 50 from : t3.
+Time : 654
+Job (59) from t2 is preempting job (50) from t3
+Job (50) from t3 stops. 4 unit(s) of time remaining.
+Job (59) from t2 ended its execution.
+Time : 655
+New job executing : 50 from : t3.
+Time : 656
+Job (50) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 657
+Job (50) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 658
+Job (50) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (50) from t3 ended its execution.
+Time : 659
+New job executing : 94 from : t1.
+Time : 660
+Job (94) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (94) from t1 ended its execution.
+Time : 661
+New job executing : 60 from : t2.
+Time : 662
+Job (60) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 663
+Job (60) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (60) from t2 ended its execution.
+Time : 664
+New job executing : 51 from : t3.
+Time : 665
+Job (95) from t1 is preempting job (51) from t3
+Job (51) from t3 stops. 4 unit(s) of time remaining.
+Time : 666
+Job (95) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (95) from t1 ended its execution.
+Time : 667
+New job executing : 51 from : t3.
+Time : 668
+Job (51) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 669
+Job (51) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 670
+Job (51) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (51) from t3 ended its execution.
+Time : 671
+New job executing : 61 from : t2.
+Time : 672
+Job (96) from t1 is preempting job (61) from t2
+Job (61) from t2 stops. 2 unit(s) of time remaining.
+Time : 673
+Job (96) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (96) from t1 ended its execution.
+Time : 674
+New job executing : 61 from : t2.
+Time : 675
+Job (61) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (61) from t2 ended its execution.
+Time : 676
+New job executing : 52 from : t3.
+Time : 677
+Job (52) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 678
+Job (52) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 679
+Job (97) from t1 is preempting job (52) from t3
+Job (52) from t3 stops. 2 unit(s) of time remaining.
+Time : 680
+Job (97) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (97) from t1 ended its execution.
+Time : 681
+New job executing : 52 from : t3.
+Time : 682
+Job (52) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (52) from t3 ended its execution.
+Time : 683
+New job executing : 62 from : t2.
+Time : 684
+Job (62) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 685
+Job (62) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (62) from t2 ended its execution.
+Time : 686
+New job executing : 98 from : t1.
+Time : 687
+Job (98) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (98) from t1 ended its execution.
+Time : 688
+Nothing is executing at this time
+Time : 689
+New job executing : 53 from : t3.
+Time : 690
+Job (53) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 691
+Job (53) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 692
+Job (53) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 693
+Job (99) from t1 is preempting job (53) from t3
+Job (53) from t3 stops. 1 unit(s) of time remaining.
+Time : 694
+Job (99) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (99) from t1 ended its execution.
+Time : 695
+New job executing : 53 from : t3.
+Job (53) from t3 ended its execution.
+Time : 696
+New job executing : 63 from : t2.
+Time : 697
+Job (63) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 698
+Job (63) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (63) from t2 ended its execution.
+Time : 699
+Nothing is executing at this time
+Time : 700
+New job executing : 100 from : t1.
+Time : 701
+Job (100) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (100) from t1 ended its execution.
+Time : 702
+New job executing : 54 from : t3.
+Time : 703
+Job (54) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 704
+Job (54) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 705
+Job (64) from t2 is preempting job (54) from t3
+Job (54) from t3 stops. 2 unit(s) of time remaining.
+Time : 706
+Job (54) from t3 is preempting job (64) from t2
+Job (64) from t2 stops. 2 unit(s) of time remaining.
+Time : 707
+Job (101) from t1 is preempting job (54) from t3
+Job (54) from t3 stops. 1 unit(s) of time remaining.
+Time : 708
+Job (64) from t2 is preempting job (101) from t1
+Job (101) from t1 stops. 1 unit(s) of time remaining.
+Time : 709
+Job (101) from t1 is preempting job (64) from t2
+Job (64) from t2 stops. 1 unit(s) of time remaining.
+Job (101) from t1 ended its execution.
+Time : 710
+New job executing : 54 from : t3.
+Job (54) from t3 ended its execution.
+Time : 711
+New job executing : 64 from : t2.
+Job (64) from t2 ended its execution.
+Time : 712
+Nothing is executing at this time
+Time : 713
+Nothing is executing at this time
+Time : 714
+New job executing : 102 from : t1.
+Time : 715
+Job (102) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (102) from t1 ended its execution.
+Time : 716
+New job executing : 65 from : t2.
+Time : 717
+Job (55) from t3 is preempting job (65) from t2
+Job (65) from t2 stops. 2 unit(s) of time remaining.
+Time : 718
+Job (65) from t2 is preempting job (55) from t3
+Job (55) from t3 stops. 4 unit(s) of time remaining.
+Time : 719
+Job (55) from t3 is preempting job (65) from t2
+Job (65) from t2 stops. 1 unit(s) of time remaining.
+Time : 720
+Job (65) from t2 is preempting job (55) from t3
+Job (55) from t3 stops. 3 unit(s) of time remaining.
+Job (65) from t2 ended its execution.
+Time : 721
+New job executing : 55 from : t3.
+Time : 722
+Job (55) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 723
+Job (103) from t1 is preempting job (55) from t3
+Job (55) from t3 stops. 1 unit(s) of time remaining.
+Time : 724
+Job (55) from t3 is preempting job (103) from t1
+Job (103) from t1 stops. 1 unit(s) of time remaining.
+Job (55) from t3 ended its execution.
+Time : 725
+New job executing : 103 from : t1.
+Job (103) from t1 ended its execution.
+Time : 726
+New job executing : 66 from : t2.
+Time : 727
+Job (66) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 728
+Job (104) from t1 is preempting job (66) from t2
+Job (66) from t2 stops. 1 unit(s) of time remaining.
+Time : 729
+Job (104) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (104) from t1 ended its execution.
+Time : 730
+New job executing : 66 from : t2.
+Job (66) from t2 ended its execution.
+Time : 731
+New job executing : 56 from : t3.
+Time : 732
+Job (56) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 733
+Job (56) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 734
+Job (56) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 735
+Job (56) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (56) from t3 ended its execution.
+Time : 736
+New job executing : 105 from : t1.
+Time : 737
+Job (105) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (105) from t1 ended its execution.
+Time : 738
+New job executing : 67 from : t2.
+Time : 739
+Job (67) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 740
+Job (67) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (67) from t2 ended its execution.
+Time : 741
+New job executing : 57 from : t3.
+Time : 742
+Job (106) from t1 is preempting job (57) from t3
+Job (57) from t3 stops. 4 unit(s) of time remaining.
+Time : 743
+Job (106) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (106) from t1 ended its execution.
+Time : 744
+New job executing : 57 from : t3.
+Time : 745
+Job (57) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 746
+Job (57) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 747
+Job (57) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (57) from t3 ended its execution.
+Time : 748
+New job executing : 68 from : t2.
+Time : 749
+Job (107) from t1 is preempting job (68) from t2
+Job (68) from t2 stops. 2 unit(s) of time remaining.
+Time : 750
+Job (107) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (107) from t1 ended its execution.
+Time : 751
+New job executing : 68 from : t2.
+Time : 752
+Job (68) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (68) from t2 ended its execution.
+Time : 753
+Nothing is executing at this time
+Time : 754
+New job executing : 58 from : t3.
+Time : 755
+Job (58) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 756
+Job (108) from t1 is preempting job (58) from t3
+Job (58) from t3 stops. 3 unit(s) of time remaining.
+Time : 757
+Job (108) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (108) from t1 ended its execution.
+Time : 758
+New job executing : 58 from : t3.
+Time : 759
+Job (58) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 760
+Job (58) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (58) from t3 ended its execution.
+Time : 761
+New job executing : 69 from : t2.
+Time : 762
+Job (69) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 763
+Job (109) from t1 is preempting job (69) from t2
+Job (69) from t2 stops. 1 unit(s) of time remaining.
+Time : 764
+Job (69) from t2 is preempting job (109) from t1
+Job (109) from t1 stops. 1 unit(s) of time remaining.
+Job (69) from t2 ended its execution.
+Time : 765
+New job executing : 109 from : t1.
+Job (109) from t1 ended its execution.
+Time : 766
+Nothing is executing at this time
+Time : 767
+New job executing : 59 from : t3.
+Time : 768
+Job (59) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 769
+Job (59) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 770
+Job (110) from t1 is preempting job (59) from t3
+Job (59) from t3 stops. 2 unit(s) of time remaining.
+Time : 771
+Job (110) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (110) from t1 ended its execution.
+Time : 772
+New job executing : 59 from : t3.
+Time : 773
+Job (70) from t2 is preempting job (59) from t3
+Job (59) from t3 stops. 1 unit(s) of time remaining.
+Time : 774
+Job (59) from t3 is preempting job (70) from t2
+Job (70) from t2 stops. 2 unit(s) of time remaining.
+Job (59) from t3 ended its execution.
+Time : 775
+New job executing : 70 from : t2.
+Time : 776
+Job (70) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (70) from t2 ended its execution.
+Time : 777
+New job executing : 111 from : t1.
+Time : 778
+Job (111) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (111) from t1 ended its execution.
+Time : 779
+Nothing is executing at this time
+Time : 780
+New job executing : 60 from : t3.
+Time : 781
+Job (60) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 782
+Job (71) from t2 is preempting job (60) from t3
+Job (60) from t3 stops. 3 unit(s) of time remaining.
+Time : 783
+Job (60) from t3 is preempting job (71) from t2
+Job (71) from t2 stops. 2 unit(s) of time remaining.
+Time : 784
+Job (112) from t1 is preempting job (60) from t3
+Job (60) from t3 stops. 2 unit(s) of time remaining.
+Time : 785
+Job (71) from t2 is preempting job (112) from t1
+Job (112) from t1 stops. 1 unit(s) of time remaining.
+Time : 786
+Job (112) from t1 is preempting job (71) from t2
+Job (71) from t2 stops. 1 unit(s) of time remaining.
+Job (112) from t1 ended its execution.
+Time : 787
+New job executing : 60 from : t3.
+Time : 788
+Job (71) from t2 is preempting job (60) from t3
+Job (60) from t3 stops. 1 unit(s) of time remaining.
+Job (71) from t2 ended its execution.
+Time : 789
+New job executing : 60 from : t3.
+Job (60) from t3 ended its execution.
+Time : 790
+Nothing is executing at this time
+Time : 791
+New job executing : 113 from : t1.
+Time : 792
+Job (113) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (113) from t1 ended its execution.
+Time : 793
+New job executing : 72 from : t2.
+Time : 794
+Job (72) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 795
+Job (61) from t3 is preempting job (72) from t2
+Job (72) from t2 stops. 1 unit(s) of time remaining.
+Time : 796
+Job (72) from t2 is preempting job (61) from t3
+Job (61) from t3 stops. 4 unit(s) of time remaining.
+Job (72) from t2 ended its execution.
+Time : 797
+New job executing : 61 from : t3.
+Time : 798
+Job (61) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 799
+Job (114) from t1 is preempting job (61) from t3
+Job (61) from t3 stops. 2 unit(s) of time remaining.
+Time : 800
+Job (61) from t3 is preempting job (114) from t1
+Job (114) from t1 stops. 1 unit(s) of time remaining.
+Time : 801
+Job (114) from t1 is preempting job (61) from t3
+Job (61) from t3 stops. 1 unit(s) of time remaining.
+Job (114) from t1 ended its execution.
+Time : 802
+New job executing : 61 from : t3.
+Job (61) from t3 ended its execution.
+Time : 803
+New job executing : 73 from : t2.
+Time : 804
+Job (73) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 805
+Job (115) from t1 is preempting job (73) from t2
+Job (73) from t2 stops. 1 unit(s) of time remaining.
+Time : 806
+Job (115) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (115) from t1 ended its execution.
+Time : 807
+New job executing : 73 from : t2.
+Job (73) from t2 ended its execution.
+Time : 808
+New job executing : 62 from : t3.
+Time : 809
+Job (62) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 810
+Job (62) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 811
+Job (62) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 812
+Job (116) from t1 is preempting job (62) from t3
+Job (62) from t3 stops. 1 unit(s) of time remaining.
+Time : 813
+Job (62) from t3 is preempting job (116) from t1
+Job (116) from t1 stops. 1 unit(s) of time remaining.
+Job (62) from t3 ended its execution.
+Time : 814
+New job executing : 116 from : t1.
+Job (116) from t1 ended its execution.
+Time : 815
+New job executing : 74 from : t2.
+Time : 816
+Job (74) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 817
+Job (74) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (74) from t2 ended its execution.
+Time : 818
+Nothing is executing at this time
+Time : 819
+New job executing : 117 from : t1.
+Time : 820
+Job (117) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (117) from t1 ended its execution.
+Time : 821
+New job executing : 63 from : t3.
+Time : 822
+Job (63) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 823
+Job (63) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 824
+Job (63) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 825
+Job (63) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (63) from t3 ended its execution.
+Time : 826
+New job executing : 118 from : t1.
+Time : 827
+Job (118) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (118) from t1 ended its execution.
+Time : 828
+New job executing : 75 from : t2.
+Time : 829
+Job (75) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 830
+Job (75) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (75) from t2 ended its execution.
+Time : 831
+Nothing is executing at this time
+Time : 832
+New job executing : 64 from : t3.
+Time : 833
+Job (119) from t1 is preempting job (64) from t3
+Job (64) from t3 stops. 4 unit(s) of time remaining.
+Time : 834
+Job (119) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (119) from t1 ended its execution.
+Time : 835
+New job executing : 64 from : t3.
+Time : 836
+Job (64) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 837
+Job (64) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 838
+Job (64) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (64) from t3 ended its execution.
+Time : 839
+New job executing : 76 from : t2.
+Time : 840
+Job (76) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 841
+Job (120) from t1 is preempting job (76) from t2
+Job (76) from t2 stops. 1 unit(s) of time remaining.
+Time : 842
+Job (76) from t2 is preempting job (120) from t1
+Job (120) from t1 stops. 1 unit(s) of time remaining.
+Job (76) from t2 ended its execution.
+Time : 843
+New job executing : 120 from : t1.
+Job (120) from t1 ended its execution.
+Time : 844
+Nothing is executing at this time
+Time : 845
+New job executing : 65 from : t3.
+Time : 846
+Job (65) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 847
+Job (121) from t1 is preempting job (65) from t3
+Job (65) from t3 stops. 3 unit(s) of time remaining.
+Time : 848
+Job (121) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (121) from t1 ended its execution.
+Time : 849
+New job executing : 65 from : t3.
+Time : 850
+Job (77) from t2 is preempting job (65) from t3
+Job (65) from t3 stops. 2 unit(s) of time remaining.
+Time : 851
+Job (65) from t3 is preempting job (77) from t2
+Job (77) from t2 stops. 2 unit(s) of time remaining.
+Time : 852
+Job (77) from t2 is preempting job (65) from t3
+Job (65) from t3 stops. 1 unit(s) of time remaining.
+Time : 853
+Job (65) from t3 is preempting job (77) from t2
+Job (77) from t2 stops. 1 unit(s) of time remaining.
+Job (65) from t3 ended its execution.
+Time : 854
+New job executing : 77 from : t2.
+Job (77) from t2 ended its execution.
+Time : 855
+New job executing : 122 from : t1.
+Time : 856
+Job (122) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (122) from t1 ended its execution.
+Time : 857
+Nothing is executing at this time
+Time : 858
+New job executing : 78 from : t2.
+Time : 859
+Job (66) from t3 is preempting job (78) from t2
+Job (78) from t2 stops. 2 unit(s) of time remaining.
+Time : 860
+Job (78) from t2 is preempting job (66) from t3
+Job (66) from t3 stops. 4 unit(s) of time remaining.
+Time : 861
+Job (123) from t1 is preempting job (78) from t2
+Job (78) from t2 stops. 1 unit(s) of time remaining.
+Time : 862
+Job (66) from t3 is preempting job (123) from t1
+Job (123) from t1 stops. 1 unit(s) of time remaining.
+Time : 863
+Job (123) from t1 is preempting job (66) from t3
+Job (66) from t3 stops. 3 unit(s) of time remaining.
+Job (123) from t1 ended its execution.
+Time : 864
+New job executing : 78 from : t2.
+Job (78) from t2 ended its execution.
+Time : 865
+New job executing : 66 from : t3.
+Time : 866
+Job (66) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 867
+Job (66) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (66) from t3 ended its execution.
+Time : 868
+New job executing : 124 from : t1.
+Time : 869
+Job (124) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (124) from t1 ended its execution.
+Time : 870
+New job executing : 79 from : t2.
+Time : 871
+Job (79) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 872
+Job (79) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (79) from t2 ended its execution.
+Time : 873
+New job executing : 67 from : t3.
+Time : 874
+Job (67) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 875
+Job (125) from t1 is preempting job (67) from t3
+Job (67) from t3 stops. 3 unit(s) of time remaining.
+Time : 876
+Job (67) from t3 is preempting job (125) from t1
+Job (125) from t1 stops. 1 unit(s) of time remaining.
+Time : 877
+Job (125) from t1 is preempting job (67) from t3
+Job (67) from t3 stops. 2 unit(s) of time remaining.
+Job (125) from t1 ended its execution.
+Time : 878
+New job executing : 67 from : t3.
+Time : 879
+Job (67) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (67) from t3 ended its execution.
+Time : 880
+New job executing : 80 from : t2.
+Time : 881
+Job (80) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 882
+Job (126) from t1 is preempting job (80) from t2
+Job (80) from t2 stops. 1 unit(s) of time remaining.
+Time : 883
+Job (126) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (126) from t1 ended its execution.
+Time : 884
+New job executing : 80 from : t2.
+Job (80) from t2 ended its execution.
+Time : 885
+New job executing : 68 from : t3.
+Time : 886
+Job (68) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 887
+Job (68) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 888
+Job (68) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 889
+Job (127) from t1 is preempting job (68) from t3
+Job (68) from t3 stops. 1 unit(s) of time remaining.
+Time : 890
+Job (127) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (127) from t1 ended its execution.
+Time : 891
+New job executing : 68 from : t3.
+Job (68) from t3 ended its execution.
+Time : 892
+New job executing : 81 from : t2.
+Time : 893
+Job (81) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 894
+Job (81) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (81) from t2 ended its execution.
+Time : 895
+Nothing is executing at this time
+Time : 896
+New job executing : 128 from : t1.
+Time : 897
+Job (128) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (128) from t1 ended its execution.
+Time : 898
+New job executing : 69 from : t3.
+Time : 899
+Job (69) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 900
+Job (69) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 901
+Job (69) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 902
+Job (69) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (69) from t3 ended its execution.
+Time : 903
+New job executing : 129 from : t1.
+Time : 904
+Job (129) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (129) from t1 ended its execution.
+Time : 905
+New job executing : 82 from : t2.
+Time : 906
+Job (82) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 907
+Job (82) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (82) from t2 ended its execution.
+Time : 908
+Nothing is executing at this time
+Time : 909
+Nothing is executing at this time
+Time : 910
+New job executing : 130 from : t1.
+Time : 911
+Job (130) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (130) from t1 ended its execution.
+Time : 912
+New job executing : 70 from : t3.
+Time : 913
+Job (70) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 914
+Job (70) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 915
+Job (70) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 916
+Job (83) from t2 is preempting job (70) from t3
+Job (70) from t3 stops. 1 unit(s) of time remaining.
+Time : 917
+Job (70) from t3 is preempting job (83) from t2
+Job (83) from t2 stops. 2 unit(s) of time remaining.
+Job (70) from t3 ended its execution.
+Time : 918
+New job executing : 83 from : t2.
+Time : 919
+Job (131) from t1 is preempting job (83) from t2
+Job (83) from t2 stops. 1 unit(s) of time remaining.
+Time : 920
+Job (83) from t2 is preempting job (131) from t1
+Job (131) from t1 stops. 1 unit(s) of time remaining.
+Job (83) from t2 ended its execution.
+Time : 921
+New job executing : 131 from : t1.
+Job (131) from t1 ended its execution.
+Time : 922
+Nothing is executing at this time
+Time : 923
+New job executing : 71 from : t3.
+Time : 924
+Job (132) from t1 is preempting job (71) from t3
+Job (71) from t3 stops. 4 unit(s) of time remaining.
+Time : 925
+Job (132) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (132) from t1 ended its execution.
+Time : 926
+New job executing : 71 from : t3.
+Time : 927
+Job (84) from t2 is preempting job (71) from t3
+Job (71) from t3 stops. 3 unit(s) of time remaining.
+Time : 928
+Job (71) from t3 is preempting job (84) from t2
+Job (84) from t2 stops. 2 unit(s) of time remaining.
+Time : 929
+Job (84) from t2 is preempting job (71) from t3
+Job (71) from t3 stops. 2 unit(s) of time remaining.
+Time : 930
+Job (71) from t3 is preempting job (84) from t2
+Job (84) from t2 stops. 1 unit(s) of time remaining.
+Time : 931
+Job (84) from t2 is preempting job (71) from t3
+Job (71) from t3 stops. 1 unit(s) of time remaining.
+Job (84) from t2 ended its execution.
+Time : 932
+New job executing : 71 from : t3.
+Job (71) from t3 ended its execution.
+Time : 933
+New job executing : 133 from : t1.
+Time : 934
+Job (133) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (133) from t1 ended its execution.
+Time : 935
+New job executing : 85 from : t2.
+Time : 936
+Job (85) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 937
+Job (72) from t3 is preempting job (85) from t2
+Job (85) from t2 stops. 1 unit(s) of time remaining.
+Time : 938
+Job (134) from t1 is preempting job (72) from t3
+Job (72) from t3 stops. 4 unit(s) of time remaining.
+Time : 939
+Job (134) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (134) from t1 ended its execution.
+Time : 940
+New job executing : 85 from : t2.
+Job (85) from t2 ended its execution.
+Time : 941
+New job executing : 72 from : t3.
+Time : 942
+Job (72) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 943
+Job (72) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 944
+Job (72) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (72) from t3 ended its execution.
+Time : 945
+New job executing : 135 from : t1.
+Time : 946
+Job (135) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (135) from t1 ended its execution.
+Time : 947
+New job executing : 86 from : t2.
+Time : 948
+Job (86) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 949
+Job (86) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (86) from t2 ended its execution.
+Time : 950
+New job executing : 73 from : t3.
+Time : 951
+Job (73) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 952
+Job (136) from t1 is preempting job (73) from t3
+Job (73) from t3 stops. 3 unit(s) of time remaining.
+Time : 953
+Job (136) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (136) from t1 ended its execution.
+Time : 954
+New job executing : 73 from : t3.
+Time : 955
+Job (73) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 956
+Job (73) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (73) from t3 ended its execution.
+Time : 957
+New job executing : 87 from : t2.
+Time : 958
+Job (87) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 959
+Job (137) from t1 is preempting job (87) from t2
+Job (87) from t2 stops. 1 unit(s) of time remaining.
+Time : 960
+Job (137) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (137) from t1 ended its execution.
+Time : 961
+New job executing : 87 from : t2.
+Job (87) from t2 ended its execution.
+Time : 962
+New job executing : 74 from : t3.
+Time : 963
+Job (74) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 964
+Job (74) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 965
+Job (74) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 966
+Job (138) from t1 is preempting job (74) from t3
+Job (74) from t3 stops. 1 unit(s) of time remaining.
+Time : 967
+Job (138) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (138) from t1 ended its execution.
+Time : 968
+New job executing : 74 from : t3.
+Job (74) from t3 ended its execution.
+Time : 969
+New job executing : 88 from : t2.
+Time : 970
+Job (88) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 971
+Job (88) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (88) from t2 ended its execution.
+Time : 972
+Nothing is executing at this time
+Time : 973
+New job executing : 139 from : t1.
+Time : 974
+Job (139) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (139) from t1 ended its execution.
+Time : 975
+New job executing : 75 from : t3.
+Time : 976
+Job (75) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 977
+Job (75) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 978
+Job (75) from t3 continue its execution. 2 unit(s) of time remaining.
+Time : 979
+Job (75) from t3 continue its execution. 1 unit(s) of time remaining.
+Job (75) from t3 ended its execution.
+Time : 980
+New job executing : 140 from : t1.
+Time : 981
+Job (140) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (140) from t1 ended its execution.
+Time : 982
+New job executing : 89 from : t2.
+Time : 983
+Job (89) from t2 continue its execution. 2 unit(s) of time remaining.
+Time : 984
+Job (89) from t2 continue its execution. 1 unit(s) of time remaining.
+Job (89) from t2 ended its execution.
+Time : 985
+Nothing is executing at this time
+Time : 986
+Nothing is executing at this time
+Time : 987
+New job executing : 141 from : t1.
+Time : 988
+Job (141) from t1 continue its execution. 1 unit(s) of time remaining.
+Job (141) from t1 ended its execution.
+Time : 989
+New job executing : 76 from : t3.
+Time : 990
+Job (76) from t3 continue its execution. 4 unit(s) of time remaining.
+Time : 991
+Job (76) from t3 continue its execution. 3 unit(s) of time remaining.
+Time : 992
+Job (90) from t2 is preempting job (76) from t3
+Job (76) from t3 stops. 2 unit(s) of time remaining.
+Time : 993
+Job (76) from t3 is preempting job (90) from t2
+Job (90) from t2 stops. 2 unit(s) of time remaining.
+Time : 994
+Job (90) from t2 is preempting job (76) from t3
+Job (76) from t3 stops. 1 unit(s) of time remaining.
+Time : 995
+Job (142) from t1 is preempting job (90) from t2
+Job (90) from t2 stops. 1 unit(s) of time remaining.
+Time : 996
+Job (76) from t3 is preempting job (142) from t1
+Job (142) from t1 stops. 1 unit(s) of time remaining.
+Job (76) from t3 ended its execution.
+Time : 997
+New job executing : 90 from : t2.
+Job (90) from t2 ended its execution.
+Time : 998
+New job executing : 142 from : t1.
+Job (142) from t1 ended its execution.
+Time : 999
+Nothing is executing at this time
+Time : 1000
+Nothing is executing at this time

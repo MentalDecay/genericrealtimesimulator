@@ -18,7 +18,6 @@ public class LeastLaxityFirst extends AbstractPriorityPolicy implements IPriorit
         if(activeJobs.isEmpty()){
             return null;
         }
-        Job jobToExecute = activeJobs.stream().min(Comparator.comparing(job -> job.getLaxity(time))).get();
-        return jobToExecute;
+        return activeJobs.stream().min(Comparator.comparing(job -> job.getLaxity(time))).get();
     }
 }

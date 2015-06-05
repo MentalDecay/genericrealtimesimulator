@@ -27,8 +27,8 @@ public abstract class AbstractRecurrentTask implements ITask {
         this.deadline = deadline;
         this.offset = offset;
         this.name = name;
+        nextJob = new Job(offset, offset + deadline, 0, wcet, this);
         //this.nextActivationTime = offset;
-        nextJob = createJob(offset, offset + deadline, wcet);
     }
 
     @Override
@@ -100,5 +100,13 @@ public abstract class AbstractRecurrentTask implements ITask {
      */
     public long getNbJob() {
         return nbJob;
+    }
+
+    @Override
+    public abstract Job getRealNextJob(long time);
+
+    @Override
+    public Job getFirstJob() {
+        return createJob(offset, deadline + offset, wcet);
     }
 }

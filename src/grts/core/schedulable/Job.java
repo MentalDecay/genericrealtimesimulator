@@ -10,7 +10,9 @@ public class Job {
 
     private final long jobId;
 
-    private long remainingTime;
+    private long executedTime = 0;
+
+    private final long executionTime;
 
     private final AbstractRecurrentTask task;
 
@@ -27,7 +29,7 @@ public class Job {
         this.activationTime = activationTime;
         this.deadlineTime = deadlineTime;
         this.jobId = jobId;
-        remainingTime = wcet;
+        executionTime = wcet;
         this.task = Objects.requireNonNull(task);
     }
 
@@ -44,7 +46,7 @@ public class Job {
      * @return the remaining time of the job
      */
     public long getRemainingTime(){
-        return remainingTime;
+        return executionTime - executedTime;
     }
 
 
@@ -52,9 +54,23 @@ public class Job {
      * Execute the job during one unit time. If the job can't execute (because no remaining execution time) an IllegalStateException is raised.
      */
     public void execute(){
-        remainingTime--;
-        if(remainingTime < 0){
-            throw new IllegalStateException("Can't execute a job with a remaining execution time equals to 0 or negative : " + getJobId() + " " + getTask().getName());
+        executedTime++;
+        if(executedTime > executionTime){
+            throw new IllegalStateException("The job exceeded its execution time : " + getJobId() + " " + getTask().getName());
+        }
+    }
+
+    /**
+     * Executes the job during the time passed in parameter. If the job exceeds its execution time an IllegalStateException is raised.
+     * @param time the time in the course of which the job should execute
+     */
+    public void execute(long time){
+        if(time < 0){
+            throw new IllegalArgumentException("Can't execute a job during <= 0 units of time.");
+        }
+        executedTime += time;
+        if(executedTime > executionTime){
+            throw new IllegalStateException("The job exceeded its execution time : " + getJobId() + " " + getTask().getName());
         }
     }
 
@@ -97,7 +113,7 @@ public class Job {
      * @return the laxity of the job at this time
      */
     public long getLaxity(long time) {
-        return deadlineTime - remainingTime - time;
+        return deadlineTime - getRemainingTime() - time;
     }
 
     /**
@@ -115,4 +131,18 @@ public class Job {
     public long getActivationTime() {
         return activationTime;
     }
+
+    @Override
+    public String toString() {
+        return "Job (" + jobId + ") from " + getTask().getName() + " (" + getActivationTime() + ", " + getDeadlineTime() + ")";
+    }
+
+//    @Override
+//    public boolean equals(Object obj) {
+//        if(!(obj instanceof Job)){
+//            return false;
+//        }
+//        Job job = (Job) obj;
+//        return activationTime == job.activationTime && deadlineTime == job.deadlineTime && jobId == job.jobId
+//    }
 }

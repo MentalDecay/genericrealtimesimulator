@@ -1,4 +1,4 @@
-package grts.core;
+package grts.core.simulator;
 
 import grts.logger.Logger;
 import grts.core.schedulable.Job;
@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class Scheduler {
+public class SchedulerTimeTriggedLegacy {
 
     private final ITaskSet taskSet;
     private final IPriorityPolicy policy;
@@ -18,7 +18,7 @@ public class Scheduler {
     private final Logger logger;
 
 
-    public Scheduler(ITaskSet taskSet, IPriorityPolicy policy, Logger logger) {
+    public SchedulerTimeTriggedLegacy(ITaskSet taskSet, IPriorityPolicy policy, Logger logger) {
         this.logger = logger;
         this.taskSet = Objects.requireNonNull(taskSet);
         this.policy = Objects.requireNonNull(policy);

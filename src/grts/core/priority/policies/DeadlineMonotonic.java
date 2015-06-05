@@ -16,7 +16,6 @@ public class DeadlineMonotonic extends AbstractPriorityPolicy implements IPriori
         if(activeJobs.isEmpty()){
             return null;
         }
-        Job jobToExecute = activeJobs.stream().min(Comparator.comparing(Job::getDeadlineTask)).get();
-        return jobToExecute;
+        return activeJobs.stream().min(Comparator.comparing(Job::getDeadlineTask)).get();
     }
 }

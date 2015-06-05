@@ -56,7 +56,7 @@ public class Logger {
                             " from : " + jobToExecute.getTask().getName() + ".\n");
                 } else if (jobToExecute != executingJob) {
                     executionWriter.write("Job (" + jobToExecute.getJobId() + ") from " + jobToExecute.getTask().getName() +
-                            " is preempting job (" + executingJob.getJobId() + ") from " + executingJob.getTask().getName());
+                            " is preempting job (" + executingJob.getJobId() + ") from " + executingJob.getTask().getName() + "\n");
                     executionWriter.write("Job (" + executingJob.getJobId() + ") from " + executingJob.getTask().getName() +
                             " stops. " + executingJob.getRemainingTime() + " unit(s) of time remaining.\n");
                 } else {

@@ -12,11 +12,13 @@ public class SporadicTask extends AbstractRecurrentTask implements ITask {
     // Contains all the inter arrival times of each job (0 = first job, 1 = second job ...)
     private ArrayList<Long> interArrivalTimes = new ArrayList<>();
     private final RandomStream randomStream;
+    private Job realNextJob;
 
     public SporadicTask(long period, long wcet, long deadline, long offset, String name) {
         super(period, wcet, deadline, offset, name);
         initRandom();
         randomStream = new LFSR113();
+        realNextJob = createJob(offset, offset + deadline, wcet);
     }
 
     private static void initRandom(){
@@ -49,5 +51,17 @@ public class SporadicTask extends AbstractRecurrentTask implements ITask {
             str.append("inter arrival time for ").append(i).append(" : ").append(interArrivalTimes.get(i)).append("\n");
         }
         return str.toString();
+    }
+
+    @Override
+    public Job getRealNextJob(long time) {
+        if(realNextJob != null && time < realNextJob.getActivationTime()){
+            return realNextJob;
+        }
+        else{
+            long activationTime = (long) (ExponentialGen.nextDouble(randomStream, 6) * getMinimumInterArrivalTime()) + getMinimumInterArrivalTime();
+            realNextJob = createJob(activationTime, activationTime + getDeadline(), getWcet());
+            return realNextJob;
+        }
     }
 }

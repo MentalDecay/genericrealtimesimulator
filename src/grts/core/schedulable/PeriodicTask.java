@@ -2,9 +2,12 @@ package grts.core.schedulable;
 
 public class PeriodicTask extends AbstractRecurrentTask implements ITask {
 
+    private long lastJob = 0;
+    private Job realNextJob;
 
     public PeriodicTask(long period, long wcet, long deadline, long offset, String name) {
         super(period, wcet, deadline, offset, name);
+        realNextJob = createJob(offset, offset + deadline, wcet);
     }
 
     /**
@@ -22,5 +25,17 @@ public class PeriodicTask extends AbstractRecurrentTask implements ITask {
      */
     public long getPeriod() {
         return getMinimumInterArrivalTime();
+    }
+
+    @Override
+    public Job getRealNextJob(long time) {
+        if(realNextJob != null && time < realNextJob.getActivationTime()){
+            return realNextJob;
+        }
+        else{
+            long activationTime = realNextJob.getActivationTime() + getNextInterArrivalTime();
+            realNextJob = createJob(activationTime, activationTime + getDeadline(), getWcet());
+            return realNextJob;
+        }
     }
 }

@@ -21,7 +21,6 @@ public class EarliestDeadlineFirst extends AbstractPriorityPolicy implements IPr
         if(activeJobs.isEmpty()){
             return null;
         }
-        Job jobToExecute = activeJobs.stream().min(Comparator.comparing(Job::getDeadlineTime)).get();
-        return jobToExecute;
+        return activeJobs.stream().min(Comparator.comparing(Job::getDeadlineTime)).get();
     }
 }

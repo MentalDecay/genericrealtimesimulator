@@ -10,3 +10,583 @@ Time : 13
 activating job : 1 from t3
 Time : 14
 activating job : 2 from t1
+Time : 21
+activating job : 3 from t1
+Time : 22
+activating job : 2 from t2
+Time : 26
+activating job : 2 from t3
+Time : 28
+activating job : 4 from t1
+Time : 33
+activating job : 3 from t2
+Time : 35
+activating job : 5 from t1
+Time : 39
+activating job : 3 from t3
+Time : 42
+activating job : 6 from t1
+Time : 44
+activating job : 4 from t2
+Time : 49
+activating job : 7 from t1
+Time : 52
+activating job : 4 from t3
+Time : 55
+activating job : 5 from t2
+Time : 56
+activating job : 8 from t1
+Time : 63
+activating job : 9 from t1
+Time : 65
+activating job : 5 from t3
+Time : 66
+activating job : 6 from t2
+Time : 70
+activating job : 10 from t1
+Time : 77
+activating job : 11 from t1
+activating job : 7 from t2
+Time : 78
+activating job : 6 from t3
+Time : 84
+activating job : 12 from t1
+Time : 88
+activating job : 8 from t2
+Time : 91
+activating job : 13 from t1
+activating job : 7 from t3
+Time : 98
+activating job : 14 from t1
+Time : 99
+activating job : 9 from t2
+Time : 104
+activating job : 8 from t3
+Time : 105
+activating job : 15 from t1
+Time : 110
+activating job : 10 from t2
+Time : 112
+activating job : 16 from t1
+Time : 117
+activating job : 9 from t3
+Time : 119
+activating job : 17 from t1
+Time : 121
+activating job : 11 from t2
+Time : 126
+activating job : 18 from t1
+Time : 130
+activating job : 10 from t3
+Time : 132
+activating job : 12 from t2
+Time : 133
+activating job : 19 from t1
+Time : 140
+activating job : 20 from t1
+Time : 143
+activating job : 13 from t2
+activating job : 11 from t3
+Time : 147
+activating job : 21 from t1
+Time : 154
+activating job : 22 from t1
+activating job : 14 from t2
+Time : 156
+activating job : 12 from t3
+Time : 161
+activating job : 23 from t1
+Time : 165
+activating job : 15 from t2
+Time : 168
+activating job : 24 from t1
+Time : 169
+activating job : 13 from t3
+Time : 175
+activating job : 25 from t1
+Time : 176
+activating job : 16 from t2
+Time : 182
+activating job : 26 from t1
+activating job : 14 from t3
+Time : 187
+activating job : 17 from t2
+Time : 189
+activating job : 27 from t1
+Time : 195
+activating job : 15 from t3
+Time : 196
+activating job : 28 from t1
+Time : 198
+activating job : 18 from t2
+Time : 203
+activating job : 29 from t1
+Time : 208
+activating job : 16 from t3
+Time : 209
+activating job : 19 from t2
+Time : 210
+activating job : 30 from t1
+Time : 217
+activating job : 31 from t1
+Time : 220
+activating job : 20 from t2
+Time : 221
+activating job : 17 from t3
+Time : 224
+activating job : 32 from t1
+Time : 231
+activating job : 33 from t1
+activating job : 21 from t2
+Time : 234
+activating job : 18 from t3
+Time : 238
+activating job : 34 from t1
+Time : 242
+activating job : 22 from t2
+Time : 245
+activating job : 35 from t1
+Time : 247
+activating job : 19 from t3
+Time : 252
+activating job : 36 from t1
+Time : 253
+activating job : 23 from t2
+Time : 259
+activating job : 37 from t1
+Time : 260
+activating job : 20 from t3
+Time : 264
+activating job : 24 from t2
+Time : 266
+activating job : 38 from t1
+Time : 273
+activating job : 39 from t1
+activating job : 21 from t3
+Time : 275
+activating job : 25 from t2
+Time : 280
+activating job : 40 from t1
+Time : 286
+activating job : 26 from t2
+activating job : 22 from t3
+Time : 287
+activating job : 41 from t1
+Time : 294
+activating job : 42 from t1
+Time : 297
+activating job : 27 from t2
+Time : 299
+activating job : 23 from t3
+Time : 301
+activating job : 43 from t1
+Time : 308
+activating job : 44 from t1
+activating job : 28 from t2
+Time : 312
+activating job : 24 from t3
+Time : 315
+activating job : 45 from t1
+Time : 319
+activating job : 29 from t2
+Time : 322
+activating job : 46 from t1
+Time : 325
+activating job : 25 from t3
+Time : 329
+activating job : 47 from t1
+Time : 330
+activating job : 30 from t2
+Time : 336
+activating job : 48 from t1
+Time : 338
+activating job : 26 from t3
+Time : 341
+activating job : 31 from t2
+Time : 343
+activating job : 49 from t1
+Time : 350
+activating job : 50 from t1
+Time : 351
+activating job : 27 from t3
+Time : 352
+activating job : 32 from t2
+Time : 357
+activating job : 51 from t1
+Time : 363
+activating job : 33 from t2
+Time : 364
+activating job : 52 from t1
+activating job : 28 from t3
+Time : 371
+activating job : 53 from t1
+Time : 374
+activating job : 34 from t2
+Time : 377
+activating job : 29 from t3
+Time : 378
+activating job : 54 from t1
+Time : 385
+activating job : 55 from t1
+activating job : 35 from t2
+Time : 390
+activating job : 30 from t3
+Time : 392
+activating job : 56 from t1
+Time : 396
+activating job : 36 from t2
+Time : 399
+activating job : 57 from t1
+Time : 403
+activating job : 31 from t3
+Time : 406
+activating job : 58 from t1
+Time : 407
+activating job : 37 from t2
+Time : 413
+activating job : 59 from t1
+Time : 416
+activating job : 32 from t3
+Time : 418
+activating job : 38 from t2
+Time : 420
+activating job : 60 from t1
+Time : 427
+activating job : 61 from t1
+Time : 429
+activating job : 39 from t2
+activating job : 33 from t3
+Time : 434
+activating job : 62 from t1
+Time : 440
+activating job : 40 from t2
+Time : 441
+activating job : 63 from t1
+Time : 442
+activating job : 34 from t3
+Time : 448
+activating job : 64 from t1
+Time : 451
+activating job : 41 from t2
+Time : 455
+activating job : 65 from t1
+activating job : 35 from t3
+Time : 462
+activating job : 66 from t1
+activating job : 42 from t2
+Time : 468
+activating job : 36 from t3
+Time : 469
+activating job : 67 from t1
+Time : 473
+activating job : 43 from t2
+Time : 476
+activating job : 68 from t1
+Time : 481
+activating job : 37 from t3
+Time : 483
+activating job : 69 from t1
+Time : 484
+activating job : 44 from t2
+Time : 490
+activating job : 70 from t1
+Time : 494
+activating job : 38 from t3
+Time : 495
+activating job : 45 from t2
+Time : 497
+activating job : 71 from t1
+Time : 504
+activating job : 72 from t1
+Time : 506
+activating job : 46 from t2
+Time : 507
+activating job : 39 from t3
+Time : 511
+activating job : 73 from t1
+Time : 517
+activating job : 47 from t2
+Time : 518
+activating job : 74 from t1
+Time : 520
+activating job : 40 from t3
+Time : 525
+activating job : 75 from t1
+Time : 528
+activating job : 48 from t2
+Time : 532
+activating job : 76 from t1
+Time : 533
+activating job : 41 from t3
+Time : 539
+activating job : 77 from t1
+activating job : 49 from t2
+Time : 546
+activating job : 78 from t1
+activating job : 42 from t3
+Time : 550
+activating job : 50 from t2
+Time : 553
+activating job : 79 from t1
+Time : 559
+activating job : 43 from t3
+Time : 560
+activating job : 80 from t1
+Time : 561
+activating job : 51 from t2
+Time : 567
+activating job : 81 from t1
+Time : 572
+activating job : 52 from t2
+activating job : 44 from t3
+Time : 574
+activating job : 82 from t1
+Time : 581
+activating job : 83 from t1
+Time : 583
+activating job : 53 from t2
+Time : 585
+activating job : 45 from t3
+Time : 588
+activating job : 84 from t1
+Time : 594
+activating job : 54 from t2
+Time : 595
+activating job : 85 from t1
+Time : 598
+activating job : 46 from t3
+Time : 602
+activating job : 86 from t1
+Time : 605
+activating job : 55 from t2
+Time : 609
+activating job : 87 from t1
+Time : 611
+activating job : 47 from t3
+Time : 616
+activating job : 88 from t1
+activating job : 56 from t2
+Time : 623
+activating job : 89 from t1
+Time : 624
+activating job : 48 from t3
+Time : 627
+activating job : 57 from t2
+Time : 630
+activating job : 90 from t1
+Time : 637
+activating job : 91 from t1
+activating job : 49 from t3
+Time : 638
+activating job : 58 from t2
+Time : 644
+activating job : 92 from t1
+Time : 649
+activating job : 59 from t2
+Time : 650
+activating job : 50 from t3
+Time : 651
+activating job : 93 from t1
+Time : 658
+activating job : 94 from t1
+Time : 660
+activating job : 60 from t2
+Time : 663
+activating job : 51 from t3
+Time : 665
+activating job : 95 from t1
+Time : 671
+activating job : 61 from t2
+Time : 672
+activating job : 96 from t1
+Time : 676
+activating job : 52 from t3
+Time : 679
+activating job : 97 from t1
+Time : 682
+activating job : 62 from t2
+Time : 686
+activating job : 98 from t1
+Time : 689
+activating job : 53 from t3
+Time : 693
+activating job : 99 from t1
+activating job : 63 from t2
+Time : 700
+activating job : 100 from t1
+Time : 702
+activating job : 54 from t3
+Time : 704
+activating job : 64 from t2
+Time : 707
+activating job : 101 from t1
+Time : 714
+activating job : 102 from t1
+Time : 715
+activating job : 65 from t2
+activating job : 55 from t3
+Time : 721
+activating job : 103 from t1
+Time : 726
+activating job : 66 from t2
+Time : 728
+activating job : 104 from t1
+activating job : 56 from t3
+Time : 735
+activating job : 105 from t1
+Time : 737
+activating job : 67 from t2
+Time : 741
+activating job : 57 from t3
+Time : 742
+activating job : 106 from t1
+Time : 748
+activating job : 68 from t2
+Time : 749
+activating job : 107 from t1
+Time : 754
+activating job : 58 from t3
+Time : 756
+activating job : 108 from t1
+Time : 759
+activating job : 69 from t2
+Time : 763
+activating job : 109 from t1
+Time : 767
+activating job : 59 from t3
+Time : 770
+activating job : 110 from t1
+activating job : 70 from t2
+Time : 777
+activating job : 111 from t1
+Time : 780
+activating job : 60 from t3
+Time : 781
+activating job : 71 from t2
+Time : 784
+activating job : 112 from t1
+Time : 791
+activating job : 113 from t1
+Time : 792
+activating job : 72 from t2
+Time : 793
+activating job : 61 from t3
+Time : 798
+activating job : 114 from t1
+Time : 803
+activating job : 73 from t2
+Time : 805
+activating job : 115 from t1
+Time : 806
+activating job : 62 from t3
+Time : 812
+activating job : 116 from t1
+Time : 814
+activating job : 74 from t2
+Time : 819
+activating job : 117 from t1
+activating job : 63 from t3
+Time : 825
+activating job : 75 from t2
+Time : 826
+activating job : 118 from t1
+Time : 832
+activating job : 64 from t3
+Time : 833
+activating job : 119 from t1
+Time : 836
+activating job : 76 from t2
+Time : 840
+activating job : 120 from t1
+Time : 845
+activating job : 65 from t3
+Time : 847
+activating job : 121 from t1
+activating job : 77 from t2
+Time : 854
+activating job : 122 from t1
+Time : 858
+activating job : 78 from t2
+activating job : 66 from t3
+Time : 861
+activating job : 123 from t1
+Time : 868
+activating job : 124 from t1
+Time : 869
+activating job : 79 from t2
+Time : 871
+activating job : 67 from t3
+Time : 875
+activating job : 125 from t1
+Time : 880
+activating job : 80 from t2
+Time : 882
+activating job : 126 from t1
+Time : 884
+activating job : 68 from t3
+Time : 889
+activating job : 127 from t1
+Time : 891
+activating job : 81 from t2
+Time : 896
+activating job : 128 from t1
+Time : 897
+activating job : 69 from t3
+Time : 902
+activating job : 82 from t2
+Time : 903
+activating job : 129 from t1
+Time : 910
+activating job : 130 from t1
+activating job : 70 from t3
+Time : 913
+activating job : 83 from t2
+Time : 917
+activating job : 131 from t1
+Time : 923
+activating job : 71 from t3
+Time : 924
+activating job : 132 from t1
+activating job : 84 from t2
+Time : 931
+activating job : 133 from t1
+Time : 935
+activating job : 85 from t2
+Time : 936
+activating job : 72 from t3
+Time : 938
+activating job : 134 from t1
+Time : 945
+activating job : 135 from t1
+Time : 946
+activating job : 86 from t2
+Time : 949
+activating job : 73 from t3
+Time : 952
+activating job : 136 from t1
+Time : 957
+activating job : 87 from t2
+Time : 959
+activating job : 137 from t1
+Time : 962
+activating job : 74 from t3
+Time : 966
+activating job : 138 from t1
+Time : 968
+activating job : 88 from t2
+Time : 973
+activating job : 139 from t1
+Time : 975
+activating job : 75 from t3
+Time : 979
+activating job : 89 from t2
+Time : 980
+activating job : 140 from t1
+Time : 987
+activating job : 141 from t1
+Time : 988
+activating job : 76 from t3
+Time : 990
+activating job : 90 from t2
+Time : 994
+activating job : 142 from t1

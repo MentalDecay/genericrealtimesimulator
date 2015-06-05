@@ -24,7 +24,6 @@ public class RateMonotonic extends AbstractPriorityPolicy implements IPriorityPo
         if(activeJobs.isEmpty()){
             return null;
         }
-        Job jobToExecute = activeJobs.stream().min(Comparator.comparing(Job::getTaskInterArrivalTime)).get();
-        return jobToExecute;
+        return activeJobs.stream().min(Comparator.comparing(Job::getTaskInterArrivalTime)).get();
     }
 }

@@ -42,4 +42,8 @@ public interface ITask {
      */
     Job getNextJob(long time);
 
+    Job getRealNextJob(long time);
+
+    Job getFirstJob();
+
 }
