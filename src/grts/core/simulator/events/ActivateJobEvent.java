@@ -29,4 +29,15 @@ public class ActivateJobEvent extends AbstractEventOnJob implements IEvent {
     protected int getPriority() {
         return 6;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof ActivateJobEvent)){
+            return false;
+        }
+        ActivateJobEvent event = (ActivateJobEvent) obj;
+        return getScheduler() == event.getScheduler() &&
+                getTime() == event.getTime() &&
+                getJob().equals(event.getJob());
+    }
 }

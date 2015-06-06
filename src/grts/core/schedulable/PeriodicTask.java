@@ -33,9 +33,23 @@ public class PeriodicTask extends AbstractRecurrentTask implements ITask {
             return realNextJob;
         }
         else{
+            assert realNextJob != null;
             long activationTime = realNextJob.getActivationTime() + getNextInterArrivalTime();
             realNextJob = createJob(activationTime, activationTime + getDeadline(), getWcet());
             return realNextJob;
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof PeriodicTask)){
+            return false;
+        }
+        PeriodicTask task = (PeriodicTask) obj;
+        return getNextInterArrivalTime() == task.getNextInterArrivalTime() &&
+                getWcet()  == task.getWcet() &&
+                getDeadline() == task.getDeadline() &&
+                getOffset() == task.getOffset() &&
+                getName().equals(task.getName());
     }
 }

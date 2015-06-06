@@ -18,12 +18,12 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-//        AbstractRecurrentTask t1 = new PeriodicTask(7, 2, 7, 0, "t1");
-//        AbstractRecurrentTask t2 = new PeriodicTask(11, 3, 11, 0, "t2");
-//        AbstractRecurrentTask t3 = new PeriodicTask(13, 5, 13, 0, "t3");
-        AbstractRecurrentTask t1 = new PeriodicTask(4, 1, 4, 0, "t1");
-        AbstractRecurrentTask t2 = new PeriodicTask(5, 2, 5, 0, "t2");
-        AbstractRecurrentTask t3 = new PeriodicTask(10, 3, 10, 0, "t3");
+        AbstractRecurrentTask t1 = new PeriodicTask(7, 2, 7, 0, "t1");
+        AbstractRecurrentTask t2 = new PeriodicTask(11, 3, 11, 0, "t2");
+        AbstractRecurrentTask t3 = new PeriodicTask(13, 5, 13, 0, "t3");
+//        AbstractRecurrentTask t1 = new PeriodicTask(4, 1, 4, 0, "t1");
+//        AbstractRecurrentTask t2 = new PeriodicTask(5, 2, 5, 0, "t2");
+//        AbstractRecurrentTask t3 = new PeriodicTask(10, 3, 10, 0, "t3");
 //        AbstractRecurrentTask t1 = new SporadicTask(7, 2, 7, 0, "t1");
 //        AbstractRecurrentTask t2 = new SporadicTask(11, 3, 11, 0, "t2");
 //        AbstractRecurrentTask t3 = new SporadicTask(13, 5, 13, 0, "t3");
@@ -34,7 +34,7 @@ public class Main {
         tasks.add(t2);
         tasks.add(t3);
         ITaskSet ts = new TaskSet(tasks);
-        IPriorityPolicy policy = new RateMonotonic(ts);
+        IPriorityPolicy policy = new EarliestDeadlineFirst(ts);
 //        Logger logger = null;
 //        try {
 //            logger = new Logger("logs");
@@ -48,7 +48,8 @@ public class Main {
 //        logger.silentlyClose();
 
         Simulator simulator = new Simulator(ts, policy);
-        simulator.simulate(ts.getHyperPeriod());
+        long timer = ts.getHyperPeriod();
+        simulator.simulate(timer);
 
 
     }

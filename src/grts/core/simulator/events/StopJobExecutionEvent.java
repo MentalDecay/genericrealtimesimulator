@@ -31,4 +31,15 @@ public class StopJobExecutionEvent extends AbstractEventOnJob implements IEvent 
     protected int getPriority() {
         return 1;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof StopJobExecutionEvent)){
+            return false;
+        }
+        StopJobExecutionEvent event = (StopJobExecutionEvent) obj;
+        return getScheduler() == event.getScheduler() &&
+                getTime() == event.getTime() &&
+                getJob().equals(event.getJob());
+    }
 }

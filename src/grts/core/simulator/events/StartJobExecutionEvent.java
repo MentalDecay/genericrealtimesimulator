@@ -26,4 +26,15 @@ public class StartJobExecutionEvent extends AbstractEventOnJob implements IEvent
     protected int getPriority() {
         return 9;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof StartJobExecutionEvent)){
+            return false;
+        }
+        StartJobExecutionEvent event = (StartJobExecutionEvent) obj;
+        return getScheduler() == event.getScheduler() &&
+                getTime() == event.getTime() &&
+                getJob().equals(event.getJob());
+    }
 }

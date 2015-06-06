@@ -3,6 +3,6 @@ Logger : change writeJobActivation : shouldn't take a list.
 Tasks (every task) : delete getNextJob / getNextArrivalTime => TimeTrigged dies.
                      rename getRealNextJob.
 
-In comparison between two events : using toString to compare (only for testing faster). To be fixed.
-
 Doesn't work with sporadic.
+
+Check if the result is good.

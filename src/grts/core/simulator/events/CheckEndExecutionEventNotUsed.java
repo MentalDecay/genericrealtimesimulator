@@ -30,4 +30,15 @@ public class CheckEndExecutionEventNotUsed extends AbstractEventOnJob implements
     protected int getPriority() {
         return 3;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof CheckEndExecutionEventNotUsed)){
+            return false;
+        }
+        CheckEndExecutionEventNotUsed event = (CheckEndExecutionEventNotUsed) obj;
+        return getScheduler() == event.getScheduler() &&
+                getTime() == event.getTime() &&
+                getJob().equals(event.getJob());
+    }
 }

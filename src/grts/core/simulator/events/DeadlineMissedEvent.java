@@ -23,4 +23,14 @@ public class DeadlineMissedEvent  extends AbstractEvent implements IEvent {
     protected int getPriority() {
         return 4;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof DeadlineMissedEvent)){
+            return false;
+        }
+        DeadlineMissedEvent event = (DeadlineMissedEvent) obj;
+        return getScheduler() == event.getScheduler() &&
+                getTime() == event.getTime();
+    }
 }

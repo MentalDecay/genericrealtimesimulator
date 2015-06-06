@@ -15,17 +15,28 @@ public abstract class  AbstractEvent implements Comparable<AbstractEvent>, IEven
         this.time = time;
     }
 
+
     @Override
     public int compareTo(AbstractEvent o) {
         if(getTime() != o.getTime()){
-            return (int) (getTime() - o.getTime());
+            //return (int) (getTime() - o.getTime());
+            long comp = getTime() - o.getTime();
+            if(comp < 0){
+                return -1;
+            }
+            else{
+                return 1;
+            }
         }
         else {
             if (o.getPriority() == 7 && getPriority() == 7) {
                 return 0;
             } else {
                 if (o.getPriority() == getPriority()) {
-                    if(toString().equals(o.toString())){
+//                    if(toString().equals(o.toString())){
+//                        return 0;
+//                    }
+                    if(this.equals(o)){
                         return 0;
                     }
                     return 1;

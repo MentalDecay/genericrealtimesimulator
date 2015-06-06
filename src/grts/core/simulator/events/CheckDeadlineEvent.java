@@ -28,4 +28,15 @@ public class CheckDeadlineEvent extends AbstractEventOnJob implements IEvent {
     protected int getPriority() {
         return 5;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof CheckDeadlineEvent)){
+            return false;
+        }
+        CheckDeadlineEvent event = (CheckDeadlineEvent) obj;
+        return getScheduler() == event.getScheduler() &&
+                getTime() == event.getTime() &&
+                getJob().equals(event.getJob());
+    }
 }

@@ -26,4 +26,15 @@ public class PreemptionEvent extends AbstractEventOnJob implements IEvent {
     protected int getPriority() {
         return 8;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof PreemptionEvent)){
+            return false;
+        }
+        PreemptionEvent event = (PreemptionEvent) obj;
+        return getScheduler() == event.getScheduler() &&
+                getTime() == event.getTime() &&
+                getJob().equals(event.getJob());
+    }
 }

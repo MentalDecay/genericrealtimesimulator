@@ -64,4 +64,17 @@ public class SporadicTask extends AbstractRecurrentTask implements ITask {
             return realNextJob;
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof SporadicTask)){
+            return false;
+        }
+        SporadicTask task = (SporadicTask) obj;
+        return getNextInterArrivalTime() == task.getNextInterArrivalTime() &&
+                getWcet()  == task.getWcet() &&
+                getDeadline() == task.getDeadline() &&
+                getOffset() == task.getOffset() &&
+                getName().equals(task.getName());
+    }
 }

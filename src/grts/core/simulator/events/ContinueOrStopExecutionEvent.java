@@ -33,4 +33,15 @@ public class ContinueOrStopExecutionEvent extends AbstractEventOnJob implements 
     public String toString() {
         return "ContinueOrStopExecutionEvent : " + getJob() + " time : " + getTime();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof ContinueOrStopExecutionEvent)){
+            return false;
+        }
+        ContinueOrStopExecutionEvent event = (ContinueOrStopExecutionEvent) obj;
+        return getScheduler() == event.getScheduler() &&
+                getTime() == event.getTime() &&
+                getJob().equals(event.getJob());
+    }
 }

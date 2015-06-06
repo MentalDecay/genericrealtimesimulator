@@ -37,4 +37,15 @@ public class ChooseJobEvent extends AbstractEvent implements IEvent {
     protected int getPriority() {
         return 7;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof ChooseJobEvent)){
+            return false;
+        }
+        ChooseJobEvent event = (ChooseJobEvent) obj;
+        return getScheduler() == event.getScheduler() &&
+                getTime() == event.getTime();
+    }
+
 }

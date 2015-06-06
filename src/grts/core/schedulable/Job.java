@@ -137,12 +137,13 @@ public class Job {
         return "Job (" + jobId + ") from " + getTask().getName() + " (" + getActivationTime() + ", " + getDeadlineTime() + ")";
     }
 
-//    @Override
-//    public boolean equals(Object obj) {
-//        if(!(obj instanceof Job)){
-//            return false;
-//        }
-//        Job job = (Job) obj;
-//        return activationTime == job.activationTime && deadlineTime == job.deadlineTime && jobId == job.jobId
-//    }
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Job)){
+            return false;
+        }
+        Job job = (Job) obj;
+        return activationTime == job.activationTime && deadlineTime == job.deadlineTime && jobId == job.jobId && executionTime == job.executionTime
+                && task.equals(job.task);
+    }
 }

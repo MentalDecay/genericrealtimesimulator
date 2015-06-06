@@ -14,7 +14,6 @@ public class Scheduler {
     private  Job executingJob;
     private List<IEvent> eventsToAdd;
     private boolean over;
-    private long lastEventTime = 0;
     private final IPriorityPolicy policy;
     private final HashMap<Job, Long> lastJobExecution = new HashMap<>();
     public Scheduler(IPriorityPolicy policy) {
@@ -27,7 +26,6 @@ public class Scheduler {
 //            executingJob.execute(event.getTime() - lastEventTime);
 //        }
         event.doEvent();
-        lastEventTime = event.getTime();
         if(eventsToAdd == null){
             return Collections.emptyList();
         }
