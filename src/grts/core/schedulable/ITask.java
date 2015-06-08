@@ -42,8 +42,17 @@ public interface ITask {
      */
     Job getNextJob(long time);
 
+    /**
+     * Get the next job according to the time. If the time is equal or superior to the next job returned, a new job is created.
+     * @param time when the task should return a new job
+     * @return the new Job created by the task or previously created if the time is inferior to the activation of the next job
+     */
     Job getRealNextJob(long time);
 
+    /**
+     * Get the first job of the task. Should be used only one time.
+     * @return the first Job of the task.
+     */
     Job getFirstJob();
 
 }

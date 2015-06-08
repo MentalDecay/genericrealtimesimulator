@@ -2,7 +2,10 @@ Logger : change writeJobActivation : shouldn't take a list.
 
 Tasks (every task) : delete getNextJob / getNextArrivalTime => TimeTrigged dies.
                      rename getRealNextJob.
-
-Doesn't work with sporadic.
+                     delete interArrivalTimes in sporadicTasks (TimeTrigged dies).
 
 Check if the result is good.
+
+First job => only one use.
+
+Change every "AbstractTaskSet" to "ITaskSet".

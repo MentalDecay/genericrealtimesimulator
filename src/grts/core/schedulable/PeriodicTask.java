@@ -46,7 +46,7 @@ public class PeriodicTask extends AbstractRecurrentTask implements ITask {
             return false;
         }
         PeriodicTask task = (PeriodicTask) obj;
-        return getNextInterArrivalTime() == task.getNextInterArrivalTime() &&
+        return getMinimumInterArrivalTime() == task.getMinimumInterArrivalTime() &&
                 getWcet()  == task.getWcet() &&
                 getDeadline() == task.getDeadline() &&
                 getOffset() == task.getOffset() &&

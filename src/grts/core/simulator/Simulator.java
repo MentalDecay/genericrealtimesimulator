@@ -16,11 +16,20 @@ public class Simulator {
     private final Scheduler scheduler;
     private final ITaskSet taskSet;
 
+    /**
+     * Creates a new Simulator.
+     * @param taskSet the tasks set of the simulator.
+     * @param policy the priority policy of the simulator.
+     */
     public Simulator(ITaskSet taskSet, IPriorityPolicy policy) {
         this.scheduler = new Scheduler(policy);
         this.taskSet = taskSet;
     }
 
+    /**
+     * Simulates the scheduling of the tasks set during the time or until an event stops it.
+     * @param time the maximum time of the simulation.
+     */
     public void simulate(long time){
         initEventTreeSet();
         System.out.println("init : ");
@@ -45,6 +54,9 @@ public class Simulator {
         System.out.println("End of simulation by deadline missed");
     }
 
+    /**
+     * Creates the first events of the simulation. The events created are the first ActivateJobEvent of each task.
+     */
     private void initEventTreeSet(){
         taskSet.getRecurrentTasks().forEach(task -> {
             Job firstJob = task.getFirstJob();

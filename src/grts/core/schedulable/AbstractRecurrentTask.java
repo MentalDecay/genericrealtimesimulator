@@ -102,6 +102,11 @@ public abstract class AbstractRecurrentTask implements ITask {
         return nbJob;
     }
 
+    /**
+     * Get the next job according to the time.
+     * @param time
+     * @return
+     */
     @Override
     public abstract Job getRealNextJob(long time);
 

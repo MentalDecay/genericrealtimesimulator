@@ -59,7 +59,7 @@ public class SporadicTask extends AbstractRecurrentTask implements ITask {
             return realNextJob;
         }
         else{
-            long activationTime = (long) (ExponentialGen.nextDouble(randomStream, 6) * getMinimumInterArrivalTime()) + getMinimumInterArrivalTime();
+            long activationTime = (long) (ExponentialGen.nextDouble(randomStream, 6) * getMinimumInterArrivalTime()) + getMinimumInterArrivalTime() + realNextJob.getActivationTime();
             realNextJob = createJob(activationTime, activationTime + getDeadline(), getWcet());
             return realNextJob;
         }
@@ -71,7 +71,7 @@ public class SporadicTask extends AbstractRecurrentTask implements ITask {
             return false;
         }
         SporadicTask task = (SporadicTask) obj;
-        return getNextInterArrivalTime() == task.getNextInterArrivalTime() &&
+        return getMinimumInterArrivalTime() == task.getMinimumInterArrivalTime() &&
                 getWcet()  == task.getWcet() &&
                 getDeadline() == task.getDeadline() &&
                 getOffset() == task.getOffset() &&
