@@ -85,14 +85,11 @@ public class InnocentGlobalPolicy implements IProcessorPolicy {
         System.out.println("selected jobs : " + selectedJobs);
         for(Processor processor : processors){
             if(selectedJobs.size() == 0){
-                System.out.println("shit");
                 break;
             }
             if(alreadyExecutingId.contains(processor.getId())){
-                System.out.println("fuck");
                 continue;
             }
-            System.out.println("what");
             entryList.add(new AbstractMap.SimpleEntry<>(selectedJobs.remove(0), processor.getId()));
         }
         if(selectedJobs.size() != 0){
