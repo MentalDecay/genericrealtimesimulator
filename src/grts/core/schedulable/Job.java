@@ -16,6 +16,8 @@ public class Job {
 
     private final AbstractRecurrentTask task;
 
+    private int processorId;
+
 
     public Job(long activationTime, long deadlineTime, long jobId, long wcet, AbstractRecurrentTask task) {
         if(activationTime < 0 || wcet <= 0 || deadlineTime <= 0 || jobId < 0){
@@ -146,4 +148,5 @@ public class Job {
         return activationTime == job.activationTime && deadlineTime == job.deadlineTime && jobId == job.jobId && executionTime == job.executionTime
                 && task.equals(job.task);
     }
+
 }

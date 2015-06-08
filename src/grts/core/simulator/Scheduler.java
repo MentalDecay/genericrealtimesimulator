@@ -1,6 +1,7 @@
 package grts.core.simulator;
 
 import grts.core.priority.policies.IPriorityPolicy;
+import grts.core.processor.policies.IProcessorPolicy;
 import grts.core.schedulable.Job;
 import grts.core.simulator.events.IEvent;
 
@@ -10,19 +11,22 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Scheduler {
-    private final LinkedList<Job> activatedJobs =  new LinkedList<>();
-    private  Job executingJob;
+//    private final List<Job> activatedJobs =  new LinkedList<>();
+//    private  Job executingJob;
     private List<IEvent> eventsToAdd;
     private boolean over;
-    private final IPriorityPolicy policy;
+    private final IPriorityPolicy priorityPolicy;
+    private final IProcessorPolicy processorPolicy;
     private final HashMap<Job, Long> lastJobExecution = new HashMap<>();
 
     /**
      * Creates a new scheduler.
-     * @param policy the priority policy which should be used by the scheduler.
+     * @param priorityPolicy the priority policy which should be used by the scheduler.
+     * @param processorPolicy the processor policy which should be used by the scheduler.
      */
-    public Scheduler(IPriorityPolicy policy) {
-        this.policy = policy;
+    public Scheduler(IPriorityPolicy priorityPolicy, IProcessorPolicy processorPolicy) {
+        this.priorityPolicy = priorityPolicy;
+        this.processorPolicy = processorPolicy;
     }
 
     /**
@@ -32,9 +36,6 @@ public class Scheduler {
      */
     public List<IEvent> performEvent(IEvent event){
         resetEventsToAdd();
-//        if(executingJob != null && event.getTime() != lastEventTime) {
-//            executingJob.execute(event.getTime() - lastEventTime);
-//        }
         event.doEvent();
         if(eventsToAdd == null){
             return Collections.emptyList();
@@ -57,14 +58,6 @@ public class Scheduler {
         over = true;
     }
 
-//    public Job getExecutingJob() {
-//        return executingJob;
-//    }
-
-//    public void stopExecution() {
-//        executingJob = null;
-//    }
-
     /**
      * Resets the list of events which is returned by performEvent.
      */
@@ -86,7 +79,8 @@ public class Scheduler {
      * @param job the job to be deleted.
      */
     public void deleteActiveJob(Job job){
-        activatedJobs.remove(job);
+//        activatedJobs.remove(job);
+        processorPolicy.deleteActiveJob(job);
         lastJobExecution.remove(job);
     }
 
@@ -95,46 +89,50 @@ public class Scheduler {
      * @param job the job to be added
      */
     public void addActiveJob(Job job){
-        activatedJobs.add(job);
+        processorPolicy.addActiveJob(job);
+//        activatedJobs.add(job);
     }
 
     /**
      * Deleted the current executing job of the scheduler. Only events should use this method.
      */
-    public void stopJobExecution(){
-        executingJob = null;
+    public void stopJobExecution(Job job, int processorId){
+//        executingJob = null;
+        processorPolicy.stopJobExecution(job, processorId);
     }
 
     /**
      * The current executing job becomes the job in parameters. Only events should use this method.
      * @param job the job to execute
      */
-    public void executeJob(Job job){
-        executingJob = job;
+    public void executeJob(Job job, int processorId){
+//        executingJob = job;
+        processorPolicy.executeJob(job, processorId);
     }
 
     /**
      * Get the current executing job.
      * @return the current executing job
      */
-    public Job getExecutingJob() {
-        return executingJob;
+    public Job getExecutingJob(int processorId) {
+//        return executingJob;
+        return processorPolicy.getExecutingJob(processorId);
     }
 
-    /**
-     * Get the list of active jobs.
-     * @return the list of active jobs.
-     */
-    public List<Job> getActivatedJobs() {
-        return activatedJobs;
-    }
+//    /**
+//     * Get the list of active jobs.
+//     * @return the list of active jobs.
+//     */
+//    public List<Job> getActivatedJobs() {
+//        return activatedJobs;
+//    }
 
     /**
-     * Get the policy of the scheduler.
-     * @return the policy of the scheduler.
+     * Get the priorityPolicy of the scheduler.
+     * @return the priorityPolicy of the scheduler.
      */
-    public IPriorityPolicy getPolicy() {
-        return policy;
+    public IPriorityPolicy getPriorityPolicy() {
+        return priorityPolicy;
     }
 
 
@@ -153,5 +151,9 @@ public class Scheduler {
      */
     public void putLastJobExecution(Job job, long time) {
         lastJobExecution.put(job, time);
+    }
+
+    public IProcessorPolicy getProcessorPolicy() {
+        return processorPolicy;
     }
 }

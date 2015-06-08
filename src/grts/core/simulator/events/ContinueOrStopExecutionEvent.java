@@ -5,8 +5,8 @@ import grts.core.simulator.Scheduler;
 
 public class ContinueOrStopExecutionEvent extends AbstractEventOnJob implements IEvent{
 
-    public ContinueOrStopExecutionEvent(Scheduler scheduler, long time, Job job) {
-        super(scheduler, time, job);
+    public ContinueOrStopExecutionEvent(Scheduler scheduler, long time, Job job, int processorId) {
+        super(scheduler, time, job, processorId);
     }
 
     @Override
@@ -16,22 +16,22 @@ public class ContinueOrStopExecutionEvent extends AbstractEventOnJob implements 
 
     @Override
     public void doEvent() {
-        if(getScheduler().getExecutingJob() == getJob()) {
+        if(getScheduler().getExecutingJob(getProcessorId()) == getJob()) {
             long lastExecutionTime = getScheduler().getLastJobExecution().get(getJob());
             getJob().execute(getTime() - lastExecutionTime);
             getScheduler().putLastJobExecution(getJob(), getTime());
             if(getJob().getRemainingTime() == 0){
-                getScheduler().addEvent(new StopJobExecutionEvent(getScheduler(), getTime(), getJob()));
+                getScheduler().addEvent(new StopJobExecutionEvent(getScheduler(), getTime(), getJob(), getProcessorId()));
             }
             else{
-                getScheduler().addEvent(new ContinueOrStopExecutionEvent(getScheduler(), getTime() + getJob().getRemainingTime(), getJob()));
+                getScheduler().addEvent(new ContinueOrStopExecutionEvent(getScheduler(), getTime() + getJob().getRemainingTime(), getJob(), getProcessorId()));
             }
         }
     }
 
     @Override
     public String toString() {
-        return "ContinueOrStopExecutionEvent : " + getJob() + " time : " + getTime();
+        return "ContinueOrStopExecutionEvent : " + getJob() + " on processor : " + getProcessorId() + " time : " + getTime();
     }
 
     @Override

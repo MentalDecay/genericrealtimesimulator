@@ -26,7 +26,6 @@ public abstract class  AbstractEvent implements Comparable<AbstractEvent>, IEven
     @Override
     public int compareTo(AbstractEvent o) {
         if(getTime() != o.getTime()){
-            //return (int) (getTime() - o.getTime());
             long comp = getTime() - o.getTime();
             if(comp < 0){
                 return -1;
@@ -68,7 +67,7 @@ public abstract class  AbstractEvent implements Comparable<AbstractEvent>, IEven
     /**
      * Get the priority of the event. It's used to sort events. For example, the StopSimulationEvent has the biggest priority because it should perform before the others.
      * Its priority is 1.
-     * @return
+     * @return the priority of the event.
      */
     protected abstract int getPriority();
 

@@ -9,3 +9,5 @@ Check if the result is good.
 First job => only one use.
 
 Change every "AbstractTaskSet" to "ITaskSet".
+
+private List<IEvent> eventsToAdd delete reset.

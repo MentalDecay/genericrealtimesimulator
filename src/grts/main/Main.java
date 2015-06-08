@@ -1,8 +1,12 @@
 package grts.main;
 
 import grts.core.priority.policies.*;
+import grts.core.processor.policies.IProcessorPolicy;
+import grts.core.processor.policies.InnocentGlobalPolicy;
+import grts.core.processor.policies.MonoProc;
 import grts.core.schedulable.AbstractRecurrentTask;
 import grts.core.schedulable.SporadicTask;
+import grts.core.simulator.Processor;
 import grts.core.simulator.Scheduler;
 import grts.core.simulator.SchedulerTimeTriggedLegacy;
 import grts.core.schedulable.PeriodicTask;
@@ -47,7 +51,12 @@ public class Main {
 //        scheduler.schedule(ts.getHyperPeriod());
 //        logger.silentlyClose();
 
-        Simulator simulator = new Simulator(ts, policy);
+        Processor processor1 = new Processor(0);
+        Processor []processorArray = new Processor[1];
+        processorArray[0] = processor1;
+        IProcessorPolicy processorPolicy = new InnocentGlobalPolicy(processorArray, policy);
+//        IProcessorPolicy processorPolicy = new MonoProc(policy);
+        Simulator simulator = new Simulator(ts, policy, processorPolicy);
         long timer = ts.getHyperPeriod();
         simulator.simulate(timer);
 

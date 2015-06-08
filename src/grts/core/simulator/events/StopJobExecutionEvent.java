@@ -5,15 +5,15 @@ import grts.core.simulator.Scheduler;
 
 public class StopJobExecutionEvent extends AbstractEventOnJob implements IEvent {
 
-    public StopJobExecutionEvent(Scheduler scheduler, long time, Job job) {
-        super(scheduler, time, job);
+    public StopJobExecutionEvent(Scheduler scheduler, long time, Job job, int processorId) {
+        super(scheduler, time, job, processorId);
     }
 
     @Override
     public void doEvent() {
         long lastExecutionTime = getScheduler().getLastJobExecution().get(getJob());
         getJob().execute(getTime() - lastExecutionTime);
-        getScheduler().stopJobExecution();
+        getScheduler().stopJobExecution(getJob(), getProcessorId());
         if(getJob().getRemainingTime() == 0) {
             getScheduler().deleteActiveJob(getJob());
             getScheduler().addEvent(new ChooseJobEvent(getScheduler(), getTime()));
@@ -24,7 +24,7 @@ public class StopJobExecutionEvent extends AbstractEventOnJob implements IEvent 
 
     @Override
     public String toString() {
-        return "StopJobExecutionEvent : " + getJob() + " time : " + getTime();
+        return "StopJobExecutionEvent : " + getJob() + " on processor : " + getProcessorId() + " time : " + getTime();
     }
 
     @Override

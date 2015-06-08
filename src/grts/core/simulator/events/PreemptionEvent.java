@@ -5,21 +5,21 @@ import grts.core.simulator.Scheduler;
 
 public class PreemptionEvent extends AbstractEventOnJob implements IEvent {
 
-    public PreemptionEvent(Scheduler scheduler, long time, Job job) {
-        super(scheduler, time, job);
+    public PreemptionEvent(Scheduler scheduler, long time, Job job, int processorId) {
+        super(scheduler, time, job, processorId);
     }
 
     @Override
     public void doEvent() {
-        Job executingJob = getScheduler().getExecutingJob();
-        getScheduler().addEvent(new StopJobExecutionEvent(getScheduler(), getTime(), executingJob));
-        getScheduler().executeJob(getJob());
-        getScheduler().addEvent(new StartJobExecutionEvent(getScheduler(), getTime(), getJob()));
+        Job executingJob = getScheduler().getExecutingJob(getProcessorId());
+        getScheduler().addEvent(new StopJobExecutionEvent(getScheduler(), getTime(), executingJob, getProcessorId()));
+        getScheduler().executeJob(getJob(), getProcessorId());
+        getScheduler().addEvent(new StartJobExecutionEvent(getScheduler(), getTime(), getJob(), getProcessorId()));
     }
 
     @Override
     public String toString() {
-        return "PreemptionEvent : " + getJob() + " time : " + getTime();
+        return "PreemptionEvent : " + getJob() + " on processor : " + getProcessorId() + " time : " + getTime();
     }
 
     @Override

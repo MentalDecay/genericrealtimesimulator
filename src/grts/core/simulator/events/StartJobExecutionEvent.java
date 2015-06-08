@@ -5,21 +5,21 @@ import grts.core.simulator.Scheduler;
 
 public class StartJobExecutionEvent extends AbstractEventOnJob implements IEvent {
 
-    public StartJobExecutionEvent(Scheduler scheduler, long time, Job job) {
-        super(scheduler, time, job);
+    public StartJobExecutionEvent(Scheduler scheduler, long time, Job job, int processorId) {
+        super(scheduler, time, job, processorId);
     }
 
     @Override
     public void doEvent() {
-        getScheduler().executeJob(getJob());
+        getScheduler().executeJob(getJob(), getProcessorId());
         getScheduler().putLastJobExecution(getJob(), getTime());
-        getScheduler().addEvent(new ContinueOrStopExecutionEvent(getScheduler(), getTime() + getJob().getRemainingTime(), getJob()));
+        getScheduler().addEvent(new ContinueOrStopExecutionEvent(getScheduler(), getTime() + getJob().getRemainingTime(), getJob(), getProcessorId()));
 
     }
 
     @Override
     public String toString() {
-        return "StartJobExecutionEvent : " + getJob() + " time : " + getTime();
+        return "StartJobExecutionEvent : " + getJob() + " on processor : " + getProcessorId() + " time : " + getTime();
     }
 
     @Override

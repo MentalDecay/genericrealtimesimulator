@@ -1,6 +1,7 @@
 package grts.core.simulator;
 
 import grts.core.priority.policies.IPriorityPolicy;
+import grts.core.processor.policies.IProcessorPolicy;
 import grts.core.schedulable.Job;
 import grts.core.simulator.events.ActivateJobEvent;
 import grts.core.simulator.events.IEvent;
@@ -19,10 +20,11 @@ public class Simulator {
     /**
      * Creates a new Simulator.
      * @param taskSet the tasks set of the simulator.
-     * @param policy the priority policy of the simulator.
+     * @param priorityPolicy the priority policy of the simulator.
+     * @param processorPolicy the processor policy of the simulator.
      */
-    public Simulator(ITaskSet taskSet, IPriorityPolicy policy) {
-        this.scheduler = new Scheduler(policy);
+    public Simulator(ITaskSet taskSet, IPriorityPolicy priorityPolicy, IProcessorPolicy processorPolicy) {
+        this.scheduler = new Scheduler(priorityPolicy, processorPolicy);
         this.taskSet = taskSet;
     }
 
