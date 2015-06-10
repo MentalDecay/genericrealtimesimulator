@@ -3,13 +3,11 @@ package grts.core.processor.policies;
 import grts.core.priority.policies.IPriorityPolicy;
 import grts.core.schedulable.Job;
 import grts.core.simulator.Processor;
-import sun.awt.image.ImageWatched;
 
 import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class InnocentGlobalPolicy implements IProcessorPolicy {
 
@@ -114,7 +112,6 @@ public class InnocentGlobalPolicy implements IProcessorPolicy {
         Processor processor = processors[processorId];
         processor.stopExecutionJob();
         jobProcessorIdMap.remove(job, processorId);
-        System.out.println("removing");
     }
 
     @Override
@@ -122,7 +119,6 @@ public class InnocentGlobalPolicy implements IProcessorPolicy {
         Processor processor = processors[processorId];
         processor.executeJob(job);
         jobProcessorIdMap.put(job, processorId);
-        System.out.println("adding");
     }
 
     @Override

@@ -19,6 +19,7 @@ public class Job {
     private int processorId;
 
 
+
     public Job(long activationTime, long deadlineTime, long jobId, long wcet, AbstractRecurrentTask task) {
         if(activationTime < 0 || wcet <= 0 || deadlineTime <= 0 || jobId < 0){
             throw new IllegalArgumentException("Can't create a job with this parameters :" +
@@ -77,10 +78,10 @@ public class Job {
     }
 
     /**
-     * Get the task attached to this job.
-     * @return ITask
+     * Get the recurrent task attached to this job.
+     * @return AbstractReccurentTask
      */
-    public ITask getTask(){
+    public AbstractRecurrentTask getTask(){
         return task;
     }
 
@@ -149,4 +150,7 @@ public class Job {
                 && task.equals(job.task);
     }
 
+    public long getExecutionTime() {
+        return executionTime;
+    }
 }

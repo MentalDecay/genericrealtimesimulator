@@ -9,13 +9,13 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MonoProc implements IProcessorPolicy {
+public class MonoProcessor implements IProcessorPolicy {
 
     private final Processor processor;
     private final IPriorityPolicy policy;
     private final List<Job> activatedJobs =  new LinkedList<>();
 
-    public MonoProc(IPriorityPolicy policy) {
+    public MonoProcessor(IPriorityPolicy policy) {
         this.processor = new Processor(0);
         this.policy = policy;
     }
