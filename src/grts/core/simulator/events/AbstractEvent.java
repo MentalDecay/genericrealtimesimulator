@@ -1,6 +1,5 @@
 package grts.core.simulator.events;
 
-import com.sun.istack.internal.NotNull;
 import grts.core.simulator.Scheduler;
 
 public abstract class  AbstractEvent implements Comparable<AbstractEvent>, Event {
