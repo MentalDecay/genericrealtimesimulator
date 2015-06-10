@@ -2,14 +2,14 @@ package grts.core.priority.policies;
 
 
 import grts.core.schedulable.Job;
-import grts.core.taskset.ITaskSet;
+import grts.core.taskset.TaskSet;
 
 import java.util.Comparator;
 import java.util.List;
 
 public class LeastLaxityFirst extends AbstractPriorityPolicy implements IPriorityPolicy {
 
-    public LeastLaxityFirst(ITaskSet taskSet) {
+    public LeastLaxityFirst(TaskSet taskSet) {
         super("Least Laxity First", taskSet);
     }
 

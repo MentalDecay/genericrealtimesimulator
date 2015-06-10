@@ -32,10 +32,10 @@ import grts.core.schedulable.Job;
 import grts.core.simulator.events.ActivateJobEvent;
 import grts.core.simulator.events.Event;
 import grts.core.simulator.events.EventQueue;
-import grts.core.taskset.ITaskSet;
+import grts.core.taskset.TaskSet;
 
 import java.util.List;
-import java.util.TreeSet;
+
 
 /**
  * This class represents an event-triggered simulator.
@@ -44,7 +44,7 @@ import java.util.TreeSet;
 public class Simulator {
 
     private final Scheduler scheduler;
-    private final ITaskSet taskSet;
+    private final TaskSet taskSet;
     private final EventQueue eventQueue = new EventQueue();
 
     /**
@@ -53,7 +53,7 @@ public class Simulator {
      * @param priorityPolicy the priority policy of the simulator.
      * @param processorPolicy the processor policy of the simulator.
      */
-    public Simulator(ITaskSet taskSet, IPriorityPolicy priorityPolicy, IProcessorPolicy processorPolicy) {
+    public Simulator(TaskSet taskSet, IPriorityPolicy priorityPolicy, IProcessorPolicy processorPolicy) {
         this.scheduler = new Scheduler(priorityPolicy, processorPolicy);
         this.taskSet = taskSet;
     }
@@ -90,7 +90,7 @@ public class Simulator {
      * Creates the first events of the simulation. The events created are the first ActivateJobEvent of each task.
      */
     private void initEventQueue(){
-        taskSet.getRecurrentTasks().forEach(task -> {
+        taskSet.forEach(task -> {
             Job firstJob = task.getFirstJob();
             System.out.println(firstJob);
             eventQueue.offer(new ActivateJobEvent(scheduler, firstJob.getActivationTime(), firstJob));

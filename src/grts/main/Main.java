@@ -2,13 +2,12 @@ package grts.main;
 
 import grts.core.priority.policies.*;
 import grts.core.processor.policies.IProcessorPolicy;
-import grts.core.processor.policies.InnocentGlobalPolicy;
 import grts.core.processor.policies.RestrictedProcessorPolicy;
-import grts.core.schedulable.AbstractRecurrentTask;
+import grts.core.schedulable.Schedulable;
 import grts.core.simulator.Processor;
 import grts.core.schedulable.PeriodicTask;
 import grts.core.simulator.Simulator;
-import grts.core.taskset.ITaskSet;
+import grts.core.taskset.HyperPeriod;
 import grts.core.taskset.TaskSet;
 
 import java.util.LinkedList;
@@ -32,7 +31,7 @@ public class Main {
 //        tasks.add(t1);
 //        tasks.add(t2);
 //        tasks.add(t3);
-//        ITaskSet ts = new TaskSet(tasks);
+//        TaskSet ts = new TaskSet(tasks);
 //        IPriorityPolicy policy = new EarliestDeadlineFirst(ts);
 //        Logger logger = null;
 //        try {
@@ -57,14 +56,14 @@ public class Main {
 //        simulator.simulate(timer);
 
 
-        AbstractRecurrentTask t1 = new PeriodicTask(4, 2, 4, 0, "t1");
-        AbstractRecurrentTask t2 = new PeriodicTask(8, 4, 8, 0, "t2");
-        AbstractRecurrentTask t3 = new PeriodicTask(16, 8, 16, 0, "t3");
-        List<AbstractRecurrentTask> tasks = new LinkedList<>();
+        Schedulable t1 = new PeriodicTask(4, 2, 4, 0, "t1");
+        Schedulable t2 = new PeriodicTask(8, 4, 8, 0, "t2");
+        Schedulable t3 = new PeriodicTask(16, 8, 16, 0, "t3");
+        List<Schedulable> tasks = new LinkedList<>();
         tasks.add(t1);
         tasks.add(t2);
         tasks.add(t3);
-        ITaskSet ts = new TaskSet(tasks);
+        TaskSet ts = new TaskSet(tasks);
         IPriorityPolicy policy = new EarliestDeadlineFirst(ts);
 
         Processor processor1 = new Processor(0);
@@ -74,7 +73,7 @@ public class Main {
         processorArray[1] = processor2;
         IProcessorPolicy processorPolicy = new RestrictedProcessorPolicy(processorArray, policy);
         Simulator simulator = new Simulator(ts, policy, processorPolicy);
-        long timer = ts.getHyperPeriod();
+        long timer = HyperPeriod.compute(ts);
         simulator.simulate(timer);
 
     }

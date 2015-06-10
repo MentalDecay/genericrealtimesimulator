@@ -1,13 +1,13 @@
 package grts.core.priority.policies;
 
 import grts.core.schedulable.Job;
-import grts.core.taskset.ITaskSet;
+import grts.core.taskset.TaskSet;
 
 import java.util.Comparator;
 import java.util.List;
 
 public class DeadlineMonotonic extends AbstractPriorityPolicy implements IPriorityPolicy  {
-    public DeadlineMonotonic(ITaskSet taskSet) {
+    public DeadlineMonotonic(TaskSet taskSet) {
         super("Deadline Monotonic", taskSet);
     }
 
