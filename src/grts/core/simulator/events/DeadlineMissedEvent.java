@@ -2,14 +2,14 @@ package grts.core.simulator.events;
 
 import grts.core.simulator.Scheduler;
 
-public class DeadlineMissedEvent  extends AbstractEvent implements IEvent {
+public class DeadlineMissedEvent  extends AbstractEvent implements Event {
 
     public DeadlineMissedEvent(Scheduler scheduler, long time) {
         super(scheduler, time);
     }
 
     @Override
-    public void doEvent() {
+    public void handle() {
 //        TODO logs
         getScheduler().addEvent(new StopSimulationEvent(getScheduler(), getTime()));
     }

@@ -3,7 +3,7 @@ package grts.core.simulator.events;
 import grts.core.schedulable.Job;
 import grts.core.simulator.Scheduler;
 
-public class ContinueOrStopExecutionEvent extends AbstractEventOnJob implements IEvent{
+public class ContinueOrStopExecutionEvent extends AbstractEventOnJob implements Event {
 
     public ContinueOrStopExecutionEvent(Scheduler scheduler, long time, Job job, int processorId) {
         super(scheduler, time, job, processorId);
@@ -15,7 +15,7 @@ public class ContinueOrStopExecutionEvent extends AbstractEventOnJob implements 
     }
 
     @Override
-    public void doEvent() {
+    public void handle() {
         if(getScheduler().getExecutingJob(getProcessorId()) == getJob()) {
             long lastExecutionTime = getScheduler().getLastJobExecution().get(getJob());
             getJob().execute(getTime() - lastExecutionTime);
