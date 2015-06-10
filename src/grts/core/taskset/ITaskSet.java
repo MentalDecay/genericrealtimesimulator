@@ -8,7 +8,7 @@ public interface ITaskSet {
 
     /**
      * Get the tasks attached to the task set.
-     * @return a list of ITask
+     * @return a list of Schedulable
      */
     List<AbstractRecurrentTask> getRecurrentTasks();
 

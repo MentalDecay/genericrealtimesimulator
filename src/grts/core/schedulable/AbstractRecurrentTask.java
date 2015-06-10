@@ -1,6 +1,6 @@
 package grts.core.schedulable;
 
-public abstract class AbstractRecurrentTask implements ITask {
+public abstract class AbstractRecurrentTask implements Schedulable {
     private final long minimumInterArrivalTime;
     private final long wcet;
     private final long deadline;
@@ -104,8 +104,8 @@ public abstract class AbstractRecurrentTask implements ITask {
 
     /**
      * Get the next job according to the time.
-     * @param time
-     * @return
+     * @param time the time from which the next job is requested
+     * @return the next job which has to be activated after time
      */
     @Override
     public abstract Job getRealNextJob(long time);

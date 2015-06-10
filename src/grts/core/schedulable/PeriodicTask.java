@@ -1,6 +1,6 @@
 package grts.core.schedulable;
 
-public class PeriodicTask extends AbstractRecurrentTask implements ITask {
+public class PeriodicTask extends AbstractRecurrentTask implements Schedulable {
 
     private long lastJob = 0;
     private Job realNextJob;
