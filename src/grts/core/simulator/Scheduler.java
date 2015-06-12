@@ -3,7 +3,7 @@ package grts.core.simulator;
 import grts.core.priority.policies.IPriorityPolicy;
 import grts.core.processor.policies.IProcessorPolicy;
 import grts.core.schedulable.Job;
-import grts.core.simulator.events.IEvent;
+import grts.core.simulator.events.Event;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import java.util.List;
 public class Scheduler {
 //    private final List<Job> activatedJobs =  new LinkedList<>();
 //    private  Job executingJob;
-    private List<IEvent> eventsToAdd;
+    private List<Event> eventsToAdd;
     private boolean over;
     private final IPriorityPolicy priorityPolicy;
     private final IProcessorPolicy processorPolicy;
@@ -34,9 +34,9 @@ public class Scheduler {
      * @param event the event to perform
      * @return A list of new event created by the event performed.
      */
-    public List<IEvent> performEvent(IEvent event){
+    public List<Event> performEvent(Event event){
         resetEventsToAdd();
-        event.doEvent();
+        event.handle();
         if(eventsToAdd == null){
             return Collections.emptyList();
         }
@@ -69,7 +69,7 @@ public class Scheduler {
      * Adds an event to the list of events returned by performEvent.
      * @param event the events to be added.
      */
-    public void addEvent(IEvent event){
+    public void addEvent(Event event){
         eventsToAdd.add(event);
     }
 

@@ -3,8 +3,7 @@ package grts.core.json.parser;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import grts.core.schedulable.ITask;
-import grts.core.schedulable.TaskFactory;
+import grts.core.schedulable.Schedulable;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,8 +26,8 @@ public class JacksonParser {
         taskNameToTaskParserName.put("Sporadic task", "SporadicTaskParser");
     }
 
-    public List<ITask> parse() throws IOException {
-        LinkedList<ITask> tasks = new LinkedList<>();
+    public List<Schedulable> parse() {
+        LinkedList<Schedulable> tasks = new LinkedList<>();
         JsonNode arrayTasks = root.get("tasks");
         if(arrayTasks == null || !arrayTasks.isArray()){
             System.err.println("Json ill-formed : tasks missing or tasks are not in an array.");
@@ -55,7 +54,7 @@ public class JacksonParser {
             }
             JsonNode taskRoot = task.get(entryMap.getKey());
             TaskParser taskParser = taskParserFactory.create(taskParserName, taskRoot);
-            ITask taskToAdd = taskParser.newTask();
+            Schedulable taskToAdd = taskParser.newTask();
             tasks.add(taskToAdd);
         }
         return tasks;

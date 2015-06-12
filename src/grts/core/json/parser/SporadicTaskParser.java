@@ -1,7 +1,7 @@
 package grts.core.json.parser;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import grts.core.schedulable.ITask;
+import grts.core.schedulable.Schedulable;
 
 import java.util.HashMap;
 
@@ -13,7 +13,7 @@ public class SporadicTaskParser extends AbstractTaskParser implements TaskParser
     }
 
     @Override
-    public ITask newTask() {
+    public Schedulable newTask() {
         HashMap<String, Object> parametersMap = new HashMap<>();
         JsonNode wcetNode = root.get("wcet");
         if(wcetNode == null){

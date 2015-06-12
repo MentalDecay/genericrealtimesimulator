@@ -2,6 +2,7 @@ package grts.core.schedulable;
 
 import java.util.Objects;
 
+
 public class Job {
 
     private final long activationTime;
@@ -15,8 +16,6 @@ public class Job {
     private final long executionTime;
 
     private final AbstractRecurrentTask task;
-
-    private int processorId;
 
 
 
@@ -79,7 +78,7 @@ public class Job {
 
     /**
      * Get the recurrent task attached to this job.
-     * @return AbstractReccurentTask
+     * @return AbstractRecurrentTask
      */
     public AbstractRecurrentTask getTask(){
         return task;

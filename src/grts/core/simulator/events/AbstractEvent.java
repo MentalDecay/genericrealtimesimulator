@@ -2,7 +2,7 @@ package grts.core.simulator.events;
 
 import grts.core.simulator.Scheduler;
 
-public abstract class  AbstractEvent implements Comparable<AbstractEvent>, IEvent {
+public abstract class  AbstractEvent implements Comparable<AbstractEvent>, Event {
 
     private final Scheduler scheduler;
     private final long time;
@@ -20,13 +20,13 @@ public abstract class  AbstractEvent implements Comparable<AbstractEvent>, IEven
 
     /**
      * Comparison between to events. Don't allow to have the same event twice.
-     * @param o the event to compare.
-     * @return a negative integer, zero, or a positive integer as this event is less than, equal to, or greater than the specified event.
+     * @param event the event to compare
+     * @return a negative integer, zero, or a positive integer as this event is less than, equal to, or greater than the specified event
      */
     @Override
-    public int compareTo(AbstractEvent o) {
-        if(getTime() != o.getTime()){
-            long comp = getTime() - o.getTime();
+    public int compareTo(@SuppressWarnings("NullableProblems") AbstractEvent event) {
+        if(getTime() != event.getTime()){
+            long comp = getTime() - event.getTime();
             if(comp < 0){
                 return -1;
             }
@@ -35,13 +35,13 @@ public abstract class  AbstractEvent implements Comparable<AbstractEvent>, IEven
             }
         }
         else {
-            if (o.getPriority() == getPriority()) {
-                if(this.equals(o)){
+            if (event.getPriority() == getPriority()) {
+                if(this.equals(event)){
                     return 0;
                 }
                 return 1;
             } else {
-                return getPriority() - o.getPriority();
+                return getPriority() - event.getPriority();
             }
         }
     }

@@ -97,9 +97,7 @@ public class RestrictedProcessorPolicy implements IProcessorPolicy {
     @Override
     public void addActiveJob(Job job) {
         //Actualizes the utilization of processors
-        processorIdAttributeMap.forEach((integer, processorAttributes) -> {
-            processorAttributes.actualizeUtilization(job.getActivationTime());
-        });
+        processorIdAttributeMap.forEach((integer, processorAttributes) -> processorAttributes.actualizeUtilization(job.getActivationTime()));
 
         //Computes the utilization of the job to activate
         double jobUtilization = (double) job.getExecutionTime() / (double) job.getTask().getMinimumInterArrivalTime();

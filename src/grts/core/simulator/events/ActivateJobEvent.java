@@ -3,14 +3,14 @@ package grts.core.simulator.events;
 import grts.core.schedulable.Job;
 import grts.core.simulator.Scheduler;
 
-public class ActivateJobEvent extends AbstractEventOnJob implements IEvent {
+public class ActivateJobEvent extends AbstractEventOnJob implements Event {
 
     public ActivateJobEvent(Scheduler scheduler, long time, Job job) {
         super(scheduler, time, job);
     }
 
     @Override
-    public void doEvent() {
+    public void handle() {
         getScheduler().addActiveJob(getJob());
 
         getScheduler().addEvent(new CheckDeadlineEvent(getScheduler(), getJob().getDeadlineTime(), getJob()));

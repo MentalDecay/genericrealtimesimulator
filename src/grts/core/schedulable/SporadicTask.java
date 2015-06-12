@@ -6,10 +6,10 @@ import umontreal.iro.lecuyer.rng.RandomStream;
 
 import java.util.*;
 
-public class SporadicTask extends AbstractRecurrentTask implements ITask {
+public class SporadicTask extends AbstractRecurrentTask implements Schedulable {
 
     // Contains all the inter arrival times of each job (0 = first job, 1 = second job ...)
-    private ArrayList<Long> interArrivalTimes = new ArrayList<>();
+    private final ArrayList<Long> interArrivalTimes = new ArrayList<>();
     private final RandomStream randomStream;
     private Job realNextJob;
 
@@ -40,7 +40,7 @@ public class SporadicTask extends AbstractRecurrentTask implements ITask {
     /**
      * The inter arrival time of a sporadic task. It can change between each job. This method uses a an exponential distribution to compute the inter arrival time.
      * Approximately 45% of the tasks have the same inter arrival time as the period, the other are greater (10 times was the maximum during tests, but could be greater).
-     * @return
+     * @return the next arrival time
      */
     @Override
     protected long getNextInterArrivalTime() {

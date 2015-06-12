@@ -1,9 +1,9 @@
 package grts.core.simulator;
 
+import grts.core.taskset.TaskSet;
 import grts.logger.Logger;
 import grts.core.schedulable.Job;
 import grts.core.priority.policies.IPriorityPolicy;
-import grts.core.taskset.ITaskSet;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,14 +11,14 @@ import java.util.Objects;
 
 public class SchedulerTimeTriggedLegacy {
 
-    private final ITaskSet taskSet;
+    private final TaskSet taskSet;
     private final IPriorityPolicy policy;
     private final List<Job> activeJobs = new LinkedList<>();
     private Job executingJob;
     private final Logger logger;
 
 
-    public SchedulerTimeTriggedLegacy(ITaskSet taskSet, IPriorityPolicy policy, Logger logger) {
+    public SchedulerTimeTriggedLegacy(TaskSet taskSet, IPriorityPolicy policy, Logger logger) {
         this.logger = logger;
         this.taskSet = Objects.requireNonNull(taskSet);
         this.policy = Objects.requireNonNull(policy);
@@ -96,7 +96,8 @@ public class SchedulerTimeTriggedLegacy {
      */
     private void activateJobs(long time) {
         LinkedList<Job> activatedJobs = new LinkedList<>();
-        taskSet.getTasks().stream().filter(task -> time == task.getNextActivationTime(time)).forEach(task -> {
+
+        taskSet.stream().filter(task -> time == task.getNextActivationTime(time)).forEach(task -> {
             Job jobToAdd = task.getNextJob(time);
             activatedJobs.add(jobToAdd);
             //System.out.println("activating job : " + jobToAdd.getJobId() + " from " + jobToAdd.getTask().getName());

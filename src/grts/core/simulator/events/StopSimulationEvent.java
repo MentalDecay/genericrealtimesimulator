@@ -2,7 +2,7 @@ package grts.core.simulator.events;
 
 import grts.core.simulator.Scheduler;
 
-public class StopSimulationEvent extends AbstractEvent implements IEvent {
+public class StopSimulationEvent extends AbstractEvent implements Event {
 
 
     public StopSimulationEvent(Scheduler scheduler, long time) {
@@ -10,7 +10,7 @@ public class StopSimulationEvent extends AbstractEvent implements IEvent {
     }
 
     @Override
-    public void doEvent() {
+    public void handle() {
         getScheduler().endSimulation();
     }
 

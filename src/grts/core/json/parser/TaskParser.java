@@ -1,7 +1,8 @@
 package grts.core.json.parser;
 
-import grts.core.schedulable.ITask;
+
+import grts.core.schedulable.Schedulable;
 
 public interface TaskParser {
-    ITask newTask();
+    Schedulable newTask();
 }

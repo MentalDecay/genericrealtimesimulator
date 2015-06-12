@@ -10,53 +10,53 @@ Task Set :
 															Tasks 
 Aperiodic tasks : ?
 
-Periodic tasks : 
+Periodic tasks :
+	- name
 	- wcet
 	- period
 	- options :
 		- offset
-		- name
 		- deadline (implicit deadline if absent)
 
-Sporadic tasks : 
+Sporadic tasks :
+	- name
 	- wcet
 	- minimum inter arrival time
 	- options :
 		- offset
-		- name
 		- deadline (implicit deadline if absent)
 		- distribution
 
-MultiFrame tasks : 
+MultiFrame tasks :
+	- name
 	- period
 	- list of wcet
 	- options : 
 	 	- offset
-	 	- name
 	 	- deadline (implicit deadline if absent)
 
 Generalized multiframe tasks :
+	- name
 	- list of periods
 	- list of wcet
 	- options :
 		- offset
-		- name
 		- list of deadlines (implicit deadlines if absent)
 
 Non-cyclic GMF :
+	- name
 	- liste of periods
 	- list of wcet
 	- list of deadlines
 	- options :
 		- offset
-		- name
 
 
-DAG / RTT / Non-cyclic RTT / DRT / EDRT: 
+DAG / RTT / Non-cyclic RTT / DRT / EDRT:
+	- name
 	- Graph
 	- Options : 
 		- offset
-		- name
 Le type de graph change. Check le graph donné par rapport au type.
 Représentation du graph : 
 Graph :
@@ -74,11 +74,11 @@ Graph :
 			- dest
 			- time
 
-Task Automaton : 
+Task Automaton :
+	- name
 	- Graph
 	- Options :
 		- offset
-		- name
 Graph : 
 	- Noeud : 
 		- id 

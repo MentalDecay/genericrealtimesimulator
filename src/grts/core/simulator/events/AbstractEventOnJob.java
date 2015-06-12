@@ -3,7 +3,7 @@ package grts.core.simulator.events;
 import grts.core.schedulable.Job;
 import grts.core.simulator.Scheduler;
 
-public abstract class AbstractEventOnJob  extends AbstractEvent implements IEvent {
+public abstract class AbstractEventOnJob  extends AbstractEvent implements Event {
 
     private final Job job;
     private final int processorId;

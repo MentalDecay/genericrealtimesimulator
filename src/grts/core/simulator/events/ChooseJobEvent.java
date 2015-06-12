@@ -7,14 +7,14 @@ import grts.core.simulator.Scheduler;
 import java.util.AbstractMap;
 import java.util.List;
 
-public class ChooseJobEvent extends AbstractEvent implements IEvent {
+public class ChooseJobEvent extends AbstractEvent implements Event {
 
     public ChooseJobEvent(Scheduler scheduler, long time) {
         super(scheduler, time);
     }
 
     @Override
-    public void doEvent() {
+    public void handle() {
         /* LEGACY
         if(!getScheduler().getActivatedJobs().isEmpty()){
             Job jobToExecute = getScheduler().getPriorityPolicy().choseJobToExecute(getScheduler().getActivatedJobs(), getTime());
