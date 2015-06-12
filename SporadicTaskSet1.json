@@ -1,0 +1,37 @@
+{
+  "tasks" :
+  [
+    {
+      "Sporadic task" :
+      {
+        "wcet" : "2",
+        "minimum inter arrival time" : "7",
+        "name" : "t1"
+      }
+    },
+    {
+      "Sporadic task" :
+      {
+        "wcet" : "3",
+        "minimum inter arrival time" : "11",
+        "name" : "t2",
+        "options" :
+        {
+          "offset" : "0"
+        }
+      }
+    },
+    {
+      "Sporadic task" :
+      {
+        "wcet" : "5",
+        "minimum inter arrival time" : "13",
+        "name" : "t3",
+        "options" :
+        {
+          "deadline" : "13"
+        }
+      }
+    }
+  ]
+}

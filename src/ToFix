@@ -11,3 +11,8 @@ First job => only one use.
 Change every "AbstractTaskSet" to "ITaskSet".
 
 private List<IEvent> eventsToAdd delete reset.
+
+Sort some lists to have a easier complexity (avoid multiple loops on it).
+
+SporadicTask : let the user choose the distribution.
+

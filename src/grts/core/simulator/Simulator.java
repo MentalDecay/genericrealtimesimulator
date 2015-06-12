@@ -60,7 +60,7 @@ public class Simulator {
      * Creates the first events of the simulation. The events created are the first ActivateJobEvent of each task.
      */
     private void initEventTreeSet(){
-        taskSet.getRecurrentTasks().forEach(task -> {
+        taskSet.getTasks().forEach(task -> {
             Job firstJob = task.getFirstJob();
             System.out.println(firstJob);
             eventTreeSet.add(new ActivateJobEvent(scheduler, firstJob.getActivationTime(), firstJob));

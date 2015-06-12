@@ -1,0 +1,62 @@
+package grts.core.json.parser;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import grts.core.schedulable.ITask;
+
+import java.util.HashMap;
+
+public class SporadicTaskParser extends AbstractTaskParser implements TaskParser {
+    private final JsonNode root;
+
+    public SporadicTaskParser(JsonNode root) {
+        this.root = root;
+    }
+
+    @Override
+    public ITask newTask() {
+        HashMap<String, Object> parametersMap = new HashMap<>();
+        JsonNode wcetNode = root.get("wcet");
+        if(wcetNode == null){
+            System.err.println("Json is ill-formed : no wcet for a sporadic task");
+            return null;
+        }
+        long wcet = Long.parseLong(wcetNode.textValue());
+
+        JsonNode minimumInterArrivalNode = root.get("minimum inter arrival time");
+        if(minimumInterArrivalNode == null){
+            System.err.println("Json is ill-formed : no minimum inter arrival time for a sporadic task");
+            return null;
+        }
+        long minimumInterArrivalTime = Long.parseLong(minimumInterArrivalNode.textValue());
+
+        JsonNode nameNode = root.get("name");
+        if(nameNode == null){
+            System.err.println("Json is ill-formed : no name for a sporadic task");
+            return null;
+        }
+        String name = nameNode.textValue();
+
+        parametersMap.put("wcet", wcet);
+        parametersMap.put("minimumInterArrivalTime",  minimumInterArrivalTime);
+        parametersMap.put("name", name);
+        JsonNode optionsNode = root.get("options");
+
+        long offset = 0;
+        long deadline = minimumInterArrivalTime;
+
+        if(optionsNode != null){
+            JsonNode offsetNode = optionsNode.get("offset");
+            if(offsetNode != null){
+                offset = Long.parseLong(offsetNode.textValue());
+            }
+            JsonNode deadlineNode = optionsNode.get("deadline");
+            if(deadlineNode != null){
+                deadline = Long.parseLong(deadlineNode.textValue());
+            }
+        }
+        parametersMap.put("offset", offset);
+        parametersMap.put("deadline", deadline);
+        System.out.println("ParametersMap : " + parametersMap);
+        return factory.create("SporadicTask", parametersMap);
+    }
+}

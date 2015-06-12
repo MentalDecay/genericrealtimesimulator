@@ -1,0 +1,64 @@
+package grts.core.json.parser;
+
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import grts.core.schedulable.ITask;
+import grts.core.schedulable.TaskFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
+
+public class JacksonParser {
+    private final TaskParserFactory taskParserFactory = TaskParserFactory.create(taskParserBuilder -> {
+        taskParserBuilder.register("PeriodicTaskParser", PeriodicTaskParser::new);
+        taskParserBuilder.register("SporadicTaskParser", SporadicTaskParser::new);
+    });
+
+    private final HashMap<String, String> taskNameToTaskParserName= new HashMap<>();
+
+    private final JsonNode root;
+
+    public JacksonParser(InputStream inputStream) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        root = mapper.readValue(inputStream, JsonNode.class);
+        taskNameToTaskParserName.put("Periodic task", "PeriodicTaskParser");
+        taskNameToTaskParserName.put("Sporadic task", "SporadicTaskParser");
+    }
+
+    public List<ITask> parse() throws IOException {
+        LinkedList<ITask> tasks = new LinkedList<>();
+        JsonNode arrayTasks = root.get("tasks");
+        if(arrayTasks == null || !arrayTasks.isArray()){
+            System.err.println("Json ill-formed : tasks missing or tasks are not in an array.");
+            return tasks;
+        }
+        for(JsonNode task : arrayTasks){
+            if(!task.isObject()){
+                System.err.println("Json ill-formed : a task is not a json object");
+                return tasks;
+            }
+            Iterator<Map.Entry<String, JsonNode>> iterator = task.fields();
+            if(!iterator.hasNext()){
+                System.err.println("Json ill-formed : no field in the task");
+                return tasks;
+            }
+            Map.Entry<String, JsonNode> entryMap = iterator.next();
+            System.out.println(entryMap.getKey());
+            if(iterator.hasNext()){
+                System.err.println("Json ill-formed : multiple fields in the task");
+            }
+            String taskParserName = taskNameToTaskParserName.get(entryMap.getKey());
+            if(taskParserName == null){
+                System.err.println("Not implemented task");
+            }
+            JsonNode taskRoot = task.get(entryMap.getKey());
+            TaskParser taskParser = taskParserFactory.create(taskParserName, taskRoot);
+            ITask taskToAdd = taskParser.newTask();
+            tasks.add(taskToAdd);
+        }
+        return tasks;
+    }
+
+}

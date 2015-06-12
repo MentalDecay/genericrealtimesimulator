@@ -1,27 +1,32 @@
 package grts.core.taskset;
 
 import grts.core.schedulable.AbstractRecurrentTask;
+import grts.core.schedulable.ITask;
 
 import java.util.List;
 
 public abstract class AbstractTaskSet implements ITaskSet {
 
-    AbstractTaskSet(List<AbstractRecurrentTask> recurrentTasks) {
-        if(recurrentTasks.isEmpty()){
+    AbstractTaskSet(List<ITask> tasks) {
+        if(tasks.isEmpty()){
             throw new IllegalArgumentException("Can't create new task set with no recurrent tasks");
         }
-        hyperPeriod = calculateHyperPeriod(recurrentTasks);
-        this.recurrentTasks = recurrentTasks;
+        hyperPeriod = calculateHyperPeriod(tasks);
+        this.tasks = tasks;
     }
 
     // Stolen from YARTISS
-    private static long calculateHyperPeriod(List<AbstractRecurrentTask> tasks){
+    private static long calculateHyperPeriod(List<ITask> tasks){
         long [] tasksPeriods = new long [tasks.size()];
         int i = 0;
         long p1 = 0;
-        for (AbstractRecurrentTask task : tasks) {
-            tasksPeriods[i] = task.getMinimumInterArrivalTime();
-            p1 = task.getMinimumInterArrivalTime();
+        for (ITask task : tasks) {
+            if(!(task instanceof  AbstractRecurrentTask)){
+                continue;
+            }
+            AbstractRecurrentTask task1 = (AbstractRecurrentTask) task;
+            tasksPeriods[i] = task1.getMinimumInterArrivalTime();
+            p1 = task1.getMinimumInterArrivalTime();
             i++;
         }
         return lcm(p1,tasksPeriods);
@@ -53,14 +58,14 @@ public abstract class AbstractTaskSet implements ITaskSet {
 
 
 
-    private final List<AbstractRecurrentTask> recurrentTasks;
+    private final List<ITask> tasks;
 
     private final long hyperPeriod;
 
 
     @Override
-    public List<AbstractRecurrentTask> getRecurrentTasks() {
-        return recurrentTasks;
+    public List<ITask> getTasks() {
+        return tasks;
     }
 
     @Override

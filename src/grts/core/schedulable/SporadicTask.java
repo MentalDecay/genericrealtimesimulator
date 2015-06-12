@@ -4,8 +4,7 @@ import umontreal.iro.lecuyer.randvar.ExponentialGen;
 import umontreal.iro.lecuyer.rng.LFSR113;
 import umontreal.iro.lecuyer.rng.RandomStream;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 public class SporadicTask extends AbstractRecurrentTask implements ITask {
 
@@ -19,6 +18,13 @@ public class SporadicTask extends AbstractRecurrentTask implements ITask {
         initRandom();
         randomStream = new LFSR113();
         realNextJob = createJob(offset, offset + deadline, wcet);
+    }
+
+    public SporadicTask(Map<String, Object> map){
+        super(map);
+        initRandom();
+        randomStream = new LFSR113();
+        realNextJob = createJob(getOffset(), getOffset() + getDeadline(), getWcet());
     }
 
     private static void initRandom(){

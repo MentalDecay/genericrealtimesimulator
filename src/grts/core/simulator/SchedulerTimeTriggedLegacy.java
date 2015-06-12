@@ -61,7 +61,7 @@ public class SchedulerTimeTriggedLegacy {
             if(checkDeadlineMissed(time)){
                 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 // Disgusting displays to move
-                taskSet.getRecurrentTasks().forEach(System.out::println);
+                taskSet.getTasks().forEach(System.out::println);
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 // End disgusting displays*/
                 return;
@@ -70,7 +70,7 @@ public class SchedulerTimeTriggedLegacy {
         }
         /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Disgusting displays to move
-        taskSet.getRecurrentTasks().forEach(System.out::println);
+        taskSet.getTasks().forEach(System.out::println);
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // End disgusting displays*/
     }
@@ -96,7 +96,7 @@ public class SchedulerTimeTriggedLegacy {
      */
     private void activateJobs(long time) {
         LinkedList<Job> activatedJobs = new LinkedList<>();
-        taskSet.getRecurrentTasks().stream().filter(task -> time == task.getNextActivationTime(time)).forEach(task -> {
+        taskSet.getTasks().stream().filter(task -> time == task.getNextActivationTime(time)).forEach(task -> {
             Job jobToAdd = task.getNextJob(time);
             activatedJobs.add(jobToAdd);
             //System.out.println("activating job : " + jobToAdd.getJobId() + " from " + jobToAdd.getTask().getName());

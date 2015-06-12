@@ -1,0 +1,125 @@
+====================================================================================================================================
+														Tasks Set
+
+Task Set :
+	- list of tasks.
+
+														End Tasks Set
+====================================================================================================================================
+====================================================================================================================================
+															Tasks 
+Aperiodic tasks : ?
+
+Periodic tasks : 
+	- wcet
+	- period
+	- options :
+		- offset
+		- name
+		- deadline (implicit deadline if absent)
+
+Sporadic tasks : 
+	- wcet
+	- minimum inter arrival time
+	- options :
+		- offset
+		- name
+		- deadline (implicit deadline if absent)
+		- distribution
+
+MultiFrame tasks : 
+	- period
+	- list of wcet
+	- options : 
+	 	- offset
+	 	- name
+	 	- deadline (implicit deadline if absent)
+
+Generalized multiframe tasks :
+	- list of periods
+	- list of wcet
+	- options :
+		- offset
+		- name
+		- list of deadlines (implicit deadlines if absent)
+
+Non-cyclic GMF :
+	- liste of periods
+	- list of wcet
+	- list of deadlines
+	- options :
+		- offset
+		- name
+
+
+DAG / RTT / Non-cyclic RTT / DRT / EDRT: 
+	- Graph
+	- Options : 
+		- offset
+		- name
+Le type de graph change. Check le graph donné par rapport au type.
+Représentation du graph : 
+Graph :
+	- Noeud :
+		- id
+		- wcet
+		- deadline
+	- Link :
+		- source
+		- dest
+		- period
+	- Options for EDRT :
+		- inter-release separation constraint :
+			- source
+			- dest
+			- time
+
+Task Automaton : 
+	- Graph
+	- Options :
+		- offset
+		- name
+Graph : 
+	- Noeud : 
+		- id 
+		- wcet
+		- deadline
+	- Conditionnal link :
+		- destination
+		- source
+		- clock name
+		- comparison (>= || <= || > || < to a number)
+	- Reset link :
+		- destination
+		- source
+		- clock name
+															End task
+====================================================================================================================================
+====================================================================================================================================
+															Architecture
+
+Architecture : 
+	- list of processors
+	- energy
+															End Architecture
+====================================================================================================================================
+====================================================================================================================================
+															Processor
+
+Processor :
+	- speed
+	- energy
+														End Processor
+====================================================================================================================================
+====================================================================================================================================
+														To add
+
+Energy => ajout à la tâche et au proc.
+Pour la tâche => chaque job va consommer un certain montant d'énergie par rapport à son temps d'exécution ?
+Pour le processeur => Energie initiale, façon de se recharger
+
+Resource sharing
+	=> Découper l'exécution en plusieurs exécutions liées à une ressource (id) ou libre ?
+
+Mixed criticality
+	=> refaire des listes de (périodes / wcet / deadlines) / graphes selon la criticité.

@@ -1,5 +1,7 @@
 package grts.core.schedulable;
 
+import java.util.Map;
+
 public abstract class AbstractRecurrentTask implements ITask {
     private final long minimumInterArrivalTime;
     private final long wcet;
@@ -29,6 +31,34 @@ public abstract class AbstractRecurrentTask implements ITask {
         this.name = name;
         nextJob = new Job(offset, offset + deadline, 0, wcet, this);
         //this.nextActivationTime = offset;
+    }
+
+    AbstractRecurrentTask(Map<String, Object> map){
+        Long minimumInterArrivalTime, wcet, deadline, offset;
+        minimumInterArrivalTime = (Long) map.get("minimumInterArrivalTime");
+        wcet = (Long) map.get("wcet");
+        deadline = (Long) map.get("deadline");
+        offset = (Long) map.get("offset");
+        String name = (String) map.get("name");
+        if(minimumInterArrivalTime == null || wcet == null || deadline == null || offset == null || name == null){
+            throw new IllegalArgumentException("Can't create a new Recurrent Task with this parameters : " + map);
+        }
+        if(minimumInterArrivalTime <= 1 || wcet <= 0 || deadline <= 0 || offset < 0 || name.isEmpty()){
+            throw new IllegalArgumentException("Can't create a task with this parameters :" +
+                    "\ninterArrivalTime : " + minimumInterArrivalTime +
+                    "\nwcet : " + wcet +
+                    "\ndeadline : " + deadline +
+                    "\noffset : " + offset +
+                    "\nname : " + name
+            );
+        }
+        this.minimumInterArrivalTime = minimumInterArrivalTime;
+        this.wcet = wcet;
+        this.deadline = deadline;
+        this.offset = offset;
+        this.name = name;
+        nextJob = new Job(offset, offset + deadline, 0, wcet, this);
+
     }
 
     @Override

@@ -1,5 +1,8 @@
 package grts.core.schedulable;
 
+import java.util.Map;
+import java.util.Objects;
+
 public class PeriodicTask extends AbstractRecurrentTask implements ITask {
 
     private long lastJob = 0;
@@ -8,6 +11,11 @@ public class PeriodicTask extends AbstractRecurrentTask implements ITask {
     public PeriodicTask(long period, long wcet, long deadline, long offset, String name) {
         super(period, wcet, deadline, offset, name);
         realNextJob = createJob(offset, offset + deadline, wcet);
+    }
+
+    public PeriodicTask(Map<String, Object> map){
+        super(map);
+        realNextJob = createJob(getOffset(), getOffset() + getDeadline(), getWcet());
     }
 
     /**

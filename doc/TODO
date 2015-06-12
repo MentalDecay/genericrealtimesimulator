@@ -1,0 +1,32 @@
+Tâches sporadiques : voir comment passer la fonction pour calculer l'intervalle avec la prochaine période.
+
+mathieu.jan@cea.fr
+fauberte@ece.fr
+
+Première étape : 
+    Passer le simulateur en event-trigged au lieu de time-trigged. Les changements se feront principalement sur le scheduler et les levées d'événements. Il faut également rajouter les classes pour tous les événements tout en laissant la possibilité d'en rajouter facilement si besoin pour l'utilisateur.
+
+Seconde étape :
+    Ajout des interfaces d'entrées et de sorties. 
+
+Du côté des entrées : 
+	- Il faut fournir les informations nécessaires pour définir tout ce qu'il faut pour une tâche, de façon la plus générique possible. Pour ce faire, il faut d'abord établir toutes les informations utiles à la représentation d'une tâche en faisant un état de l'art de leur représentation d'après les autres simulateurs et / ou certaines documentations, puis choisir une interface pour décrire cette représentation (à l'aide de XML ou Json par exemple, pour facilement pouvoir rajouter des informations). Le format du fichier reste à définir.
+
+Du côté sorties : 
+	- Créer un fichier de type XML comme dit précédemment pour pouvoir représenter ce qu'il s'est passé pendant l'exécution. Il faut également normaliser ce fichier si l'on souhaite pouvoir utiliser d'autres outlis pour la représentation graphique par exemple. Le format du fichier reste à définir.
+
+
+
+Troisième étape :
+	- D'abord regarder s'il existe une façon standardisée pour représenter l'architecture et l'utiliser si possible (comme le nombre de processeurs, leur vitesse ...), ou créer de quoi représenter le plus d'aspects possibles de l'architecture.
+
+
+
+Quatrième étape : 
+	- Rajouter le LPDPM comme exemple pour tester la généricité.
+
+
+Cinquième étape : 
+	- Compléter les entrées et sorties :
+		- Rajouter une entrée structurée comme pour les tâches pour l'architecture (idem en utiliser une si elle existe déjà).
+		- Extraire un fichier de statistiques s'adaptant à l'architecture, comme par exemple le nombre de cache miss. Définir les stats possibles à extraire.
