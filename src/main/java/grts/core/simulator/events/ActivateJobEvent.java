@@ -9,7 +9,6 @@ public class ActivateJobEvent extends AbstractEventOnJob implements Event {
         super(scheduler, time, job);
     }
 
-    @Override
     public void handle() {
         getScheduler().addActiveJob(getJob());
 
