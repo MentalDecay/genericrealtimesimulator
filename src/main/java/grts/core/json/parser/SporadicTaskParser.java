@@ -8,6 +8,10 @@ import java.util.HashMap;
 public class SporadicTaskParser extends AbstractTaskParser implements TaskParser {
     private final JsonNode root;
 
+    /**
+     * Creates a new SporadicTaskParse to parse a sporadic task.
+     * @param root The JsonNode where the task begins.
+     */
     public SporadicTaskParser(JsonNode root) {
         this.root = root;
     }

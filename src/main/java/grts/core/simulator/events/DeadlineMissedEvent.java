@@ -4,10 +4,16 @@ import grts.core.simulator.Scheduler;
 
 public class DeadlineMissedEvent  extends AbstractEvent implements Event {
 
+    /**
+     * Creates a new Deadline Missed Event.
+     * @param scheduler The scheduler which created the event.
+     * @param time The time of th event.
+     */
     public DeadlineMissedEvent(Scheduler scheduler, long time) {
         super(scheduler, time);
     }
 
+    @Override
     public void handle() {
 //        TODO logs
         getScheduler().addEvent(new StopSimulationEvent(getScheduler(), getTime()));

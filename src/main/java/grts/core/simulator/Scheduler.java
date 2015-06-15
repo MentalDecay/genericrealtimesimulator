@@ -153,6 +153,10 @@ public class Scheduler {
         lastJobExecution.put(job, time);
     }
 
+    /**
+     * Get the processor policy of the scheduler.
+     * @return The processor policy of the scheduler.
+     */
     public IProcessorPolicy getProcessorPolicy() {
         return processorPolicy;
     }

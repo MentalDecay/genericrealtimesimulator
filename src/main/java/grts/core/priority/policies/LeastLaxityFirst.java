@@ -9,6 +9,10 @@ import java.util.List;
 
 public class LeastLaxityFirst extends AbstractPriorityPolicy implements IPriorityPolicy {
 
+    /**
+     * Creates a new least laxity first policy.
+     * @param taskSet The tasks set associated with the policy.
+     */
     public LeastLaxityFirst(TaskSet taskSet) {
         super("Least Laxity First", taskSet);
     }

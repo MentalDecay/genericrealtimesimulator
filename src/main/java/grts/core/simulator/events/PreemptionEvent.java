@@ -5,6 +5,13 @@ import grts.core.simulator.Scheduler;
 
 public class PreemptionEvent extends AbstractEventOnJob implements Event {
 
+    /**
+     * Creates a new Preemption Event.
+     * @param scheduler The scheduler which created the event.
+     * @param time the time of the event.
+     * @param job The job associated to the event.
+     * @param processorId The id of the processor associated to the event.
+     */
     public PreemptionEvent(Scheduler scheduler, long time, Job job, int processorId) {
         super(scheduler, time, job, processorId);
     }

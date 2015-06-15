@@ -7,11 +7,23 @@ public class PeriodicTask extends AbstractRecurrentTask implements Schedulable {
 
     private Job realNextJob;
 
+    /**
+     * Creates a new periodic task.
+     * @param period The period of the task.
+     * @param wcet The Worst Case Execution Time of the task.
+     * @param deadline The deadline of the task.
+     * @param offset The offset of the task.
+     * @param name The name of the task.
+     */
     public PeriodicTask(long period, long wcet, long deadline, long offset, String name) {
         super(period, wcet, deadline, offset, name);
         realNextJob = createJob(offset, offset + deadline, wcet);
     }
 
+    /**
+     * Creates a new periodic task.
+     * @param map a map of String and Object which contains the minimumInterArrivalTime (long), the wcet (long), the deadline (long), the offset (long) and the name (String).
+     */
     public PeriodicTask(Map<String, Object> map){
         super(map);
         realNextJob = createJob(getOffset(), getOffset() + getDeadline(), getWcet());

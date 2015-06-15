@@ -8,6 +8,10 @@ import java.util.HashMap;
 public class PeriodicTaskParser extends AbstractTaskParser implements TaskParser{
     private final JsonNode root;
 
+    /**
+     * Creates a new PeriodicTaskParse to parse a periodic task.
+     * @param root The JsonNode where the task begins.
+     */
     public PeriodicTaskParser(JsonNode root) {
         this.root = root;
     }

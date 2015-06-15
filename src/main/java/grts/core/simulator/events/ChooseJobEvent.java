@@ -9,6 +9,11 @@ import java.util.List;
 
 public class ChooseJobEvent extends AbstractEvent implements Event {
 
+    /**
+     * Creates a new Choose Job Event. This event is made to allow the scheduler to chose the job(s) to execute.
+     * @param scheduler The scheduler which created the event.
+     * @param time The time of the event.
+     */
     public ChooseJobEvent(Scheduler scheduler, long time) {
         super(scheduler, time);
     }

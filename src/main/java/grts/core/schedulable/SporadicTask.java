@@ -13,13 +13,25 @@ public class SporadicTask extends AbstractRecurrentTask implements Schedulable {
     private final RandomStream randomStream;
     private Job realNextJob;
 
-    public SporadicTask(long period, long wcet, long deadline, long offset, String name) {
-        super(period, wcet, deadline, offset, name);
+    /**
+     * Creates a new sporadic task.
+     * @param minimumInterArrivalTime The minimum inter arrival time between two jobs.
+     * @param wcet The Worst Case Execution TIme of the task.
+     * @param deadline The deadline of the task.
+     * @param offset The offset of the task.
+     * @param name The name of the task.
+     */
+    public SporadicTask(long minimumInterArrivalTime, long wcet, long deadline, long offset, String name) {
+        super(minimumInterArrivalTime, wcet, deadline, offset, name);
         initRandom();
         randomStream = new LFSR113();
         realNextJob = createJob(offset, offset + deadline, wcet);
     }
 
+    /**
+     * Creates a new sporadic task.
+     * @param map a map of String and Object which contains the minimumInterArrivalTime (long), the wcet (long), the deadline (long), the offset (long) and the name (String).
+     */
     public SporadicTask(Map<String, Object> map){
         super(map);
         initRandom();

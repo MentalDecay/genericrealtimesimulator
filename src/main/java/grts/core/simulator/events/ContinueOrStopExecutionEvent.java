@@ -5,6 +5,13 @@ import grts.core.simulator.Scheduler;
 
 public class ContinueOrStopExecutionEvent extends AbstractEventOnJob implements Event {
 
+    /**
+     * Creates a new Continue Or Stop Execution Event. This event allows the scheduler to know if the job associated to this event finished its execution or should continue.
+     * @param scheduler The scheduler which created the event.
+     * @param time The time of the event.
+     * @param job The job associated to the event.
+     * @param processorId The id of the processor where the event should perform.
+     */
     public ContinueOrStopExecutionEvent(Scheduler scheduler, long time, Job job, int processorId) {
         super(scheduler, time, job, processorId);
     }

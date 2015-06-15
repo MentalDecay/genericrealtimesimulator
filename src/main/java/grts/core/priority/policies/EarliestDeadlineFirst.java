@@ -12,6 +12,10 @@ public class EarliestDeadlineFirst extends AbstractPriorityPolicy implements IPr
      * Uses the Earliest Deadline First policy. Priorities are not fixed, they can change during a job according to each deadline of jobs.
      */
 
+    /**
+     * Creates a new earliest deadline first policy.
+     * @param taskSet the tasks set associated with the policy.
+     */
     public EarliestDeadlineFirst(TaskSet taskSet) {
         super("Earliest Deadline First", taskSet);
     }

@@ -7,6 +7,11 @@ import java.util.Comparator;
 import java.util.List;
 
 public class DeadlineMonotonic extends AbstractPriorityPolicy implements IPriorityPolicy  {
+
+    /**
+     * Creates a new deadline monotonic policy associated with a tasks set.
+     * @param taskSet The tasks set.
+     */
     public DeadlineMonotonic(TaskSet taskSet) {
         super("Deadline Monotonic", taskSet);
     }

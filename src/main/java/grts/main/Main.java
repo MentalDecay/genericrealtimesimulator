@@ -4,6 +4,7 @@ import grts.core.priority.policies.EarliestDeadlineFirst;
 import grts.core.priority.policies.IPriorityPolicy;
 import grts.core.priority.policies.RateMonotonic;
 import grts.core.processor.policies.IProcessorPolicy;
+import grts.core.processor.policies.InnocentGlobalPolicy;
 import grts.core.processor.policies.MonoProcessor;
 import grts.core.processor.policies.RestrictedProcessorPolicy;
 import grts.core.schedulable.PeriodicTask;
@@ -88,7 +89,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        IPriorityPolicy policy = new RateMonotonic(ts);
+        IPriorityPolicy policy = new EarliestDeadlineFirst(ts);
 
         Processor processor1 = new Processor(0);
         Processor processor2 = new Processor(1);

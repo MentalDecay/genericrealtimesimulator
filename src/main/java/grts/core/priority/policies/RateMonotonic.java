@@ -13,6 +13,10 @@ public class RateMonotonic extends AbstractPriorityPolicy implements IPriorityPo
      */
 
 
+    /**
+     * Creates a new rate monotonic policy.
+     * @param taskSet The tasks set associated with the policy.
+     */
     public RateMonotonic(TaskSet taskSet) {
         super("Rate Monotonic", taskSet);
     }

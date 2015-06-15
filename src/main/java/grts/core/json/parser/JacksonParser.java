@@ -19,6 +19,11 @@ public class JacksonParser {
 
     private final JsonNode root;
 
+    /**
+     * Creates a new JacksonParser.
+     * @param inputStream The inputStream to analyze to parse the json.
+     * @throws IOException if there is an error with the file.
+     */
     public JacksonParser(InputStream inputStream) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         root = mapper.readValue(inputStream, JsonNode.class);
@@ -26,6 +31,10 @@ public class JacksonParser {
         taskNameToTaskParserName.put("Sporadic task", "SporadicTaskParser");
     }
 
+    /**
+     * Parse the json from the InputStream.
+     * @return A List of tasks.
+     */
     public List<Schedulable> parse() {
         LinkedList<Schedulable> tasks = new LinkedList<>();
         JsonNode arrayTasks = root.get("tasks");

@@ -16,6 +16,12 @@ public class InnocentGlobalPolicy implements IProcessorPolicy {
     private final List<Job> activatedJobs =  new LinkedList<>();
     private final HashMap<Job, Integer> jobProcessorIdMap = new HashMap<>();
 
+    /**
+     * Creates a new Innocent Global Policy. This policy chose the first idle processor if there is one or the first processor with a task which shouldn't
+     * be executing according to the priority policy associated with this processor policy.
+     * @param processors An array of processors.
+     * @param policy The priority policy associated with the processor policy.
+     */
     public InnocentGlobalPolicy(Processor[] processors, IPriorityPolicy policy) {
         this.processors = processors;
         this.policy = policy;
@@ -63,13 +69,11 @@ public class InnocentGlobalPolicy implements IProcessorPolicy {
         int cmpt = 0;
         int max = processors.length;
         List<Integer> alreadyExecutingId = new LinkedList<>();
-        System.out.println("activated jobs : " + copyActivatedJobs);
         while(cmpt < max){
             if(copyActivatedJobs.size() == 0){
                 break;
             }
             Job job = getPriorityPolicy().choseJobToExecute(copyActivatedJobs, time);
-            System.out.println("most priority job : job : " + job);
             copyActivatedJobs.remove(job);
             if(jobProcessorIdMap.containsKey(job)){
                 alreadyExecutingId.add(jobProcessorIdMap.get(job));
@@ -79,8 +83,6 @@ public class InnocentGlobalPolicy implements IProcessorPolicy {
             }
             cmpt++;
         }
-        System.out.println("executing jobs : " + jobProcessorIdMap);
-        System.out.println("selected jobs : " + selectedJobs);
         for(Processor processor : processors){
             if(selectedJobs.size() == 0){
                 break;
@@ -93,7 +95,6 @@ public class InnocentGlobalPolicy implements IProcessorPolicy {
         if(selectedJobs.size() != 0){
             throw new IllegalStateException("Selected jobs remain");
         }
-        System.out.println("entry list : " + entryList);
         return entryList;
     }
 

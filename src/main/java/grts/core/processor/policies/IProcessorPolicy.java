@@ -24,7 +24,7 @@ public interface IProcessorPolicy {
     /**
      * Select the jobs to execute and the processors to execute them according to the priority policy and the processor policy.
      * @param time the time when the selection has to be made.
-     * @return List<AbstractMap.SimpleEntry<Job, Integer>> a list which contains entries of Job, Integer. The job is the job chosen and
+     * @return A list which contains entries of Job, Integer. The job is the job chosen and
      * the Integer is the id of the processor where the job should execute
      */
     List<AbstractMap.SimpleEntry<Job, Integer>> chooseNextJobs(long time);

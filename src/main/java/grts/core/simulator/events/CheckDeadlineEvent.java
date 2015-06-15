@@ -5,6 +5,12 @@ import grts.core.simulator.Scheduler;
 
 public class CheckDeadlineEvent extends AbstractEventOnJob implements Event {
 
+    /**
+     * Creates a new Check Deadline Event.
+     * @param scheduler The scheduler which created the event.
+     * @param time The time of the event.
+     * @param job The job associated to the event.
+     */
     public CheckDeadlineEvent(Scheduler scheduler, long time, Job job) {
         super(scheduler, time, job);
     }

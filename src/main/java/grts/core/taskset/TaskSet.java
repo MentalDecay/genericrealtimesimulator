@@ -13,10 +13,18 @@ public class TaskSet implements Iterable<Schedulable> {
     private final ArrayList<Schedulable> schedulables = new ArrayList<>();
 
 
+    /**
+     * Creates a new tasks set.
+     * @param schedulables A list of schedulables to be added to the tasks set.
+     */
     public TaskSet(List<Schedulable> schedulables) {
         this.schedulables.addAll(schedulables);
     }
 
+    /**
+     * Creates a new stream of schedulables from the schedulables associated to the tasks set.
+     * @return a stream of Schedulable.
+     */
     public Stream<Schedulable> stream() {
         return schedulables.stream();
     }

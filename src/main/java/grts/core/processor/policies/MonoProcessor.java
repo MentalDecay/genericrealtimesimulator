@@ -15,6 +15,10 @@ public class MonoProcessor implements IProcessorPolicy {
     private final IPriorityPolicy policy;
     private final List<Job> activatedJobs =  new LinkedList<>();
 
+    /**
+     * Creates a new mono processor policy.
+     * @param policy The priority policy associated with the mono processor policy.
+     */
     public MonoProcessor(IPriorityPolicy policy) {
         this.processor = new Processor(0);
         this.policy = policy;

@@ -18,12 +18,19 @@ public class Job {
     private final AbstractRecurrentTask task;
 
 
-
-    public Job(long activationTime, long deadlineTime, long jobId, long wcet, AbstractRecurrentTask task) {
-        if(activationTime < 0 || wcet <= 0 || deadlineTime <= 0 || jobId < 0){
+    /**
+     * Creates a new job associated to a task.
+     * @param activationTime The activation time of the job.
+     * @param deadlineTime The deadline time of the job.
+     * @param jobId The id of the job.
+     * @param executionTime The execution time of the job.
+     * @param task the task which created the job.
+     */
+    public Job(long activationTime, long deadlineTime, long jobId, long executionTime, AbstractRecurrentTask task) {
+        if(activationTime < 0 || executionTime <= 0 || deadlineTime <= 0 || jobId < 0){
             throw new IllegalArgumentException("Can't create a job with this parameters :" +
                     "\nactivationTime : " + activationTime +
-                    "\nwcet : " + wcet +
+                    "\nexecutionTime : " + executionTime +
                     "\ndeadlineTime : " + deadlineTime +
                     "\njobId : " + jobId
             );
@@ -31,7 +38,7 @@ public class Job {
         this.activationTime = activationTime;
         this.deadlineTime = deadlineTime;
         this.jobId = jobId;
-        executionTime = wcet;
+        this.executionTime = executionTime;
         this.task = Objects.requireNonNull(task);
     }
 
@@ -149,6 +156,10 @@ public class Job {
                 && task.equals(job.task);
     }
 
+    /**
+     * Get the execution time of the job.
+     * @return The execution time of the job.
+     */
     public long getExecutionTime() {
         return executionTime;
     }

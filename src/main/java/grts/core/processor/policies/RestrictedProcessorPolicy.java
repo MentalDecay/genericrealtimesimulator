@@ -53,6 +53,12 @@ public class RestrictedProcessorPolicy implements IProcessorPolicy {
     private final HashMap<Job, Integer> jobProcessorIdMap = new HashMap<>();
 
 
+    /**
+     * Creates a new restricted processor policy. According to this policy, each processor has a private activated jobs list. The purpose of this policy is to chose
+     * where to add the new activated job. The job is added to the processor with the lowest utilization.
+     * @param processors The array of processors associated to the processor policy.
+     * @param policy The priority policy associated to the processor policy.
+     */
     public RestrictedProcessorPolicy(Processor[] processors, IPriorityPolicy policy) {
         this.processors = processors;
         this.policy = policy;

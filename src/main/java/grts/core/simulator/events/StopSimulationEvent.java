@@ -5,6 +5,11 @@ import grts.core.simulator.Scheduler;
 public class StopSimulationEvent extends AbstractEvent implements Event {
 
 
+    /**
+     * Creates a new Stop Simulation Event. This event stops the simulation.
+     * @param scheduler The scheduler which created this event.
+     * @param time The time of the event.
+     */
     public StopSimulationEvent(Scheduler scheduler, long time) {
         super(scheduler, time);
     }
