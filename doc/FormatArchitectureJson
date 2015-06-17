@@ -1,0 +1,145 @@
+This file is written is Json format. The parser first needs to know that the file is supposed to be well formed so the first object is "architecture".
+The only necessary field is "processors". It represents the array of processors.
+Each processor has an id (which starts to 0) and can have two options : the speed and the voltage.
+
+The options of the architecture are : cache hierarchy, migration cost, battery and resources.
+
+The cache hierarchy is an object with an array of caches. Each cache has a size (the size of the memory) and may be shared. If the cache is shared (optional field), a
+field "shared with" has to be defined. The "shared with" contains either "all" or an array to define the id of the processor with which the cache is shared. The cache
+may have an option : the partitioning. The partitioning contains a number of partitions and in option may have an assignation of partitions which is an array of array to
+assign to each partition a list of processor id. This array of array should have a size equals to the number of partitions.
+
+The migration cost is an array which contains (number of processors)^2 entries. It's the cost of each migration from a processor to another
+(or the same processor, if a task is preempted).
+
+The battery has a "capacity" which is the maximum load of energy contained by the battery and the "reloading" and "discharging". Reloading and discharging are the names of
+the function that the simulator should use to compute the discharge or the reload of the battery. For example it can be linear or exponential.
+This field is not finished.
+
+The "resources" represents the future resources. For instance it could be a hard drive which contains data.
+
+An example is given :
+
+
+{
+  "architecture" :
+  {
+    "processors" :
+    [
+      {
+        "id" : "0",
+        "options" :
+        {
+          "speed" : "1"
+        }
+      },
+      {
+        "id" : "1",
+        "option" :
+        {
+          "voltage" : "8"
+        }
+      }
+    ],
+    "options" :
+    {
+      "cache hierarchy" :
+      {
+        "caches" :
+        [
+          {
+            "size" : "2048"
+          },
+          {
+            "size" : "1024",
+            "options" :
+            {
+              "shared" :
+              {
+                "shared with" :
+                [
+                  "0", "1"
+                ],
+                "options" :
+                {
+                  "partitioning" : {
+                    "number of partitions": "4",
+                    "options" : {
+                      "assignations of partitions": [
+                        [
+                          "0",
+                          "1"
+                        ],
+                        [
+                          "0",
+                          "1"
+                        ],
+                        ["0"],
+                        ["1"]
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "size" : "512",
+            "options" :
+            {
+              "shared" :
+              {
+                "shared with" : "all",
+                "options" : {
+                  "partitioning": {
+                    "number of partitions": "4"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "migration cost" :
+      [
+        {
+          "from" : "1",
+          "to" : "0",
+          "cost" : "2"
+        },
+        {
+          "from" : "0",
+          "to" : "1",
+          "cost" : "4"
+        },
+        {
+          "from" : "0",
+          "to" : "0",
+          "cost" : "1"
+        },
+        {
+          "from" : "1",
+          "to" : "1",
+          "cost" : "1"
+        }
+      ],
+      "battery" :
+      {
+        "capacity" : "12",
+        "reloading" : "linear",
+        "discharging" : "linear"
+      },
+      "resources" :
+      [
+        {
+          "type" : "lock source",
+          "id" : "blue"
+        },
+        {
+          "type" : "lock source",
+          "id" : "red"
+        }
+      ]
+    }
+  }
+}

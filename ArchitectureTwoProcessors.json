@@ -1,0 +1,122 @@
+{
+  "architecture" :
+  {
+    "processors" :
+    [
+      {
+        "id" : "0",
+        "options" :
+        {
+          "speed" : "1"
+        }
+      },
+      {
+        "id" : "1",
+        "option" :
+        {
+          "voltage" : "8"
+        }
+      }
+    ],
+    "options" :
+    {
+      "cache hierarchy" :
+      {
+        "caches" :
+        [
+          {
+            "size" : "2048"
+          },
+          {
+            "size" : "1024",
+            "options" :
+            {
+              "shared" :
+              {
+                "shared with" :
+                [
+                  "0", "1"
+                ],
+                "options" :
+                {
+                  "partitioning" : {
+                    "number of partitions": "4",
+                    "options" : {
+                      "assignations of partitions": [
+                        [
+                          "0",
+                          "1"
+                        ],
+                        [
+                          "0",
+                          "1"
+                        ],
+                        ["0"],
+                        ["1"]
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "size" : "512",
+            "options" :
+            {
+              "shared" :
+              {
+                "shared with" : "all",
+                "options" : {
+                  "partitioning": {
+                    "number of partitions": "4"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "migration cost" :
+      [
+        {
+          "from" : "1",
+          "to" : "0",
+          "cost" : "2"
+        },
+        {
+          "from" : "0",
+          "to" : "1",
+          "cost" : "4"
+        },
+        {
+          "from" : "0",
+          "to" : "0",
+          "cost" : "1"
+        },
+        {
+          "from" : "1",
+          "to" : "1",
+          "cost" : "1"
+        }
+      ],
+      "battery" :
+      {
+        "capacity" : "12",
+        "reloading" : "linear",
+        "discharging" : "linear"
+      },
+      "resources" :
+      [
+        {
+          "type" : "lock source",
+          "id" : "blue"
+        },
+        {
+          "type" : "lock source",
+          "id" : "red"
+        }
+      ]
+    }
+  }
+}

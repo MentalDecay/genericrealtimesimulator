@@ -1,0 +1,76 @@
+This file is written is Json format. The parser first needs to know that the file is supposed to be well formed so the first object is "tasks".
+The "tasks" field is an array of tasks.
+Right now two types of tasks are implemented : Periodic tasks and Sporadic tasks.
+
+"Periodic task" : contains at least the "wcet" (Worst Case Execution Time), the period and a name. In options, an offset, a deadline and "shared memory".
+"shared memory" allows the task to use a specific resource during a specific time.
+For instance :
+"shared memory" :
+          [
+            {
+              "from" : "1",
+              "to" : "3",
+              "resource" : "id"
+            }
+          ]
+will allow the task to use the resource "id" during its execution from the first unit of time to the third unit of time.
+
+"Sporadic task": contains almost the same things except for the "period" which became "minimum inter arrival time".
+
+Every task can have in option the "energy" field. This field contains an object which contains every field to represent the energy.
+
+An example of tasks set is given :
+
+{
+  "tasks" :
+  [
+    {
+     "Periodic task" :
+     {
+       "wcet" : "2",
+       "period" : "7",
+       "name" : "t1",
+       "options" :
+       {
+         "energy" :
+         {
+           "wcec" : "5"
+         }
+       }
+     }
+    },
+    {
+      "Periodic task" :
+      {
+        "wcet" : "3",
+        "period" : "11",
+        "name" : "t2",
+        "options" :
+        {
+          "memory" : "128",
+          "offset" : "0"
+        }
+      }
+    },
+    {
+      "Periodic task" :
+      {
+        "wcet" : "5",
+        "period" : "13",
+        "name" : "t3",
+        "options" :
+        {
+          "deadline" : "13",
+          "shared memory" :
+          [
+            {
+              "from" : "1",
+              "to" : "3",
+              "resource" : "id"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

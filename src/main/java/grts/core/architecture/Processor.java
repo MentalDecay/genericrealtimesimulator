@@ -1,4 +1,4 @@
-package grts.core.simulator;
+package grts.core.architecture;
 
 import grts.core.schedulable.Job;
 
@@ -43,5 +43,10 @@ public class Processor {
      */
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Processor : " + id;
     }
 }

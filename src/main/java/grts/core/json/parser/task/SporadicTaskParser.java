@@ -1,4 +1,4 @@
-package grts.core.json.parser;
+package grts.core.json.parser.task;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import grts.core.schedulable.Schedulable;
@@ -57,10 +57,44 @@ public class SporadicTaskParser extends AbstractTaskParser implements TaskParser
             if(deadlineNode != null){
                 deadline = Long.parseLong(deadlineNode.textValue());
             }
+            JsonNode energyNode = optionsNode.get("energy");
+            if(energyNode != null){
+                System.out.println("Energy element found but not implemented yet");
+//                TODO energy node
+            }
+            JsonNode memoryNode = optionsNode.get("memory");
+            if(memoryNode != null){
+                System.out.println("Memory element found but not implemented yet");
+                long memory = Long.parseLong(memoryNode.textValue());
+                System.out.println("memory : " + memory);
+//                TODO memory node
+            }
+            JsonNode sharedMemoryNode = optionsNode.get("shared memory");
+            if(sharedMemoryNode != null){
+                System.out.println("Shared memory element found but not implemented yet");
+                processSharedMemoryNode(sharedMemoryNode, parametersMap);
+            }
         }
         parametersMap.put("offset", offset);
         parametersMap.put("deadline", deadline);
         System.out.println("ParametersMap : " + parametersMap);
         return factory.create("SporadicTask", parametersMap);
+    }
+
+    private void processSharedMemoryNode(JsonNode sharedMemoryNode, HashMap<String, Object> parametersMap){
+        for(JsonNode sharedMemoryObject : sharedMemoryNode){
+            JsonNode fromNode = sharedMemoryObject.get("from");
+            JsonNode toNode = sharedMemoryObject.get("to");
+            JsonNode resourceNode = sharedMemoryObject.get("resource");
+            if(fromNode == null || toNode == null || resourceNode == null){
+                System.err.println("Json ill-formed : shared resource without from / to / resource");
+                return;
+            }
+            System.out.println("from : " + fromNode.textValue());
+            System.out.println("to : " + toNode.textValue());
+            System.out.println("resource id : " + resourceNode.textValue());
+            //TODO memory node
+        }
+
     }
 }

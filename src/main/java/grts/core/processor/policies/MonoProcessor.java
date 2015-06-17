@@ -2,7 +2,7 @@ package grts.core.processor.policies;
 
 import grts.core.priority.policies.IPriorityPolicy;
 import grts.core.schedulable.Job;
-import grts.core.simulator.Processor;
+import grts.core.architecture.Processor;
 
 import java.util.AbstractMap;
 import java.util.Collections;

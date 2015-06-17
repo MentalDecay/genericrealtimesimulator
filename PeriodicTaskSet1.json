@@ -6,7 +6,14 @@
      {
        "wcet" : "2",
        "period" : "7",
-       "name" : "t1"
+       "name" : "t1",
+       "options" :
+       {
+         "energy" :
+         {
+           "wcec" : "5"
+         }
+       }
      }
     },
     {
@@ -17,6 +24,7 @@
         "name" : "t2",
         "options" :
         {
+          "memory" : "128",
           "offset" : "0"
         }
       }
@@ -29,7 +37,15 @@
         "name" : "t3",
         "options" :
         {
-          "deadline" : "13"
+          "deadline" : "13",
+          "shared memory" :
+          [
+            {
+              "from" : "1",
+              "to" : "3",
+              "resource" : "id"
+            }
+          ]
         }
       }
     }

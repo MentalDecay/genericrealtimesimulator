@@ -1,4 +1,4 @@
-package grts.core.json.parser;
+package grts.core.json.parser.task;
 
 
 import grts.core.schedulable.Schedulable;

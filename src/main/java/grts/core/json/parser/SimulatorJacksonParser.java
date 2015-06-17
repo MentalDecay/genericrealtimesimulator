@@ -3,41 +3,56 @@ package grts.core.json.parser;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import grts.core.architecture.Architecture;
+import grts.core.json.parser.architecture.ArchitectureParser;
+import grts.core.json.parser.task.PeriodicTaskParser;
+import grts.core.json.parser.task.SporadicTaskParser;
+import grts.core.json.parser.task.TaskParser;
+import grts.core.json.parser.task.TaskParserFactory;
 import grts.core.schedulable.Schedulable;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-public class JacksonParser {
+public class SimulatorJacksonParser {
     private final TaskParserFactory taskParserFactory = TaskParserFactory.create(taskParserBuilder -> {
         taskParserBuilder.register("PeriodicTaskParser", PeriodicTaskParser::new);
         taskParserBuilder.register("SporadicTaskParser", SporadicTaskParser::new);
     });
 
     private final HashMap<String, String> taskNameToTaskParserName= new HashMap<>();
+    private final ArchitectureParser architectureParser;
 
-    private final JsonNode root;
+    private final JsonNode rootTaskParser;
 
     /**
-     * Creates a new JacksonParser.
-     * @param inputStream The inputStream to analyze to parse the json.
+     * Creates a new SimulatorJacksonParser.
+     * @param inputStreamTaskSet The inputStream to analyze to parse the tasks set from the json.
+     * @param inputStreamArchitecture The inputStream to analyze to parse the architecture from the json.
      * @throws IOException if there is an error with the file.
      */
-    public JacksonParser(InputStream inputStream) throws IOException {
+    public SimulatorJacksonParser(InputStream inputStreamTaskSet, InputStream inputStreamArchitecture) throws IOException {
+
         ObjectMapper mapper = new ObjectMapper();
-        root = mapper.readValue(inputStream, JsonNode.class);
+        rootTaskParser = mapper.readValue(inputStreamTaskSet, JsonNode.class);
+
         taskNameToTaskParserName.put("Periodic task", "PeriodicTaskParser");
         taskNameToTaskParserName.put("Sporadic task", "SporadicTaskParser");
+
+        ObjectMapper mapperArchitecture = new ObjectMapper();
+        architectureParser = new ArchitectureParser(mapperArchitecture.readValue(inputStreamArchitecture, JsonNode.class));
+        inputStreamArchitecture.close();
+        inputStreamTaskSet.close();
     }
 
     /**
-     * Parse the json from the InputStream.
+     * Parse the json from the inputStreamTaskSet to get the list of tasks.
      * @return A List of tasks.
      */
-    public List<Schedulable> parse() {
+    public List<Schedulable> parseTasks() {
         LinkedList<Schedulable> tasks = new LinkedList<>();
-        JsonNode arrayTasks = root.get("tasks");
+        JsonNode arrayTasks = rootTaskParser.get("tasks");
         if(arrayTasks == null || !arrayTasks.isArray()){
             System.err.println("Json ill-formed : tasks missing or tasks are not in an array.");
             return tasks;
@@ -68,5 +83,19 @@ public class JacksonParser {
         }
         return tasks;
     }
+
+//    /**
+//     * Parse the json from the inputStreamArchitecture to get the list of processors.
+//     * @return An array of processors.
+//     */
+//    public Processor[] parseProcessors(){
+//        return architectureParser.parseProcessors();
+//    }
+
+    public Architecture parseArchitecture(){
+        return architectureParser.parse();
+    }
+
+
 
 }

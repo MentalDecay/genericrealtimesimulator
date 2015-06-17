@@ -1,21 +1,22 @@
 package grts.main;
 
+import grts.core.architecture.Architecture;
+import grts.core.json.parser.SimulatorJacksonParser;
+import grts.core.architecture.Processor;
 import grts.core.priority.policies.EarliestDeadlineFirst;
 import grts.core.priority.policies.IPriorityPolicy;
-import grts.core.priority.policies.RateMonotonic;
 import grts.core.processor.policies.IProcessorPolicy;
-import grts.core.processor.policies.InnocentGlobalPolicy;
 import grts.core.processor.policies.MonoProcessor;
 import grts.core.processor.policies.RestrictedProcessorPolicy;
-import grts.core.schedulable.PeriodicTask;
-import grts.core.schedulable.Schedulable;
-import grts.core.simulator.Processor;
 import grts.core.simulator.Simulator;
 import grts.core.taskset.HyperPeriod;
 import grts.core.taskset.TaskSet;
 import grts.core.taskset.TaskSetFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Main {
 
@@ -82,24 +83,33 @@ public class Main {
 //        long timer = ts.getHyperPeriod();
 //        simulator.simulate(timer);
 
-        TaskSet ts = null;
+        InputStream inputStreamTasks;
+        SimulatorJacksonParser parser = null;
         try {
-            ts = TaskSetFactory.createTaskSetFromFile("PeriodicTaskSet1.json");
+            inputStreamTasks = Files.newInputStream(Paths.get("PeriodicTaskSet1.json"));
+            InputStream inputStreamArchitecture = Files.newInputStream(Paths.get("ArchitectureTwoProcessors.json"));
+            parser = new SimulatorJacksonParser(inputStreamTasks, inputStreamArchitecture);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        IPriorityPolicy policy = new EarliestDeadlineFirst(ts);
+        TaskSet ts;
+        Architecture architecture;
+        ts = TaskSetFactory.createTaskSetFromParser(parser);
+        assert parser != null;
+        architecture = parser.parseArchitecture();
+        System.out.println(architecture);
 
-        Processor processor1 = new Processor(0);
-        Processor processor2 = new Processor(1);
-        Processor []processorArray = new Processor[2];
-        processorArray[0] = processor1;
-        processorArray[1] = processor2;
-//        IProcessorPolicy processorPolicy = new RestrictedProcessorPolicy(processorArray, policy);
-        IProcessorPolicy processorPolicy = new MonoProcessor(policy);
+        IPriorityPolicy policy = new EarliestDeadlineFirst(ts);
+//
+//        Processor processor1 = new Processor(0);
+//        Processor processor2 = new Processor(1);
+//        Processor []processorArray = new Processor[2];
+//        processorArray[0] = processor1;
+//        processorArray[1] = processor2;
+        IProcessorPolicy processorPolicy = new RestrictedProcessorPolicy(architecture.getProcessors(),  policy);
+//        IProcessorPolicy processorPolicy = new MonoProcessor(policy);
         Simulator simulator = new Simulator(ts, policy, processorPolicy);
-        assert ts != null;
         long timer = HyperPeriod.compute(ts);
         simulator.simulate(timer);
 

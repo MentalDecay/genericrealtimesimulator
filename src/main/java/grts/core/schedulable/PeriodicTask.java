@@ -71,4 +71,5 @@ public class PeriodicTask extends AbstractRecurrentTask implements Schedulable {
                 getOffset() == task.getOffset() &&
                 getName().equals(task.getName());
     }
+
 }

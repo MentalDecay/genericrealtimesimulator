@@ -16,3 +16,10 @@ Sort some lists to have a easier complexity (avoid multiple loops on it).
 
 SporadicTask : let the user choose the distribution.
 
+SporadicTaskParser / PeriodicTaskParser almost the same.
+
+Add checks in parsers (ex !isArray() ...).
+
+Parser : switch System.error.println => Exceptions.
+
+Link the periodic task with shared memory to the resources.

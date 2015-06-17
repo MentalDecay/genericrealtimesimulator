@@ -1,4 +1,4 @@
-package grts.core.json.parser;
+package grts.core.json.parser.task;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import grts.core.schedulable.Schedulable;
@@ -53,14 +53,53 @@ public class PeriodicTaskParser extends AbstractTaskParser implements TaskParser
             if(offsetNode != null){
                 offset = Long.parseLong(offsetNode.textValue());
             }
+            parametersMap.put("offset", offset);
             JsonNode deadlineNode = optionsNode.get("deadline");
             if(deadlineNode != null){
                 deadline = Long.parseLong(deadlineNode.textValue());
+            }
+            parametersMap.put("deadline", deadline);
+            JsonNode energyNode = optionsNode.get("energy");
+            if(energyNode != null){
+                JsonNode wcecNode = energyNode.get("wcec");
+                long wcec = Long.parseLong(wcecNode.textValue());
+                System.out.println("wcec : " + wcec);
+                parametersMap.put("wcec", wcec);
+                return factory.create("PeriodicTaskEnergyAware", parametersMap);
+            }
+            JsonNode memoryNode = optionsNode.get("memory");
+            if(memoryNode != null) {
+                long memory = Long.parseLong(memoryNode.textValue());
+                parametersMap.put("memory", memory);
+                System.out.println("memory : " + memory);
+                return factory.create("PeriodicTaskMemoryAware", parametersMap);
+            }
+            JsonNode sharedMemoryNode = optionsNode.get("shared memory");
+            if(sharedMemoryNode != null){
+                System.out.println("Shared memory element found but not implemented yet");
+                processSharedMemoryNode(sharedMemoryNode, parametersMap);
             }
         }
         parametersMap.put("offset", offset);
         parametersMap.put("deadline", deadline);
         System.out.println("ParametersMap : " + parametersMap);
         return factory.create("PeriodicTask", parametersMap);
+    }
+
+    private void processSharedMemoryNode(JsonNode sharedMemoryNode, HashMap<String, Object> parametersMap){
+        for(JsonNode sharedMemoryObject : sharedMemoryNode){
+            JsonNode fromNode = sharedMemoryObject.get("from");
+            JsonNode toNode = sharedMemoryObject.get("to");
+            JsonNode resourceNode = sharedMemoryObject.get("resource");
+            if(fromNode == null || toNode == null || resourceNode == null){
+                System.err.println("Json ill-formed : shared resource without from / to / resource");
+                return;
+            }
+            System.out.println("from : " + fromNode.textValue());
+            System.out.println("to : " + toNode.textValue());
+            System.out.println("resource id : " + resourceNode.textValue());
+            //TODO memory node
+        }
+
     }
 }
