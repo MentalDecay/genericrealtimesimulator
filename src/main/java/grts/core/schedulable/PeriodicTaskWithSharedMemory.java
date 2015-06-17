@@ -3,7 +3,6 @@ package grts.core.schedulable;
 import java.util.Map;
 
 public class PeriodicTaskWithSharedMemory extends PeriodicTask {
-//    private final
 //    TODO add resources in the constructor.
 //    TODO from : time to : time resource : resource.
     public PeriodicTaskWithSharedMemory(Map<String, Object> map) {

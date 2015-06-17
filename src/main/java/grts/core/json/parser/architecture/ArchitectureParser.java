@@ -233,6 +233,10 @@ public class ArchitectureParser {
         return resources;
     }
 
+    /**
+     * Parse the architecture from the JsonNode given as root.
+     * @return A new Architecture created from the json.
+     */
     public Architecture parse(){
         Processor[] processors = parseProcessors();
         if(processors == null){
@@ -245,22 +249,18 @@ public class ArchitectureParser {
             if (containsCacheHierarchy()) {
                 CacheHierarchy cacheHierarchy = parseCacheHierarchy(processors);
                 parametersMap.put("cache hierarchy", cacheHierarchy);
-//                System.out.println(cacheHierarchy);
             }
             if (containsMigrationCosts()){
                 MigrationCosts migrationCosts = parseMigrationCosts(processors.length);
                 parametersMap.put("migration costs", migrationCosts);
-//                System.out.println(migrationCosts);
             }
             if (containsBattery()){
                 Battery battery = parseBattery();
                 parametersMap.put("battery", battery);
-//                System.out.println(battery+"\n");
             }
             if (containsResources()){
                 Resources resources = parseResources();
                 parametersMap.put("resources", resources);
-//                System.out.println(resources);
             }
         }
         return new Architecture(parametersMap);

@@ -4,6 +4,10 @@ public class Cache {
 
     private final long size;
 
+    /**
+     * Creates a new basic Cache.
+     * @param size The size of the cache.
+     */
     public Cache(long size) {
         this.size = size;
     }

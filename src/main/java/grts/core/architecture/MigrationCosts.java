@@ -53,10 +53,20 @@ public class MigrationCosts {
 
     private final LinkedList<MigrationCost> migrationCosts = new LinkedList<>();
 
+    /**
+     * Adds a migration cost.
+     * @param from The id of the processor from where the migration is done.
+     * @param to The id of the processor to where the migration is done.
+     * @param cost The cost of the migration.
+     */
     public void addMigrationCost(int from, int to, long cost){
         migrationCosts.add(new MigrationCost(from, to, cost));
     }
 
+    /**
+     * Get the number of migrations costs.
+     * @return The number of migrations costs.
+     */
     public int nbMigrationCosts(){
         return migrationCosts.size();
     }

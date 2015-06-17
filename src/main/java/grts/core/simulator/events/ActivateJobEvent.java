@@ -20,7 +20,6 @@ public class ActivateJobEvent extends AbstractEventOnJob implements Event {
         getScheduler().addActiveJob(getJob());
 
         getScheduler().addEvent(new CheckDeadlineEvent(getScheduler(), getJob().getDeadlineTime(), getJob()));
-        //getScheduler().addEvent(new StopJobExecutionEvent(getScheduler(), getJob().getRemainingTime(), getJob()));
         getScheduler().addEvent(new ChooseJobEvent(getScheduler(), getTime()));
         Job nextJob = getJob().getTask().getRealNextJob(getTime());
         getScheduler().addEvent(new ActivateJobEvent(getScheduler(), nextJob.getActivationTime(), nextJob));

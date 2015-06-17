@@ -11,8 +11,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Scheduler {
-//    private final List<Job> activatedJobs =  new LinkedList<>();
-//    private  Job executingJob;
     private List<Event> eventsToAdd;
     private boolean over;
     private final IPriorityPolicy priorityPolicy;
@@ -79,7 +77,6 @@ public class Scheduler {
      * @param job the job to be deleted.
      */
     public void deleteActiveJob(Job job){
-//        activatedJobs.remove(job);
         processorPolicy.deleteActiveJob(job);
         lastJobExecution.remove(job);
     }
@@ -90,14 +87,12 @@ public class Scheduler {
      */
     public void addActiveJob(Job job){
         processorPolicy.addActiveJob(job);
-//        activatedJobs.add(job);
     }
 
     /**
      * Deleted the current executing job of the scheduler. Only events should use this method.
      */
     public void stopJobExecution(Job job, int processorId){
-//        executingJob = null;
         processorPolicy.stopJobExecution(job, processorId);
     }
 
@@ -106,7 +101,6 @@ public class Scheduler {
      * @param job the job to execute
      */
     public void executeJob(Job job, int processorId){
-//        executingJob = job;
         processorPolicy.executeJob(job, processorId);
     }
 
@@ -115,17 +109,9 @@ public class Scheduler {
      * @return the current executing job
      */
     public Job getExecutingJob(int processorId) {
-//        return executingJob;
         return processorPolicy.getExecutingJob(processorId);
     }
 
-//    /**
-//     * Get the list of active jobs.
-//     * @return the list of active jobs.
-//     */
-//    public List<Job> getActivatedJobs() {
-//        return activatedJobs;
-//    }
 
     /**
      * Get the priorityPolicy of the scheduler.

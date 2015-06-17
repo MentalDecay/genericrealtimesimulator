@@ -108,11 +108,6 @@ public class RestrictedProcessorPolicy implements IProcessorPolicy {
         //Computes the utilization of the job to activate
         double jobUtilization = (double) job.getExecutionTime() / (double) job.getTask().getMinimumInterArrivalTime();
         //Finds the processor where the job should be activated.
-//        System.out.println("Utilizations : ");
-//        for(Map.Entry<Integer, ProcessorAttributes> entry : processorIdAttributeMap.entrySet()){
-//            System.out.println("id : " + entry.getKey());
-//            System.out.println("utilization : " + entry.getValue().getUtilization());
-//        }
         Optional<Map.Entry<Integer, ProcessorAttributes>> optionalEntry = processorIdAttributeMap.entrySet().stream().
                 filter(entry -> entry.getValue().getUtilization() <= 1 - jobUtilization)
                 .min(
@@ -123,7 +118,6 @@ public class RestrictedProcessorPolicy implements IProcessorPolicy {
                                         processorIdAttributeMap.get(o2.getKey()).getActivatedJobs().size());
                             }
                             return cmp;
-                            //return Double.compare(o1.getValue().getUtilization(), o2.getValue().getUtilization());
                         });
         if(!optionalEntry.isPresent()){
             System.err.println("Can't schedule this job on a processor");

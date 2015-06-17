@@ -13,7 +13,6 @@ public class CheckEndExecutionEventNotUsed extends AbstractEventOnJob implements
     public void handle() {
         if(getJob().getRemainingTime() == 0) {
             getScheduler().deleteActiveJob(getJob());
-//            getScheduler().stopJobExecution();
             getScheduler().addEvent(new ChooseJobEvent(getScheduler(), getTime()));
         }
     }

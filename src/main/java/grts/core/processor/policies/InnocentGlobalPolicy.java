@@ -44,28 +44,6 @@ public class InnocentGlobalPolicy implements IProcessorPolicy {
         List<Job> copyActivatedJobs = new LinkedList<>(activatedJobs);
         List<Job> selectedJobs = new LinkedList<>();
 
-//        for (Processor ignored : processors) {
-//            if (copyActivatedJobs.size() == 0) {
-//                continue;
-//            }
-//            Job job = copyActivatedJobs.remove(0);
-//
-//            selectedJobs.add(job);
-//        }
-//
-//        System.out.println("selected jobs : " + selectedJobs);
-//        for(Processor processor : processors){
-//            if(selectedJobs.contains(processor.getExecutingJob())){
-//                continue;
-//            }
-//            if(selectedJobs.size() == 0){
-//                break;
-//            }
-//            entryList.add(new AbstractMap.SimpleEntry<>(selectedJobs.remove(0), processor.getId()));
-//        }
-//        if(selectedJobs.size() != 0){
-//            throw new IllegalStateException("Selected jobs remain");
-//        }
         int cmpt = 0;
         int max = processors.length;
         List<Integer> alreadyExecutingId = new LinkedList<>();

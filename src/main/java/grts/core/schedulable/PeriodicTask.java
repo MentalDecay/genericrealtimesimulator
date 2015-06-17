@@ -22,7 +22,8 @@ public class PeriodicTask extends AbstractRecurrentTask implements Schedulable {
 
     /**
      * Creates a new periodic task.
-     * @param map a map of String and Object which contains the minimumInterArrivalTime (long), the wcet (long), the deadline (long), the offset (long) and the name (String).
+     * @param map a map of String and Object which contains the minimumInterArrivalTime (long), the wcet (long), the deadline (long), the offset (long)
+     * and the name (String).
      */
     public PeriodicTask(Map<String, Object> map){
         super(map);

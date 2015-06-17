@@ -25,8 +25,6 @@ public class StopJobExecutionEvent extends AbstractEventOnJob implements Event {
             getScheduler().deleteActiveJob(getJob());
             getScheduler().addEvent(new ChooseJobEvent(getScheduler(), getTime()));
         }
-        //getScheduler().addEvent(new CheckEndExecutionEventNotUsed(getScheduler(), getTime(), getJob()));
-
     }
 
     @Override

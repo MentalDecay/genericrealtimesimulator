@@ -17,14 +17,26 @@ public class Battery {
         this.discharge = discharge;
     }
 
+    /**
+     * Get the capacity of the battery.
+     * @return The capacity of the battery.
+     */
     public long getCapacity() {
         return capacity;
     }
 
+    /**
+     * Get the name of the discharging function.
+     * @return The name of the discharging function.
+     */
     public String getDischarge() {
         return discharge;
     }
 
+    /**
+     * Get the name of the reloading function.
+     * @return The name of the reloading function.
+     */
     public String getReload() {
         return reload;
     }

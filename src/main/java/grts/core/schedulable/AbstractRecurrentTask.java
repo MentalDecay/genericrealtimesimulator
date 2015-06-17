@@ -10,8 +10,6 @@ public abstract class AbstractRecurrentTask implements Schedulable {
     private final long offset;
     private long nbJob = 0;
     private final String name;
-    // This field needs to be seen by the subclasses
-    //protected long nextActivationTime;
     private Job nextJob;
     private boolean newJob = false;
 
@@ -31,7 +29,6 @@ public abstract class AbstractRecurrentTask implements Schedulable {
         this.offset = offset;
         this.name = name;
         nextJob = new Job(offset, offset + deadline, 0, wcet, this);
-        //this.nextActivationTime = offset;
     }
 
     AbstractRecurrentTask(Map<String, Object> map){

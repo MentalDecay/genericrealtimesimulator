@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.util.*;
 
 public class SimulatorJacksonParser {
+
     private final TaskParserFactory taskParserFactory = TaskParserFactory.create(taskParserBuilder -> {
         taskParserBuilder.register("PeriodicTaskParser", PeriodicTaskParser::new);
         taskParserBuilder.register("SporadicTaskParser", SporadicTaskParser::new);
@@ -84,14 +85,10 @@ public class SimulatorJacksonParser {
         return tasks;
     }
 
-//    /**
-//     * Parse the json from the inputStreamArchitecture to get the list of processors.
-//     * @return An array of processors.
-//     */
-//    public Processor[] parseProcessors(){
-//        return architectureParser.parseProcessors();
-//    }
-
+    /**
+     * Creates the architecture from the json file.
+     * @return A new architecture created from the json file.
+     */
     public Architecture parseArchitecture(){
         return architectureParser.parse();
     }
