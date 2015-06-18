@@ -17,6 +17,11 @@ public class ContinueOrStopExecutionEvent extends AbstractEventOnJob implements 
     }
 
     @Override
+    public String getName() {
+        return "Continue Or Stop Execution Event";
+    }
+
+    @Override
     protected int getPriority() {
         return 0;
     }

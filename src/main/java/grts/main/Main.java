@@ -2,21 +2,22 @@ package grts.main;
 
 import grts.core.architecture.Architecture;
 import grts.core.json.parser.SimulatorJacksonParser;
-import grts.core.architecture.Processor;
 import grts.core.priority.policies.EarliestDeadlineFirst;
 import grts.core.priority.policies.IPriorityPolicy;
+import grts.core.priority.policies.RateMonotonic;
 import grts.core.processor.policies.IProcessorPolicy;
-import grts.core.processor.policies.MonoProcessor;
 import grts.core.processor.policies.RestrictedProcessorPolicy;
 import grts.core.simulator.Simulator;
 import grts.core.taskset.HyperPeriod;
 import grts.core.taskset.TaskSet;
 import grts.core.taskset.TaskSetFactory;
+import grts.logger.EventLogger;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.LinkedList;
 
 public class Main {
 
@@ -84,23 +85,41 @@ public class Main {
 //        simulator.simulate(timer);
 
         InputStream inputStreamTasks;
-        SimulatorJacksonParser parser = null;
+        SimulatorJacksonParser parser;
         try {
             inputStreamTasks = Files.newInputStream(Paths.get("PeriodicTaskSet1.json"));
-            InputStream inputStreamArchitecture = Files.newInputStream(Paths.get("ArchitectureTwoProcessors.json"));
+//            InputStream inputStreamArchitecture = Files.newInputStream(Paths.get("ArchitectureTwoProcessors.json"));
+            InputStream inputStreamArchitecture = Files.newInputStream(Paths.get("ArchitectureMonoProcessor.json"));
             parser = new SimulatorJacksonParser(inputStreamTasks, inputStreamArchitecture);
         } catch (IOException e) {
             e.printStackTrace();
+            return;
         }
 
         TaskSet ts;
         Architecture architecture;
         ts = TaskSetFactory.createTaskSetFromParser(parser);
-        assert parser != null;
         architecture = parser.parseArchitecture();
         System.out.println(architecture);
+        EventLogger logger;
+        LinkedList<String> eventsToLog = new LinkedList<>();
+        eventsToLog.add("Activate Job Event");
+        eventsToLog.add("Check Deadline Event");
+//        eventsToLog.add("Choose Job Event");
+//        eventsToLog.add("Continue Or Stop Execution Event");
+        eventsToLog.add("Deadline Missed Event");
+        eventsToLog.add("Preemption Event");
+        eventsToLog.add("Start Job Execution Event");
+        eventsToLog.add("Stop Job Execution Event");
+        eventsToLog.add("Stop Simulation Event");
+        try {
+            logger = new EventLogger("logs", eventsToLog);
+        } catch (IOException e) {
+            System.err.println("Can't create a logger");
+            return;
+        }
 
-        IPriorityPolicy policy = new EarliestDeadlineFirst(ts);
+        IPriorityPolicy policy = new RateMonotonic(ts);
 //
 //        Processor processor1 = new Processor(0);
 //        Processor processor2 = new Processor(1);
@@ -109,9 +128,9 @@ public class Main {
 //        processorArray[1] = processor2;
         IProcessorPolicy processorPolicy = new RestrictedProcessorPolicy(architecture.getProcessors(),  policy);
 //        IProcessorPolicy processorPolicy = new MonoProcessor(policy);
-        Simulator simulator = new Simulator(ts, policy, processorPolicy);
+        Simulator simulator = new Simulator(ts, policy, processorPolicy, logger);
         long timer = HyperPeriod.compute(ts);
         simulator.simulate(timer);
-
+        logger.writeJson();
     }
 }

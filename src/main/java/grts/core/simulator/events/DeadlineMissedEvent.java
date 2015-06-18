@@ -30,6 +30,11 @@ public class DeadlineMissedEvent  extends AbstractEvent implements Event {
     }
 
     @Override
+    public String getName() {
+        return "Deadline Missed Event";
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof DeadlineMissedEvent)){
             return false;

@@ -1,5 +1,7 @@
 package grts.core.simulator.events;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import grts.core.schedulable.Job;
 import grts.core.simulator.Scheduler;
 
@@ -17,6 +19,11 @@ public class StopJobExecutionEvent extends AbstractEventOnJob implements Event {
     }
 
     @Override
+    public String getName() {
+        return "Stop Job Execution Event";
+    }
+
+    @Override
     public void handle() {
         long lastExecutionTime = getScheduler().getLastJobExecution().get(getJob());
         getJob().execute(getTime() - lastExecutionTime);
@@ -25,6 +32,14 @@ public class StopJobExecutionEvent extends AbstractEventOnJob implements Event {
             getScheduler().deleteActiveJob(getJob());
             getScheduler().addEvent(new ChooseJobEvent(getScheduler(), getTime()));
         }
+    }
+
+    @Override
+    public JsonNode toLog() {
+        JsonNode root = super.toLog();
+        ObjectNode optionsNode = (ObjectNode) root.get("options");
+        optionsNode.put("remaining time", getJob().getRemainingTime());
+        return root;
     }
 
     @Override

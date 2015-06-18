@@ -10,6 +10,11 @@ public class CheckEndExecutionEventNotUsed extends AbstractEventOnJob implements
     }
 
     @Override
+    public String getName() {
+        return "Check End Execution Event";
+    }
+
+    @Override
     public void handle() {
         if(getJob().getRemainingTime() == 0) {
             getScheduler().deleteActiveJob(getJob());

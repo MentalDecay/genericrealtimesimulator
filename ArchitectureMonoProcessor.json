@@ -1,0 +1,12 @@
+{
+  "architecture": {
+    "processors": [
+      {
+        "id": "0",
+        "options": {
+          "speed": "1"
+        }
+      }
+    ]
+  }
+}

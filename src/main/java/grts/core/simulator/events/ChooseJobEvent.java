@@ -68,6 +68,11 @@ public class ChooseJobEvent extends AbstractEvent implements Event {
     }
 
     @Override
+    public String getName() {
+        return "Choose Job Event";
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof ChooseJobEvent)){
             return false;

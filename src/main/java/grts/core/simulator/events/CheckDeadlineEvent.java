@@ -16,6 +16,11 @@ public class CheckDeadlineEvent extends AbstractEventOnJob implements Event {
     }
 
     @Override
+    public String getName() {
+        return "Check Deadline Event";
+    }
+
+    @Override
     public void handle() {
         if(getJob().getRemainingTime() > 0 ){
             getScheduler().addEvent(new DeadlineMissedEvent(getScheduler(), getTime()));

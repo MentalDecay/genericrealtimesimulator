@@ -45,4 +45,9 @@ public class ActivateJobEvent extends AbstractEventOnJob implements Event {
                 getTime() == event.getTime() &&
                 getJob().equals(event.getJob());
     }
+
+    @Override
+    public String getName() {
+        return "Activate Job Event";
+    }
 }

@@ -26,6 +26,8 @@
 
 package grts.core.simulator.events;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 /**
  * This interface represents an event in the the event-triggered paradigm simulation.
  * @author Tristan Fautrel
@@ -43,4 +45,15 @@ public interface Event {
      */
     void handle();
 
+    /**
+     * Creates a JsonNode for this event.
+     * @return a JsonNode for this event.
+     */
+    JsonNode toLog();
+
+    /**
+     * Get the name of the event.
+     * @return the name of the event.
+     */
+    String getName();
 }

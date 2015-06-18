@@ -29,6 +29,11 @@ public class StopSimulationEvent extends AbstractEvent implements Event {
     }
 
     @Override
+    public String getName() {
+        return "Stop Simulation Event";
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof StopSimulationEvent)){
             return false;

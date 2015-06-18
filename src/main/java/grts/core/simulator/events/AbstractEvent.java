@@ -1,5 +1,8 @@
 package grts.core.simulator.events;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import grts.core.simulator.Scheduler;
 
 public abstract class  AbstractEvent implements Comparable<AbstractEvent>, Event {
@@ -70,5 +73,17 @@ public abstract class  AbstractEvent implements Comparable<AbstractEvent>, Event
      * @return the priority of the event.
      */
     protected abstract int getPriority();
+
+    @Override
+    public JsonNode toLog() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode rootNode = mapper.createObjectNode();
+        rootNode.put("event name", getName());
+        rootNode.put("time", String.valueOf(getTime()));
+        return rootNode;
+    }
+
+    @Override
+    public abstract String getName();
 
 }

@@ -265,5 +265,4 @@ public class ArchitectureParser {
         }
         return new Architecture(parametersMap);
     }
-
 }

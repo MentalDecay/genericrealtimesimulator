@@ -17,6 +17,11 @@ public class StartJobExecutionEvent extends AbstractEventOnJob implements Event 
     }
 
     @Override
+    public String getName() {
+        return "Start Job Execution Event";
+    }
+
+    @Override
     public void handle() {
         getScheduler().executeJob(getJob(), getProcessorId());
         getScheduler().putLastJobExecution(getJob(), getTime());

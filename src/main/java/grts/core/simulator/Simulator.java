@@ -33,6 +33,7 @@ import grts.core.simulator.events.ActivateJobEvent;
 import grts.core.simulator.events.Event;
 import grts.core.simulator.events.EventQueue;
 import grts.core.taskset.TaskSet;
+import grts.logger.EventLogger;
 
 import java.util.List;
 
@@ -46,14 +47,17 @@ public class Simulator {
     private final Scheduler scheduler;
     private final TaskSet taskSet;
     private final EventQueue eventQueue = new EventQueue();
+    private final EventLogger logger;
 
     /**
      * Creates a new Simulator.
      * @param taskSet the tasks set of the simulator.
      * @param priorityPolicy the priority policy of the simulator.
      * @param processorPolicy the processor policy of the simulator.
+     * @param logger
      */
-    public Simulator(TaskSet taskSet, IPriorityPolicy priorityPolicy, IProcessorPolicy processorPolicy) {
+    public Simulator(TaskSet taskSet, IPriorityPolicy priorityPolicy, IProcessorPolicy processorPolicy, EventLogger logger) {
+        this.logger = logger;
         this.scheduler = new Scheduler(priorityPolicy, processorPolicy);
         this.taskSet = taskSet;
     }
@@ -78,6 +82,7 @@ public class Simulator {
                 return;
             }
             List<Event> events = scheduler.performEvent(event);
+            logger.log(event);
             events.forEach(eventQueue::offer);
             System.out.println("\nCreated events : ");
             events.forEach(System.out::println);
