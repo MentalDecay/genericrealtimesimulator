@@ -34,4 +34,12 @@ public class TaskSet implements Iterable<Schedulable> {
         return schedulables.iterator();
     }
 
+    /**
+     * Get the number of schedulables in the tasks set.
+     * @return The number of schedulables.
+     */
+    public int getSchedulablesNumber(){
+        return schedulables.size();
+    }
+
 }

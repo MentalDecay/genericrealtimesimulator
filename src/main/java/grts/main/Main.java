@@ -2,11 +2,10 @@ package grts.main;
 
 import grts.core.architecture.Architecture;
 import grts.core.json.parser.SimulatorJacksonParser;
-import grts.core.priority.policies.EarliestDeadlineFirst;
 import grts.core.priority.policies.IPriorityPolicy;
 import grts.core.priority.policies.RateMonotonic;
+import grts.core.processor.policies.FirstFitDecreasingUtilizationPolicy;
 import grts.core.processor.policies.IProcessorPolicy;
-import grts.core.processor.policies.RestrictedProcessorPolicy;
 import grts.core.simulator.Simulator;
 import grts.core.taskset.HyperPeriod;
 import grts.core.taskset.TaskSet;
@@ -88,8 +87,8 @@ public class Main {
         SimulatorJacksonParser parser;
         try {
             inputStreamTasks = Files.newInputStream(Paths.get("PeriodicTaskSet1.json"));
-//            InputStream inputStreamArchitecture = Files.newInputStream(Paths.get("ArchitectureTwoProcessors.json"));
-            InputStream inputStreamArchitecture = Files.newInputStream(Paths.get("ArchitectureMonoProcessor.json"));
+            InputStream inputStreamArchitecture = Files.newInputStream(Paths.get("ArchitectureTwoProcessors.json"));
+//            InputStream inputStreamArchitecture = Files.newInputStream(Paths.get("ArchitectureMonoProcessor.json"));
             parser = new SimulatorJacksonParser(inputStreamTasks, inputStreamArchitecture);
         } catch (IOException e) {
             e.printStackTrace();
@@ -126,11 +125,12 @@ public class Main {
 //        Processor []processorArray = new Processor[2];
 //        processorArray[0] = processor1;
 //        processorArray[1] = processor2;
-        IProcessorPolicy processorPolicy = new RestrictedProcessorPolicy(architecture.getProcessors(),  policy);
-//        IProcessorPolicy processorPolicy = new MonoProcessor(policy);
+//        IProcessorPolicy processorPolicy = new RestrictedProcessorPolicy(architecture,  policy);
+        IProcessorPolicy processorPolicy = new FirstFitDecreasingUtilizationPolicy(architecture, policy, ts);
         Simulator simulator = new Simulator(ts, policy, processorPolicy, logger);
         long timer = HyperPeriod.compute(ts);
         simulator.simulate(timer);
         logger.writeJson();
+
     }
 }

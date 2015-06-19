@@ -1,5 +1,6 @@
 package grts.core.processor.policies;
 
+import grts.core.architecture.Architecture;
 import grts.core.priority.policies.IPriorityPolicy;
 import grts.core.schedulable.Job;
 import grts.core.architecture.Processor;
@@ -47,7 +48,7 @@ public class RestrictedProcessorPolicy implements IProcessorPolicy {
     }
 
 
-    private final Processor[] processors;
+    private final Architecture architecture;
     private final IPriorityPolicy policy;
     private final HashMap<Integer, ProcessorAttributes> processorIdAttributeMap = new HashMap<>();
     private final HashMap<Job, Integer> jobProcessorIdMap = new HashMap<>();
@@ -56,13 +57,13 @@ public class RestrictedProcessorPolicy implements IProcessorPolicy {
     /**
      * Creates a new restricted processor policy. According to this policy, each processor has a private activated jobs list. The purpose of this policy is to chose
      * where to add the new activated job. The job is added to the processor with the lowest utilization.
-     * @param processors The array of processors associated to the processor policy.
+     * @param architecture The architecture used for the simulation.
      * @param policy The priority policy associated to the processor policy.
      */
-    public RestrictedProcessorPolicy(Processor[] processors, IPriorityPolicy policy) {
-        this.processors = processors;
+    public RestrictedProcessorPolicy(Architecture architecture, IPriorityPolicy policy) {
+        this.architecture = architecture;
         this.policy = policy;
-        for(int i = 0; i < processors.length; i++){
+        for(int i = 0; i < architecture.getProcessors().length; i++){
             processorIdAttributeMap.put(i, new ProcessorAttributes());
         }
     }
@@ -70,7 +71,7 @@ public class RestrictedProcessorPolicy implements IProcessorPolicy {
 
     @Override
     public Processor[] getProcessors() {
-        return processors;
+        return architecture.getProcessors();
     }
 
     @Override
@@ -81,7 +82,7 @@ public class RestrictedProcessorPolicy implements IProcessorPolicy {
     @Override
     public List<AbstractMap.SimpleEntry<Job, Integer>> chooseNextJobs(long time) {
         List<AbstractMap.SimpleEntry<Job, Integer>> entryList = new LinkedList<>();
-        for(Processor processor : processors){
+        for(Processor processor : architecture.getProcessors()){
             int processorId = processor.getId();
             List<Job> activatedJobs = processorIdAttributeMap.get(processorId).getActivatedJobs();
             Job jobToExecute = getPriorityPolicy().choseJobToExecute(activatedJobs, time);
@@ -133,19 +134,19 @@ public class RestrictedProcessorPolicy implements IProcessorPolicy {
 
     @Override
     public void stopJobExecution(Job job, int processorId) {
-        Processor processor = processors[processorId];
+        Processor processor = architecture.getProcessors()[processorId];
         processor.stopExecutionJob();
     }
 
     @Override
     public void executeJob(Job job, int processorId) {
-        Processor processor = processors[processorId];
+        Processor processor = architecture.getProcessors()[processorId];
         processor.executeJob(job);
     }
 
     @Override
     public Job getExecutingJob(int processorId) {
-        Processor processor = processors[processorId];
+        Processor processor = architecture.getProcessors()[processorId];
         return processor.getExecutingJob();
     }
 

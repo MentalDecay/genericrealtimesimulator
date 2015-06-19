@@ -1,5 +1,6 @@
 package grts.core.processor.policies;
 
+import grts.core.architecture.Architecture;
 import grts.core.priority.policies.IPriorityPolicy;
 import grts.core.schedulable.Job;
 import grts.core.architecture.Processor;
@@ -11,7 +12,8 @@ import java.util.List;
 
 public class MonoProcessor implements IProcessorPolicy {
 
-    private final Processor processor;
+    private final Architecture architecture;
+//    private final Processor processor;
     private final IPriorityPolicy policy;
     private final List<Job> activatedJobs =  new LinkedList<>();
 
@@ -19,17 +21,19 @@ public class MonoProcessor implements IProcessorPolicy {
      * Creates a new mono processor policy.
      * @param policy The priority policy associated with the mono processor policy.
      */
-    public MonoProcessor(IPriorityPolicy policy) {
-        this.processor = new Processor(0);
+    public MonoProcessor(Architecture architecture, IPriorityPolicy policy) {
+        this.architecture = architecture;
+        if(architecture.getProcessors().length != 1){
+            throw new IllegalArgumentException("The architecture contains more than 1 processor");
+        }
+//        this.processor = new Processor(0);
         this.policy = policy;
     }
 
 
     @Override
     public Processor[] getProcessors() {
-        Processor[] p = new Processor[1];
-        p[0] = processor;
-        return p;
+        return architecture.getProcessors();
     }
 
     @Override
@@ -60,17 +64,17 @@ public class MonoProcessor implements IProcessorPolicy {
 
     @Override
     public void stopJobExecution(Job job, int processorId) {
-        processor.stopExecutionJob();
+        architecture.getProcessors()[0].stopExecutionJob();
     }
 
     @Override
     public void executeJob(Job job, int processorId) {
-        processor.executeJob(job);
+        architecture.getProcessors()[0].executeJob(job);
     }
 
     @Override
     public Job getExecutingJob(int processorId) {
-        return processor.getExecutingJob();
+        return architecture.getProcessors()[0].getExecutingJob();
     }
 
 }
