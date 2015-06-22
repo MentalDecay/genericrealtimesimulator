@@ -115,7 +115,6 @@ public class FirstFitDecreasingUtilizationPolicy implements IProcessorPolicy {
         int processorId = taskToProcessorId.get(task);
         activatedJobsMap.computeIfAbsent(processorId, id -> new LinkedList<>());
         activatedJobsMap.get(processorId).add(job);
-
     }
 
     @Override

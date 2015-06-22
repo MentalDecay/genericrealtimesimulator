@@ -4,6 +4,7 @@ import grts.core.architecture.Architecture;
 import grts.core.json.parser.SimulatorJacksonParser;
 import grts.core.priority.policies.IPriorityPolicy;
 import grts.core.priority.policies.RateMonotonic;
+import grts.core.processor.policies.FBBFirstFitDecreasing;
 import grts.core.processor.policies.FirstFitDecreasingUtilizationPolicy;
 import grts.core.processor.policies.IProcessorPolicy;
 import grts.core.simulator.Simulator;
@@ -126,7 +127,7 @@ public class Main {
 //        processorArray[0] = processor1;
 //        processorArray[1] = processor2;
 //        IProcessorPolicy processorPolicy = new RestrictedProcessorPolicy(architecture,  policy);
-        IProcessorPolicy processorPolicy = new FirstFitDecreasingUtilizationPolicy(architecture, policy, ts);
+        IProcessorPolicy processorPolicy = new FBBFirstFitDecreasing(architecture, ts);
         Simulator simulator = new Simulator(ts, policy, processorPolicy, logger);
         long timer = HyperPeriod.compute(ts);
         simulator.simulate(timer);
