@@ -30,6 +30,8 @@ import grts.core.architecture.Architecture;
 import grts.core.json.parser.SimulatorJacksonParser;
 import grts.core.priority.policies.IPriorityPolicy;
 import grts.core.priority.policies.RateMonotonic;
+import grts.core.processor.policies.FBBFirstFitDecreasing;
+import grts.core.processor.policies.FirstFitDecreasingUtilizationPolicy;
 import grts.core.processor.policies.IProcessorPolicy;
 import grts.core.processor.policies.RestrictedProcessorPolicy;
 import grts.core.simulator.Simulator;
@@ -69,7 +71,7 @@ public class Main {
             ts = TaskSetFactory.createTaskSetFromParser(parser);
             architecture = parser.parseArchitecture();
             IPriorityPolicy policy = new RateMonotonic(ts);
-            IProcessorPolicy processorPolicy = new RestrictedProcessorPolicy(architecture.getProcessors(),  policy);
+            IProcessorPolicy processorPolicy = new RestrictedProcessorPolicy(architecture,  policy);
             logger = new EventLogger("logs", JobActivationEvent.class, DeadlineCheckEvent.class,
                     DeadlineMissedEvent.class, PreemptionEvent.class, JobExecutionStartEvent.class,
                     JobExecutionStopEvent.class, SimulationStopEvent.class);

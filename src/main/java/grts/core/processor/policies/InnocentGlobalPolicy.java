@@ -1,5 +1,6 @@
 package grts.core.processor.policies;
 
+import grts.core.architecture.Architecture;
 import grts.core.priority.policies.IPriorityPolicy;
 import grts.core.schedulable.Job;
 import grts.core.architecture.Processor;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class InnocentGlobalPolicy implements IProcessorPolicy {
 
-    private final Processor[] processors;
+    private final Architecture architecture;
     private final IPriorityPolicy policy;
     private final List<Job> activatedJobs =  new LinkedList<>();
     private final HashMap<Job, Integer> jobProcessorIdMap = new HashMap<>();
@@ -19,18 +20,18 @@ public class InnocentGlobalPolicy implements IProcessorPolicy {
     /**
      * Creates a new Innocent Global Policy. This policy chose the first idle processor if there is one or the first processor with a task which shouldn't
      * be executing according to the priority policy associated with this processor policy.
-     * @param processors An array of processors.
+     * @param architecture The architecture used for the simulation.
      * @param policy The priority policy associated with the processor policy.
      */
-    public InnocentGlobalPolicy(Processor[] processors, IPriorityPolicy policy) {
-        this.processors = processors;
+    public InnocentGlobalPolicy(Architecture architecture, IPriorityPolicy policy) {
+        this.architecture = architecture;
         this.policy = policy;
     }
 
 
     @Override
     public Processor[] getProcessors() {
-        return processors;
+        return architecture.getProcessors();
     }
 
     @Override
@@ -45,7 +46,7 @@ public class InnocentGlobalPolicy implements IProcessorPolicy {
         List<Job> selectedJobs = new LinkedList<>();
 
         int cmpt = 0;
-        int max = processors.length;
+        int max = architecture.getProcessors().length;
         List<Integer> alreadyExecutingId = new LinkedList<>();
         while(cmpt < max){
             if(copyActivatedJobs.size() == 0){
@@ -61,7 +62,7 @@ public class InnocentGlobalPolicy implements IProcessorPolicy {
             }
             cmpt++;
         }
-        for(Processor processor : processors){
+        for(Processor processor : architecture.getProcessors()){
             if(selectedJobs.size() == 0){
                 break;
             }
@@ -88,21 +89,21 @@ public class InnocentGlobalPolicy implements IProcessorPolicy {
 
     @Override
     public void stopJobExecution(Job job, int processorId) {
-        Processor processor = processors[processorId];
+        Processor processor = architecture.getProcessors()[processorId];
         processor.stopExecutionJob();
         jobProcessorIdMap.remove(job, processorId);
     }
 
     @Override
     public void executeJob(Job job, int processorId) {
-        Processor processor = processors[processorId];
+        Processor processor = architecture.getProcessors()[processorId];
         processor.executeJob(job);
         jobProcessorIdMap.put(job, processorId);
     }
 
     @Override
     public Job getExecutingJob(int processorId) {
-        Processor processor = processors[processorId];
+        Processor processor = architecture.getProcessors()[processorId];
         return processor.getExecutingJob();
     }
 

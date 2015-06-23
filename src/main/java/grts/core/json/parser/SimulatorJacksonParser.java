@@ -92,7 +92,4 @@ public class SimulatorJacksonParser {
     public Architecture parseArchitecture(){
         return architectureParser.parse();
     }
-
-
-
 }

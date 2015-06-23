@@ -1,5 +1,6 @@
 package grts.core.taskset;
 
+import grts.core.schedulable.AbstractRecurrentTask;
 import grts.core.schedulable.Schedulable;
 
 import java.util.ArrayList;
@@ -31,6 +32,28 @@ public class TaskSet implements Iterable<Schedulable> {
     @Override
     public Iterator<Schedulable> iterator() {
         return schedulables.iterator();
+    }
+
+    /**
+     * Get the number of schedulables in the tasks set.
+     * @return The number of schedulables.
+     */
+    public int getSchedulablesNumber(){
+        return schedulables.size();
+    }
+
+    public boolean isConstrained(){
+        return !schedulables.stream().allMatch(schedulable -> {
+            if (!(schedulable instanceof AbstractRecurrentTask)) {
+                return false;
+            }
+            AbstractRecurrentTask task = (AbstractRecurrentTask) schedulable;
+            return task.getDeadline() <= task.getMinimumInterArrivalTime();
+        });
+    }
+
+    public boolean isRecurrent(){
+        return !schedulables.stream().anyMatch(schedulable -> !(schedulable instanceof AbstractRecurrentTask));
     }
 
 }
