@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import grts.core.simulator.Scheduler;
 
-public abstract class  AbstractEvent implements Comparable<AbstractEvent>, Event {
+public abstract class  AbstractEvent implements Event {
 
     private final Scheduler scheduler;
     private final long time;
@@ -27,7 +27,7 @@ public abstract class  AbstractEvent implements Comparable<AbstractEvent>, Event
      * @return a negative integer, zero, or a positive integer as this event is less than, equal to, or greater than the specified event
      */
     @Override
-    public int compareTo(@SuppressWarnings("NullableProblems") AbstractEvent event) {
+    public int compareTo(@SuppressWarnings("NullableProblems") Event event) {
         if(getTime() != event.getTime()){
             long comp = getTime() - event.getTime();
             if(comp < 0){
@@ -66,13 +66,6 @@ public abstract class  AbstractEvent implements Comparable<AbstractEvent>, Event
     public long getTime() {
         return time;
     }
-
-    /**
-     * Get the priority of the event. It's used to sort events. For example, the StopSimulationEvent has the biggest priority because it should perform before the others.
-     * Its priority is 1.
-     * @return the priority of the event.
-     */
-    protected abstract int getPriority();
 
     @Override
     public JsonNode toLog() {
