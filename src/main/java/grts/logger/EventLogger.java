@@ -1,7 +1,5 @@
 package grts.logger;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -37,7 +35,6 @@ public class EventLogger {
      * @param event The event to log.
      */
     public void log(Event event){
-
         if(eventsList.contains(event.getName())) {
             arrayNode.add(event.toLog());
         }
