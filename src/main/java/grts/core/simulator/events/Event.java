@@ -35,7 +35,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 public interface Event extends Comparable<Event> {
 
     /**
-     * Get the priority of the event. It's used to sort events. For example, the StopSimulationEvent has the biggest
+     * Get the priority of the event. It's used to sort events. For example, the SimulationStopEvent has the biggest
      * priority because it should perform before the others. Its priority is 1.
      * @return the priority of the event.
      */

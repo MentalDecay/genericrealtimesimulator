@@ -121,7 +121,7 @@ public class RestrictedProcessorPolicy implements IProcessorPolicy {
                         });
         if(!optionalEntry.isPresent()){
             System.err.println("Can't schedule this job on a processor");
-//            TODO throw new Exception and catch it to raise a StopSimulationEvent.
+//            TODO throw new Exception and catch it to raise a SimulationStopEvent.
         }
         int processorId = optionalEntry.get().getKey();
         jobProcessorIdMap.put(job, processorId);

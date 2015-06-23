@@ -1,6 +1,5 @@
 package grts.core.taskset;
 
-
 import grts.core.schedulable.Schedulable;
 
 import java.util.ArrayList;

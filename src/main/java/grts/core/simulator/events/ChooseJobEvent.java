@@ -31,7 +31,7 @@ public class ChooseJobEvent extends AbstractEvent implements Event {
             if(getScheduler().getExecutingJob() == null){
                 System.out.println("executing job : " + getScheduler().getExecutingJob());
 
-                getScheduler().addEvent(new StartJobExecutionEvent(getScheduler(), getTime(), jobToExecute));
+                getScheduler().addEvent(new JobExecutionStartEvent(getScheduler(), getTime(), jobToExecute));
             }
             else if (getScheduler().getExecutingJob() != jobToExecute){
 
@@ -47,7 +47,7 @@ public class ChooseJobEvent extends AbstractEvent implements Event {
         if(!list.isEmpty()){
             list.forEach(entry -> {
                 if(getScheduler().getExecutingJob(entry.getValue()) == null){
-                    getScheduler().addEvent(new StartJobExecutionEvent(getScheduler(), getTime(), entry.getKey(), entry.getValue()));
+                    getScheduler().addEvent(new JobExecutionStartEvent(getScheduler(), getTime(), entry.getKey(), entry.getValue()));
                 }
                 else if (getScheduler().getExecutingJob(entry.getValue()) != entry.getKey()){
                     getScheduler().addEvent(new PreemptionEvent(getScheduler(), getTime(), entry.getKey(), entry.getValue()));

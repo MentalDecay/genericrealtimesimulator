@@ -33,6 +33,7 @@ import grts.core.priority.policies.RateMonotonic;
 import grts.core.processor.policies.IProcessorPolicy;
 import grts.core.processor.policies.RestrictedProcessorPolicy;
 import grts.core.simulator.Simulator;
+import grts.core.simulator.events.*;
 import grts.core.taskset.HyperPeriod;
 import grts.core.taskset.TaskSet;
 import grts.core.taskset.TaskSetFactory;
@@ -41,7 +42,6 @@ import grts.logger.EventLogger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.*;
-import java.util.LinkedList;
 
 /**
  * @author Tristan Fautrel
@@ -70,15 +70,9 @@ public class Main {
             architecture = parser.parseArchitecture();
             IPriorityPolicy policy = new RateMonotonic(ts);
             IProcessorPolicy processorPolicy = new RestrictedProcessorPolicy(architecture.getProcessors(),  policy);
-            LinkedList<String> eventsToLog = new LinkedList<>();
-            eventsToLog.add("Activate Job Event");
-            eventsToLog.add("Check Deadline Event");
-            eventsToLog.add("Deadline Missed Event");
-            eventsToLog.add("Preemption Event");
-            eventsToLog.add("Start Job Execution Event");
-            eventsToLog.add("Stop Job Execution Event");
-            eventsToLog.add("Stop Simulation Event");
-            logger = new EventLogger("logs", eventsToLog);
+            logger = new EventLogger("logs", JobActivationEvent.class, DeadlineCheckEvent.class,
+                    DeadlineMissedEvent.class, PreemptionEvent.class, JobExecutionStartEvent.class,
+                    JobExecutionStopEvent.class, SimulationStopEvent.class);
             Simulator simulator = new Simulator(ts, policy, processorPolicy, logger);
             long timer = HyperPeriod.compute(ts);
             simulator.simulate(timer);

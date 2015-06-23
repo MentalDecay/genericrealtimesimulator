@@ -48,9 +48,9 @@ public class PreemptionEvent extends AbstractEventOnJob implements Event {
     @Override
     public void handle() {
         Job executingJob = getScheduler().getExecutingJob(getProcessorId());
-        getScheduler().addEvent(new StopJobExecutionEvent(getScheduler(), getTime(), executingJob, getProcessorId()));
+        getScheduler().addEvent(new JobExecutionStopEvent(getScheduler(), getTime(), executingJob, getProcessorId()));
         getScheduler().executeJob(getJob(), getProcessorId());
-        getScheduler().addEvent(new StartJobExecutionEvent(getScheduler(), getTime(), getJob(), getProcessorId()));
+        getScheduler().addEvent(new JobExecutionStartEvent(getScheduler(), getTime(), getJob(), getProcessorId()));
     }
 
     @Override

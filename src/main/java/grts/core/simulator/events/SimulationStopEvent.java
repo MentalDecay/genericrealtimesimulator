@@ -2,7 +2,7 @@ package grts.core.simulator.events;
 
 import grts.core.simulator.Scheduler;
 
-public class StopSimulationEvent extends AbstractEvent implements Event {
+public class SimulationStopEvent extends AbstractEvent implements Event {
 
 
     /**
@@ -10,7 +10,7 @@ public class StopSimulationEvent extends AbstractEvent implements Event {
      * @param scheduler The scheduler which created this event.
      * @param time The time of the event.
      */
-    public StopSimulationEvent(Scheduler scheduler, long time) {
+    public SimulationStopEvent(Scheduler scheduler, long time) {
         super(scheduler, time);
     }
 
@@ -20,7 +20,7 @@ public class StopSimulationEvent extends AbstractEvent implements Event {
 
     @Override
     public String toString() {
-        return "StopSimulationEvent : time : " + getTime();
+        return "SimulationStopEvent : time : " + getTime();
     }
 
     @Override
@@ -35,10 +35,10 @@ public class StopSimulationEvent extends AbstractEvent implements Event {
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof StopSimulationEvent)){
+        if(!(obj instanceof SimulationStopEvent)){
             return false;
         }
-        StopSimulationEvent event = (StopSimulationEvent) obj;
+        SimulationStopEvent event = (SimulationStopEvent) obj;
         return getScheduler() == event.getScheduler() &&
                 getTime() == event.getTime();
     }

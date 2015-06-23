@@ -3,7 +3,10 @@ package grts.core.simulator.events;
 import grts.core.schedulable.Job;
 import grts.core.simulator.Scheduler;
 
-public class CheckDeadlineEvent extends AbstractEventOnJob implements Event {
+/**
+ * @author Tristan Fautrel
+ */
+public class DeadlineCheckEvent extends AbstractEventOnJob implements Event {
 
     /**
      * Creates a new Check Deadline Event.
@@ -11,7 +14,7 @@ public class CheckDeadlineEvent extends AbstractEventOnJob implements Event {
      * @param time The time of the event.
      * @param job The job associated to the event.
      */
-    public CheckDeadlineEvent(Scheduler scheduler, long time, Job job) {
+    public DeadlineCheckEvent(Scheduler scheduler, long time, Job job) {
         super(scheduler, time, job);
     }
 
@@ -29,7 +32,7 @@ public class CheckDeadlineEvent extends AbstractEventOnJob implements Event {
 
     @Override
     public String toString() {
-        return "CheckDeadlineEvent : " + getJob() + " time : " + getTime();
+        return "DeadlineCheckEvent : " + getJob() + " time : " + getTime();
     }
 
     @Override
@@ -39,10 +42,10 @@ public class CheckDeadlineEvent extends AbstractEventOnJob implements Event {
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof CheckDeadlineEvent)){
+        if(!(obj instanceof DeadlineCheckEvent)){
             return false;
         }
-        CheckDeadlineEvent event = (CheckDeadlineEvent) obj;
+        DeadlineCheckEvent event = (DeadlineCheckEvent) obj;
         return getScheduler() == event.getScheduler() &&
                 getTime() == event.getTime() &&
                 getJob().equals(event.getJob());

@@ -43,7 +43,7 @@ public class Scheduler {
 
     /**
      * Checks if the simulation should end.
-     * @return true if the simulation is over because of an event (StopSimulationEvent).
+     * @return true if the simulation is over because of an event (SimulationStopEvent).
      */
     public boolean isOver() {
         return over;

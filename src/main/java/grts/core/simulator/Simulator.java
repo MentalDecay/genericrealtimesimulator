@@ -29,7 +29,7 @@ package grts.core.simulator;
 import grts.core.priority.policies.IPriorityPolicy;
 import grts.core.processor.policies.IProcessorPolicy;
 import grts.core.schedulable.Job;
-import grts.core.simulator.events.ActivateJobEvent;
+import grts.core.simulator.events.JobActivationEvent;
 import grts.core.simulator.events.Event;
 import grts.core.simulator.events.EventQueue;
 import grts.core.taskset.TaskSet;
@@ -92,14 +92,14 @@ public class Simulator {
     }
 
     /**
-     * Creates the first events of the simulation. The events created are the first ActivateJobEvent of each task.
+     * Creates the first events of the simulation. The events created are the first JobActivationEvent of each task.
      */
 
     private void initEventQueue(){
         taskSet.forEach(task -> {
             Job firstJob = task.getFirstJob();
             System.out.println(firstJob);
-            eventQueue.offer(new ActivateJobEvent(scheduler, firstJob.getActivationTime(), firstJob));
+            eventQueue.offer(new JobActivationEvent(scheduler, firstJob.getActivationTime(), firstJob));
         });
     }
 
