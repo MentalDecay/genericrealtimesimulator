@@ -25,7 +25,7 @@ public class DeadlineMissedEvent  extends AbstractEvent implements Event {
     }
 
     @Override
-    protected int getPriority() {
+    public int getPriority() {
         return 4;
     }
 

@@ -63,7 +63,7 @@ public class ChooseJobEvent extends AbstractEvent implements Event {
     }
 
     @Override
-    protected int getPriority() {
+    public int getPriority() {
         return 7;
     }
 

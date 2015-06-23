@@ -28,7 +28,7 @@ public class CheckEndExecutionEventNotUsed extends AbstractEventOnJob implements
     }
 
     @Override
-    protected int getPriority() {
+    public int getPriority() {
         return 3;
     }
 

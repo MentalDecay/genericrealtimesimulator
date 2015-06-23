@@ -59,7 +59,7 @@ public class PreemptionEvent extends AbstractEventOnJob implements Event {
     }
 
     @Override
-    protected int getPriority() {
+    public int getPriority() {
         return 8;
     }
 

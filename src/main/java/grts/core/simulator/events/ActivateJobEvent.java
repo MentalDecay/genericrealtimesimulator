@@ -31,7 +31,7 @@ public class ActivateJobEvent extends AbstractEventOnJob implements Event {
     }
 
     @Override
-    protected int getPriority() {
+    public int getPriority() {
         return 6;
     }
 
