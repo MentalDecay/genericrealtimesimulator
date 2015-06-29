@@ -4,6 +4,7 @@ import grts.core.architecture.Architecture;
 import grts.core.priority.policies.IPriorityPolicy;
 import grts.core.schedulable.Job;
 import grts.core.architecture.Processor;
+import grts.core.taskset.TaskSet;
 
 import java.util.AbstractMap;
 import java.util.HashMap;
@@ -34,10 +35,6 @@ public class InnocentGlobalPolicy implements IProcessorPolicy {
         return architecture.getProcessors();
     }
 
-    @Override
-    public IPriorityPolicy getPriorityPolicy() {
-        return policy;
-    }
 
     @Override
     public List<AbstractMap.SimpleEntry<Job, Integer>> chooseNextJobs(long time) {
@@ -52,7 +49,7 @@ public class InnocentGlobalPolicy implements IProcessorPolicy {
             if(copyActivatedJobs.size() == 0){
                 break;
             }
-            Job job = getPriorityPolicy().choseJobToExecute(copyActivatedJobs, time);
+            Job job = policy.choseJobToExecute(copyActivatedJobs, time);
             copyActivatedJobs.remove(job);
             if(jobProcessorIdMap.containsKey(job)){
                 alreadyExecutingId.add(jobProcessorIdMap.get(job));
@@ -105,6 +102,11 @@ public class InnocentGlobalPolicy implements IProcessorPolicy {
     public Job getExecutingJob(int processorId) {
         Processor processor = architecture.getProcessors()[processorId];
         return processor.getExecutingJob();
+    }
+
+    @Override
+    public TaskSet initTaskSet(TaskSet taskSet) {
+        return taskSet;
     }
 
 }

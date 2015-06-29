@@ -84,6 +84,11 @@ public class SporadicTask extends AbstractRecurrentTask implements Schedulable {
     }
 
     @Override
+    public Schedulable copy() {
+        return new SporadicTask(getMinimumInterArrivalTime(), getWcet(), getDeadline(), getOffset(), getName());
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof SporadicTask)){
             return false;
@@ -94,5 +99,16 @@ public class SporadicTask extends AbstractRecurrentTask implements Schedulable {
                 getDeadline() == task.getDeadline() &&
                 getOffset() == task.getOffset() &&
                 getName().equals(task.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 1;
+        hash = hash * 31 + Float.floatToIntBits(getMinimumInterArrivalTime());
+        hash = hash * 31 + Float.floatToIntBits(getWcet());
+        hash = hash * 31 + Float.floatToIntBits(getDeadline());
+        hash = hash * 31 + Float.floatToIntBits(getOffset());
+        hash = hash * 31 + getName().hashCode();
+        return hash;
     }
 }

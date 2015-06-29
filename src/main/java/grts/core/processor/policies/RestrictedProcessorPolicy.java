@@ -4,6 +4,7 @@ import grts.core.architecture.Architecture;
 import grts.core.priority.policies.IPriorityPolicy;
 import grts.core.schedulable.Job;
 import grts.core.architecture.Processor;
+import grts.core.taskset.TaskSet;
 
 import java.util.*;
 
@@ -74,10 +75,6 @@ public class RestrictedProcessorPolicy implements IProcessorPolicy {
         return architecture.getProcessors();
     }
 
-    @Override
-    public IPriorityPolicy getPriorityPolicy() {
-        return policy;
-    }
 
     @Override
     public List<AbstractMap.SimpleEntry<Job, Integer>> chooseNextJobs(long time) {
@@ -85,7 +82,7 @@ public class RestrictedProcessorPolicy implements IProcessorPolicy {
         for(Processor processor : architecture.getProcessors()){
             int processorId = processor.getId();
             List<Job> activatedJobs = processorIdAttributeMap.get(processorId).getActivatedJobs();
-            Job jobToExecute = getPriorityPolicy().choseJobToExecute(activatedJobs, time);
+            Job jobToExecute = policy.choseJobToExecute(activatedJobs, time);
             if(jobToExecute == null){
                 continue;
             }
@@ -148,6 +145,11 @@ public class RestrictedProcessorPolicy implements IProcessorPolicy {
     public Job getExecutingJob(int processorId) {
         Processor processor = architecture.getProcessors()[processorId];
         return processor.getExecutingJob();
+    }
+
+    @Override
+    public TaskSet initTaskSet(TaskSet taskSet) {
+        return taskSet;
     }
 
 

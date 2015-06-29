@@ -18,7 +18,6 @@ public class JobActivationEvent extends AbstractEventOnJob implements Event {
     @Override
     public void handle() {
         getScheduler().addActiveJob(getJob());
-
         getScheduler().addEvent(new DeadlineCheckEvent(getScheduler(), getJob().getDeadlineTime(), getJob()));
         getScheduler().addEvent(new ChooseJobEvent(getScheduler(), getTime()));
         Job nextJob = getJob().getTask().getRealNextJob(getTime());

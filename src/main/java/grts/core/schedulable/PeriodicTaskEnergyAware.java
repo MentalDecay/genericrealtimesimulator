@@ -39,4 +39,21 @@ public class PeriodicTaskEnergyAware extends PeriodicTask {
     public long getWcec() {
         return wcec;
     }
+
+    @Override
+    public Schedulable copy() {
+        return new PeriodicTaskEnergyAware(getPeriod(), getWcet(), getDeadline(), getOffset(), getName(), wcec);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 1;
+        hash = hash * 31 + Float.floatToIntBits(getMinimumInterArrivalTime());
+        hash = hash * 31 + Float.floatToIntBits(getWcet());
+        hash = hash * 31 + Float.floatToIntBits(getDeadline());
+        hash = hash * 31 + Float.floatToIntBits(getOffset());
+        hash = hash * 31 + getName().hashCode();
+        hash = hash * 31 + Float.floatToIntBits(wcec);
+        return hash;
+    }
 }

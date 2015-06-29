@@ -40,4 +40,21 @@ public class PeriodicTaskMemoryAware extends PeriodicTask{
     public long getMemory() {
         return memory;
     }
+
+    @Override
+    public Schedulable copy() {
+        return new PeriodicTaskMemoryAware(getPeriod(), getWcet(), getDeadline(), getOffset(), getName(), memory);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 1;
+        hash = hash * 31 + Float.floatToIntBits(getMinimumInterArrivalTime());
+        hash = hash * 31 + Float.floatToIntBits(getWcet());
+        hash = hash * 31 + Float.floatToIntBits(getDeadline());
+        hash = hash * 31 + Float.floatToIntBits(getOffset());
+        hash = hash * 31 + getName().hashCode();
+        hash = hash * 31 + Float.floatToIntBits(memory);
+        return hash;
+    }
 }

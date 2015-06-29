@@ -23,33 +23,34 @@ public class FirstFitDecreasingUtilizationPolicy implements IProcessorPolicy {
     private final HashMap<Integer, List<Job>> activatedJobsMap = new HashMap<>();
 
     /**
-     * Creates a new First Fit Decreasing Utilization Policy.
-     * The initialization may take time because of the computation of where each Schedulable should execute.
-     * @param architecture The architecture used with this Processor Policy.
+     * Creates a new First Fit Decreasing Utilization Policy. The initialization may take time because of the
+     * computation of where each Schedulable should execute.
+     *
+     * @param architecture   The architecture used with this Processor Policy.
      * @param priorityPolicy The priority policy used with this Processor Policy.
-     * @param taskSet The TaskSet the Processor Policy should schedule.
+     * @param taskSet        The TaskSet the Processor Policy should schedule.
      */
     public FirstFitDecreasingUtilizationPolicy(Architecture architecture, IPriorityPolicy priorityPolicy, TaskSet taskSet) {
         this.architecture = architecture;
         this.priorityPolicy = priorityPolicy;
         schedulabilityTestFactory = new SchedulabilityTestFactory(architecture);
         init(taskSet);
-        if(!schedulableTaskSet){
+        if (!schedulableTaskSet) {
             throw new IllegalArgumentException("Can't schedule this task set with this heuristic");
         }
     }
 
-    private void init(TaskSet taskSet){
+    private void init(TaskSet taskSet) {
         Predicate<TaskSet> taskSetPredicate = schedulabilityTestFactory.getTest(priorityPolicy.getPolicyName());
         taskSet.stream().sorted((o1, o2) -> {
-            if(!(o1 instanceof AbstractRecurrentTask) || !(o2 instanceof AbstractRecurrentTask)){
+            if (!(o1 instanceof AbstractRecurrentTask) || !(o2 instanceof AbstractRecurrentTask)) {
                 throw new IllegalArgumentException("Can't use the First Fit Decreasing Utilization on a non recurrent taskSet");
             }
             AbstractRecurrentTask t1 = (AbstractRecurrentTask) o1;
             AbstractRecurrentTask t2 = (AbstractRecurrentTask) o2;
             double utilizationT1 = (double) t1.getWcet() / (double) t1.getMinimumInterArrivalTime();
             double utilizationT2 = (double) t2.getWcet() / (double) t2.getMinimumInterArrivalTime();
-            return - Double.compare(utilizationT1, utilizationT2);
+            return -Double.compare(utilizationT1, utilizationT2);
         }).forEach(schedulable -> {
             boolean associatedWithProcessor = false;
             for (Processor processor : architecture.getProcessors()) {
@@ -59,19 +60,18 @@ public class FirstFitDecreasingUtilizationPolicy implements IProcessorPolicy {
                 copyTasks.addAll(tasks);
                 copyTasks.add(schedulable);
                 TaskSet taskSetToTest = new TaskSet(copyTasks);
-                if(taskSetPredicate.test(taskSetToTest)){
+                if (taskSetPredicate.test(taskSetToTest)) {
                     taskToProcessorId.put(schedulable, processor.getId());
                     processorIdToTask.get(processor.getId()).add(schedulable);
                     associatedWithProcessor = true;
                     break;
                 }
             }
-            if(!associatedWithProcessor){
+            if (!associatedWithProcessor) {
                 schedulableTaskSet = false;
             }
         });
     }
-
 
 
     @Override
@@ -79,18 +79,14 @@ public class FirstFitDecreasingUtilizationPolicy implements IProcessorPolicy {
         return architecture.getProcessors();
     }
 
-    @Override
-    public IPriorityPolicy getPriorityPolicy() {
-        return priorityPolicy;
-    }
 
     @Override
     public List<AbstractMap.SimpleEntry<Job, Integer>> chooseNextJobs(long time) {
         List<AbstractMap.SimpleEntry<Job, Integer>> list = new LinkedList<>();
-        for(Processor processor : architecture.getProcessors()){
+        for (Processor processor : architecture.getProcessors()) {
             List<Job> activatedJobs = activatedJobsMap.get(processor.getId());
             Job jobToExecute = priorityPolicy.choseJobToExecute(activatedJobs, time);
-            if(jobToExecute == null){
+            if (jobToExecute == null) {
                 continue;
             }
             list.add(new AbstractMap.SimpleEntry<>(jobToExecute, processor.getId()));
@@ -104,7 +100,7 @@ public class FirstFitDecreasingUtilizationPolicy implements IProcessorPolicy {
         Schedulable task = job.getTask();
         int processorId = taskToProcessorId.get(task);
         List<Job> activatedJobs = activatedJobsMap.get(processorId);
-        if(!activatedJobs.remove(job)){
+        if (!activatedJobs.remove(job)) {
             System.err.println("The job isn't in the activated job list.");
         }
     }
@@ -130,5 +126,10 @@ public class FirstFitDecreasingUtilizationPolicy implements IProcessorPolicy {
     @Override
     public Job getExecutingJob(int processorId) {
         return architecture.getProcessors()[processorId].getExecutingJob();
+    }
+
+    @Override
+    public TaskSet initTaskSet(TaskSet taskSet) {
+        return taskSet;
     }
 }

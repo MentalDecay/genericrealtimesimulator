@@ -25,20 +25,20 @@ public class FBBFirstFitDecreasing implements IProcessorPolicy {
     private final boolean checkTwoConditions;
 
     public FBBFirstFitDecreasing(Architecture architecture, TaskSet taskSet) {
-        if(!taskSet.isRecurrent()){
+        if (!taskSet.isRecurrent()) {
             throw new IllegalArgumentException("Can't use this algorithm with a non recurrent task set");
         }
         this.architecture = architecture;
         priorityPolicy = new DeadlineMonotonic(taskSet);
         checkTwoConditions = !taskSet.isConstrained();
         init(taskSet);
-        if(!schedulableTaskSet){
+        if (!schedulableTaskSet) {
             throw new IllegalArgumentException("Can't schedule this task set with this heuristic");
         }
     }
 
 
-    private void init(TaskSet taskSet){
+    private void init(TaskSet taskSet) {
         taskSet.stream()
                 .sorted((o1, o2) -> Long.compare(o1.getDeadline(), o2.getDeadline()))
                 .forEach(schedulable -> {
@@ -46,21 +46,19 @@ public class FBBFirstFitDecreasing implements IProcessorPolicy {
                     System.out.println("task : " + schedulable.getName());
 
                     boolean associatedWithProcessor = false;
-                    for(Processor processor : architecture.getProcessors()){
+                    for (Processor processor : architecture.getProcessors()) {
                         processorIdToTask.computeIfAbsent(processor.getId(), processorId -> new LinkedList<>());
-                        if(firstCondition(schedulable, processorIdToTask.get(processor.getId()))){
-                            if(checkTwoConditions){
-                                if(secondCondition(schedulable, processorIdToTask.get(processor.getId()))){
+                        if (firstCondition(schedulable, processorIdToTask.get(processor.getId()))) {
+                            if (checkTwoConditions) {
+                                if (secondCondition(schedulable, processorIdToTask.get(processor.getId()))) {
                                     processorIdToTask.get(processor.getId()).add((AbstractRecurrentTask) schedulable);
                                     taskToProcessorId.put(schedulable, processor.getId());
                                     associatedWithProcessor = true;
                                     break;
-                                }
-                                else{
+                                } else {
                                     System.out.println("fail");
                                 }
-                            }
-                            else{
+                            } else {
                                 processorIdToTask.get(processor.getId()).add((AbstractRecurrentTask) schedulable);
                                 taskToProcessorId.put(schedulable, processor.getId());
                                 associatedWithProcessor = true;
@@ -68,7 +66,7 @@ public class FBBFirstFitDecreasing implements IProcessorPolicy {
                             }
                         }
                     }
-                    if(!associatedWithProcessor){
+                    if (!associatedWithProcessor) {
                         schedulableTaskSet = false;
                     }
                 });
@@ -76,22 +74,23 @@ public class FBBFirstFitDecreasing implements IProcessorPolicy {
 
     /**
      * Get the RBFStar of the schedulable task. The task should be an AbstractRecurrentTask.
+     *
      * @param schedulable The AbstractRecurrentTask to test.
-     * @param time The timer when the RBFStart should compute.
+     * @param time        The timer when the RBFStart should compute.
      * @return The RBFStar (double).
      */
-    private double RBFStar(Schedulable schedulable, long time){
+    private double RBFStar(Schedulable schedulable, long time) {
         AbstractRecurrentTask task = (AbstractRecurrentTask) schedulable;
         return task.getWcet() + ((double) task.getWcet() / (double) task.getMinimumInterArrivalTime()) * time;
     }
 
-    private boolean firstCondition(Schedulable schedulable, List<AbstractRecurrentTask> alreadyOnTheProcessor){
+    private boolean firstCondition(Schedulable schedulable, List<AbstractRecurrentTask> alreadyOnTheProcessor) {
         double sumRBF = alreadyOnTheProcessor.stream().mapToDouble(task -> RBFStar(task, schedulable.getDeadline())).sum();
         System.out.println("sumRBF : " + sumRBF);
         return schedulable.getDeadline() - sumRBF >= schedulable.getWcet();
     }
 
-    private boolean secondCondition(Schedulable schedulable, List<AbstractRecurrentTask> alreadyOnTheProcessor){
+    private boolean secondCondition(Schedulable schedulable, List<AbstractRecurrentTask> alreadyOnTheProcessor) {
         double sumUtilization = alreadyOnTheProcessor.stream()
                 .mapToDouble(value -> (double) value.getWcet() / (double) value.getMinimumInterArrivalTime())
                 .sum();
@@ -105,18 +104,14 @@ public class FBBFirstFitDecreasing implements IProcessorPolicy {
         return architecture.getProcessors();
     }
 
-    @Override
-    public IPriorityPolicy getPriorityPolicy() {
-        return priorityPolicy;
-    }
 
     @Override
     public List<AbstractMap.SimpleEntry<Job, Integer>> chooseNextJobs(long time) {
         List<AbstractMap.SimpleEntry<Job, Integer>> list = new LinkedList<>();
-        for(Processor processor : architecture.getProcessors()){
+        for (Processor processor : architecture.getProcessors()) {
             List<Job> activatedJobs = activatedJobsMap.get(processor.getId());
             Job jobToExecute = priorityPolicy.choseJobToExecute(activatedJobs, time);
-            if(jobToExecute == null){
+            if (jobToExecute == null) {
                 continue;
             }
             list.add(new AbstractMap.SimpleEntry<>(jobToExecute, processor.getId()));
@@ -129,7 +124,7 @@ public class FBBFirstFitDecreasing implements IProcessorPolicy {
         Schedulable task = job.getTask();
         int processorId = taskToProcessorId.get(task);
         List<Job> activatedJobs = activatedJobsMap.get(processorId);
-        if(!activatedJobs.remove(job)){
+        if (!activatedJobs.remove(job)) {
             System.err.println("The job isn't in the activated job list.");
         }
     }
@@ -155,5 +150,10 @@ public class FBBFirstFitDecreasing implements IProcessorPolicy {
     @Override
     public Job getExecutingJob(int processorId) {
         return architecture.getProcessors()[processorId].getExecutingJob();
+    }
+
+    @Override
+    public TaskSet initTaskSet(TaskSet taskSet) {
+        return taskSet;
     }
 }

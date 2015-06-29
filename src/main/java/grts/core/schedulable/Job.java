@@ -156,6 +156,18 @@ public class Job {
                 && task.equals(job.task);
     }
 
+//    TODO real hashCode
+    @Override
+    public int hashCode() {
+        int hash = 1;
+        hash = hash * 31 + Float.floatToIntBits(activationTime);
+        hash = hash * 31 + Float.floatToIntBits(deadlineTime);
+        hash = hash * 31 + Float.floatToIntBits(jobId);
+        hash = hash * 31 + Float.floatToIntBits(executionTime);
+        hash = hash * 31 + task.hashCode();
+        return hash;
+    }
+
     /**
      * Get the execution time of the job.
      * @return The execution time of the job.

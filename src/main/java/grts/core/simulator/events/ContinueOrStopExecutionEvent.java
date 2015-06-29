@@ -31,6 +31,8 @@ public class ContinueOrStopExecutionEvent extends AbstractEventOnJob implements 
         if(getScheduler().getExecutingJob(getProcessorId()) == getJob()) {
             long lastExecutionTime = getScheduler().getLastJobExecution().get(getJob());
             getJob().execute(getTime() - lastExecutionTime);
+            System.out.println("execucuting : " + (getTime() - lastExecutionTime));
+            System.out.println("remaining : " + getJob().getRemainingTime());
             getScheduler().putLastJobExecution(getJob(), getTime());
             if(getJob().getRemainingTime() == 0){
                 getScheduler().addEvent(new JobExecutionStopEvent(getScheduler(), getTime(), getJob(), getProcessorId()));

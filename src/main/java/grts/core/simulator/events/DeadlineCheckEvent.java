@@ -26,6 +26,8 @@ public class DeadlineCheckEvent extends AbstractEventOnJob implements Event {
     @Override
     public void handle() {
         if(getJob().getRemainingTime() > 0 ){
+            System.out.println("fail on : " + getJob());
+            System.out.println("remaining : " + getJob().getRemainingTime());
             getScheduler().addEvent(new DeadlineMissedEvent(getScheduler(), getTime()));
         }
     }

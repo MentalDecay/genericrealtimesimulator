@@ -3,6 +3,7 @@ package grts.core.processor.policies;
 import grts.core.priority.policies.IPriorityPolicy;
 import grts.core.schedulable.Job;
 import grts.core.architecture.Processor;
+import grts.core.taskset.TaskSet;
 
 import java.util.AbstractMap;
 import java.util.List;
@@ -15,11 +16,6 @@ public interface IProcessorPolicy {
      */
     Processor[] getProcessors();
 
-    /**
-     * Get the priority policy of the Processor Policy.
-     * @return the priority policy.
-     */
-    IPriorityPolicy getPriorityPolicy();
 
     /**
      * Select the jobs to execute and the processors to execute them according to the priority policy and the processor policy.
@@ -62,6 +58,11 @@ public interface IProcessorPolicy {
      */
     Job getExecutingJob(int processorId);
 
-
+    /**
+     * Creates a new TaskSet if the policy adds some tasks or the current TaskSet.
+     * @param taskSet The TaskSet to modify.
+     * @return The new TaskSet.
+     */
+    TaskSet initTaskSet(TaskSet taskSet);
 
 }

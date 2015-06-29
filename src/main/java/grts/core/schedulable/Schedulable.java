@@ -83,4 +83,10 @@ public interface Schedulable {
      */
     Job getFirstJob();
 
+    /**
+     * Creates a new Schedulable with the exact same parameters.
+     * @return A new Schedulable with the exact same parameters.
+     */
+    Schedulable copy();
+
 }

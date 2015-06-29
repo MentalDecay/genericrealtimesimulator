@@ -26,7 +26,6 @@
 
 package grts.core.simulator;
 
-import grts.core.priority.policies.IPriorityPolicy;
 import grts.core.processor.policies.IProcessorPolicy;
 import grts.core.schedulable.Job;
 import grts.core.simulator.events.JobActivationEvent;
@@ -52,14 +51,14 @@ public class Simulator {
     /**
      * Creates a new Simulator.
      * @param taskSet the tasks set of the simulator.
-     * @param priorityPolicy the priority policy of the simulator.
+//     * @param priorityPolicy the priority policy of the simulator.
      * @param processorPolicy the processor policy of the simulator.
      * @param logger
      */
-    public Simulator(TaskSet taskSet, IPriorityPolicy priorityPolicy, IProcessorPolicy processorPolicy, EventLogger logger) {
+    public Simulator(TaskSet taskSet/*, IPriorityPolicy priorityPolicy, */, IProcessorPolicy processorPolicy, EventLogger logger) {
         this.logger = logger;
-        this.scheduler = new Scheduler(priorityPolicy, processorPolicy);
-        this.taskSet = taskSet;
+        this.scheduler = new Scheduler(/*priorityPolicy, */processorPolicy);
+        this.taskSet = processorPolicy.initTaskSet(taskSet);
     }
 
     /**
@@ -76,7 +75,7 @@ public class Simulator {
             System.out.println("Process event : " + event);
             System.out.println("Other events : ");
             eventQueue.forEach(System.out::println);
-            if(event.getTime() > time){
+            if(event.getTime() > time || event.getTime() == time && event.getName().equals("Activate Job Event")){
                 //Simulation is over.
                 System.out.println("End of simulation by timer");
                 return;

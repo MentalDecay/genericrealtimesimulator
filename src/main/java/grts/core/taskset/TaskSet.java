@@ -5,6 +5,7 @@ import grts.core.schedulable.Schedulable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -54,6 +55,12 @@ public class TaskSet implements Iterable<Schedulable> {
 
     public boolean isRecurrent(){
         return !schedulables.stream().anyMatch(schedulable -> !(schedulable instanceof AbstractRecurrentTask));
+    }
+
+    public TaskSet copy(){
+        List<Schedulable> copySchedulables = new LinkedList<>();
+        schedulables.stream().forEach(schedulable -> copySchedulables.add(schedulable.copy()));
+        return new TaskSet(copySchedulables);
     }
 
 }

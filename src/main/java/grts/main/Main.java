@@ -28,12 +28,8 @@ package grts.main;
 
 import grts.core.architecture.Architecture;
 import grts.core.json.parser.SimulatorJacksonParser;
-import grts.core.priority.policies.IPriorityPolicy;
-import grts.core.priority.policies.RateMonotonic;
-import grts.core.processor.policies.FBBFirstFitDecreasing;
-import grts.core.processor.policies.FirstFitDecreasingUtilizationPolicy;
 import grts.core.processor.policies.IProcessorPolicy;
-import grts.core.processor.policies.RestrictedProcessorPolicy;
+import grts.core.processor.policies.offline.LPDPM;
 import grts.core.simulator.Simulator;
 import grts.core.simulator.events.*;
 import grts.core.taskset.HyperPeriod;
@@ -70,12 +66,12 @@ public class Main {
             parser = new SimulatorJacksonParser(inputStreamTasks, inputStreamArchitecture);
             ts = TaskSetFactory.createTaskSetFromParser(parser);
             architecture = parser.parseArchitecture();
-            IPriorityPolicy policy = new RateMonotonic(ts);
-            IProcessorPolicy processorPolicy = new RestrictedProcessorPolicy(architecture,  policy);
+            System.out.println("Hyper Period : " + HyperPeriod.compute(ts));
+            IProcessorPolicy processorPolicy = new LPDPM(architecture,  ts, HyperPeriod.compute(ts));
             logger = new EventLogger("logs", JobActivationEvent.class, DeadlineCheckEvent.class,
                     DeadlineMissedEvent.class, PreemptionEvent.class, JobExecutionStartEvent.class,
                     JobExecutionStopEvent.class, SimulationStopEvent.class);
-            Simulator simulator = new Simulator(ts, policy, processorPolicy, logger);
+            Simulator simulator = new Simulator(ts/*, policy*/, processorPolicy, logger);
             long timer = HyperPeriod.compute(ts);
             simulator.simulate(timer);
             logger.writeJson();
