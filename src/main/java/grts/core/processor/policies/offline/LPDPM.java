@@ -453,9 +453,6 @@ public class LPDPM implements IProcessorPolicy{
         }
         int lastProcessor = 0;
         for(Processor processor : getProcessors()){
-//            if(jobsWithNoLaxity.size() == 0){
-//                break;
-//            }
             if(processor.getId() == processorLastIdle || alreadyExecutingProcessors.get(processor.getId())){
                 nbProcessors--;
                 continue;

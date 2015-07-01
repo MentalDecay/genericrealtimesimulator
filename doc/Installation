@@ -1,0 +1,1 @@
+mvn install:install-file -DgroupId=cplex -DartifactId=cplex -Dversion=12.6.1 -Dpackaging=jar -Dfile=/opt/ibm/ILOG/CPLEX_Studio_Preview1261/cplex/lib/cplex.jar
