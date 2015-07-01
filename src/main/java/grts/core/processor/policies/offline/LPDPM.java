@@ -8,6 +8,10 @@ import grts.core.schedulable.Job;
 import grts.core.schedulable.PeriodicTask;
 import grts.core.schedulable.Schedulable;
 import grts.core.taskset.TaskSet;
+import ilog.concert.IloException;
+import ilog.concert.IloNumExpr;
+import ilog.concert.IloNumVar;
+import ilog.cplex.IloCplex;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -114,10 +118,132 @@ public class LPDPM implements IProcessorPolicy{
         LinkedList<Job> jobs = createListOfJobs(taskSet);
         jobs.forEach(job -> completeMaps(job, intervalJobsMap));
 
-        //        TODO Use the intervalToJobWeight to compute the weight of each job with the LP.
-        //        Set with the hand to test.
+//        setValues(jobsIntervalMap);
+        createLP(intervalJobsMap);
+    }
 
-        setValues(jobsIntervalMap);
+    private IloCplex createLP(TreeMap<Interval, List<Job>> intervalJobsMap){
+        IloCplex model;
+        class Pair {
+            private final Interval interval;
+            private final Job job;
+
+            Pair(Interval interval, Job job) {
+                this.interval = interval;
+                this.job = job;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if(!(obj instanceof Pair)){
+                    return false;
+                }
+                Pair pair = (Pair) obj;
+                return interval.equals(pair.interval) && job.equals(pair.job);
+            }
+
+            @Override
+            public int hashCode() {
+                int hash = 1;
+                hash = hash * 31 + interval.hashCode();
+                hash = hash * 31 + job.hashCode();
+                return hash;
+            }
+
+            @Override
+            public String toString() {
+                return interval.toString() + " " + job;
+            }
+        }
+
+        HashMap<Pair, IloNumVar> variables = new HashMap<>();
+        LinkedList<IloNumVar> wk = new LinkedList<>();
+        ArrayList<IloNumVar> fk = new ArrayList<>();
+        ArrayList<IloNumVar> ek = new ArrayList<>();
+        ArrayList<IloNumVar> fck = new ArrayList<>();
+        ArrayList<IloNumVar> eck = new ArrayList<>();
+        try {
+            model = new IloCplex();
+            int nbInterval = 0;
+            for(Map.Entry<Interval, List<Job>> entry : intervalJobsMap.entrySet()){
+                nbInterval++;
+                IloNumExpr expr = model.numExpr();
+                for(Job job : entry.getValue()){
+//                    IloNumVar var = model.numVar(0, Double.MAX_VALUE);
+                    IloNumVar var = model.numVar(0, Double.MAX_VALUE, "w("+job.getJobId()+","+job.getTask().getName()+"),I"+nbInterval);
+                    variables.put(new Pair(entry.getKey(), job), var);
+                    if(job.getTask().getName().equals("slack")){
+                        wk.add(var);
+                    }
+                    expr = model.sum(expr, var);
+                }
+                model.add(model.le(expr, getProcessors().length));
+            }
+            //          Second constraint : 0 <= w(j,k) <= 1
+            for(IloNumVar var : variables.values()){
+                model.add(model.ge(var, 0));
+                model.add(model.le(var, 1));
+            }
+            //          Third constraint : foreach job : sum(w(j,k) * |Ik|) = executionTime(j)
+            for(Map.Entry<Job, List<Interval>> entry : jobsIntervalMap.entrySet()){
+                Job job = entry.getKey();
+                IloNumExpr expr = model.numExpr();
+                for(Interval interval : entry.getValue()){
+                    expr = model.sum(expr, model.prod(variables.get(new Pair(interval, job)), interval.size));
+                }
+                model.add(model.eq(job.getExecutionTime(), expr));
+            }
+
+            //          Fourth constraint : fk and ek
+            int nbFk = 0;
+            for(IloNumVar var : wk){
+                nbFk++;
+                IloNumVar fkVar = model.boolVar("f" + nbFk);
+                IloNumVar ekVar = model.boolVar("e" + nbFk);
+                fk.add(fkVar);
+                ek.add(ekVar);
+                model.add(model.ifThen(model.eq(var, 1), model.eq(fkVar, 0)));
+                model.add(model.ifThen(model.not(model.eq(var, 1)), model.eq(fkVar, 1)));
+                model.add(model.ifThen(model.eq(var, 0), model.eq(ekVar, 0)));
+                model.add(model.ifThen(model.not(model.eq(var, 0)), model.eq(ekVar, 1)));
+            }
+//            fck and eck constraints
+            IloNumExpr expr = model.numExpr();
+            for(int i = 0; i < wk.size() -1; i++){
+                IloNumVar fckVar = model.boolVar("fc" + (i+1));
+                IloNumVar eckVar = model.boolVar("ec" + (i+1));
+                fck.add(fckVar);
+                eck.add(eckVar);
+                model.add(model.ifThen(model.and(model.eq(fk.get(i), 1), model.eq(fk.get(i + 1), 0)), model.eq(fckVar, 1)));
+                model.add(model.ifThen(model.not(model.and(model.eq(fk.get(i), 1), model.eq(fk.get(i + 1), 0))), model.eq(fckVar, 0)));
+                model.add(model.ifThen(model.and(model.eq(ek.get(i), 1), model.eq(ek.get(i + 1), 0)), model.eq(eckVar, 1)));
+                model.add(model.ifThen(model.not(model.and(model.eq(ek.get(i), 1), model.eq(ek.get(i + 1), 0))), model.eq(eckVar, 0)));
+
+                expr = model.sum(expr, model.sum(fk.get(i), ek.get(i), fck.get(i), eck.get(i)));
+            }
+            expr = model.sum(expr, model.sum(fk.get(fk.size()-1), ek.get(ek.size()-1)));
+            model.addMinimize(expr);
+
+//            System.out.println("solving ...");
+//            System.out.println(model.getModel());
+            if(!model.solve()){
+                System.err.println("No solution for this problem");
+                return null;
+            }
+//            System.out.println("Solution : ");
+            for(Map.Entry<Pair, IloNumVar> entry : variables.entrySet()){
+//                System.out.println(entry.getKey());
+//                System.out.println(model.getValue(entry.getValue()));
+                intervalToJobWeight.computeIfAbsent(entry.getKey().interval, interval -> new HashMap<>());
+                intervalToJobWeight.get(entry.getKey().interval).put(entry.getKey().job, model.getValue(entry.getValue()));
+            }
+
+        } catch (IloException e) {
+            System.err.println("Error with the cplex");
+            e.printStackTrace();
+            return null;
+        }
+        return model;
     }
 
     /**
@@ -250,21 +376,20 @@ public class LPDPM implements IProcessorPolicy{
 
 
         List<Job> tmp = new LinkedList<>(activatedJobsByIntervalMap.get(interval));
-//      If there is no "slack" job in this interval, the processorLastIdle is set to -1.
+        //      If there is no "slack" job in this interval, the processorLastIdle is set to -1.
         if(!tmp.stream().anyMatch(job1 -> job1.getTask().getName().equals("slack"))){
             processorLastIdle = -1;
         }
         List<Job> jobs = new LinkedList<>();
         LinkedList<Job> slackJob = new LinkedList<>();
-//      The jobs are sorted by execution time, and for each job which is executing it is added to the jobs list if it's not a slack job, or to the slack job list otherwise.
+        //      The jobs are sorted by execution time, and for each job which is executing it is added to the jobs list if it's not a slack job, or to the slack job list otherwise.
         tmp.stream()
                 .filter(job -> ! executingJobs.contains(job))
                 .sorted((o1, o2) -> Long.compare(o2.getExecutionTime(), o1.getExecutionTime()))
                 .forEach(job1 -> {
-                    if(job1.getTask().getName().equals("slack")){
+                    if (job1.getTask().getName().equals("slack")) {
                         slackJob.add(job1);
-                    }
-                    else{
+                    } else {
                         jobs.add(job1);
                     }
                 });
@@ -279,7 +404,7 @@ public class LPDPM implements IProcessorPolicy{
                 entryList.add(new AbstractMap.SimpleEntry<>(slackOptional.get(), processorLastIdle));
                 executingJobs.add(slackOptional.get());
                 alreadyExecutingProcessors.set(processorLastIdle, true);
-                int nbProcessors = getProcessors().length - 1;
+                int nbProcessors = getProcessors().length;
                 completeEntries(time, entryList, jobs, nbProcessors);
                 if(interval.size != slackOptional.get().getExecutionTime()){
                     processorLastIdle = -1;
@@ -287,7 +412,7 @@ public class LPDPM implements IProcessorPolicy{
             }
             else{
                 int nbProcessors = getProcessors().length;
-                if(jobs.size() == 0){
+                if(slackOptional.get().getLaxity(time) == 0){
                     jobs.add(slackOptional.get());
                 }
                 completeEntries(time, entryList, jobs, nbProcessors);
@@ -312,7 +437,7 @@ public class LPDPM implements IProcessorPolicy{
                 .sorted((o1, o2) -> Long.compare(o2.getRemainingTime(), o1.getRemainingTime()))
                 .collect(Collectors.toList());
         List<Job> jobsWithNoLaxity = new LinkedList<>();
-//      Adds the jobs with a laxity of 0 to the jobsWithNoLaxity list.
+        //      Adds the jobs with a laxity of 0 to the jobsWithNoLaxity list.
         while(!sortedList.isEmpty()){
             Job firstJob = sortedList.remove(0);
             long laxity = firstJob.getLaxity(time);
@@ -328,23 +453,25 @@ public class LPDPM implements IProcessorPolicy{
         }
         int lastProcessor = 0;
         for(Processor processor : getProcessors()){
-            if(jobsWithNoLaxity.size() == 0){
-                break;
-            }
+//            if(jobsWithNoLaxity.size() == 0){
+//                break;
+//            }
             if(processor.getId() == processorLastIdle || alreadyExecutingProcessors.get(processor.getId())){
                 nbProcessors--;
                 continue;
             }
-            Job job = jobsWithNoLaxity.remove(0);
-            entryList.add(new AbstractMap.SimpleEntry<>(job, processor.getId()));
-            if(job.getTask().getName().equals("slack")){
-                processorLastIdle = processor.getId();
+            if(jobsWithNoLaxity.size() != 0) {
+                Job job = jobsWithNoLaxity.remove(0);
+                entryList.add(new AbstractMap.SimpleEntry<>(job, processor.getId()));
+                if (job.getTask().getName().equals("slack")) {
+                    processorLastIdle = processor.getId();
+                }
+                executingJobs.add(job);
+                jobs.remove(job);
+                alreadyExecutingProcessors.set(processor.getId(), true);
+                nbProcessors--;
+                lastProcessor = processor.getId();
             }
-            executingJobs.add(job);
-            jobs.remove(job);
-            alreadyExecutingProcessors.set(processor.getId(), true);
-            nbProcessors--;
-            lastProcessor = processor.getId();
         }
         if(jobsWithNoLaxity.size() != 0){
             System.err.println("JobsWithNoLaxity list is not empty");
@@ -397,10 +524,12 @@ public class LPDPM implements IProcessorPolicy{
         }
         intervals.forEach(interval -> {
             long wcet = Math.round(intervalToJobWeight.get(interval).get(job) * interval.size);
-            if(wcet > 0) {
+            if (wcet > 0) {
                 activatedJobsByIntervalMap.computeIfAbsent(interval, interval1 -> new LinkedList<>());
                 Job jobToAdd = new Job(interval.from, interval.to, job.getJobId(),
                         wcet, job.getTask());
+                if (jobToAdd.getTask().getName().equals("slack")) {
+                }
                 activatedJobsByIntervalMap.get(interval).add(jobToAdd);
                 jobsToRealJobs.put(jobToAdd, job);
             }
@@ -445,7 +574,7 @@ public class LPDPM implements IProcessorPolicy{
         if(startToEnd.containsKey(time)){
             return new Interval(time, startToEnd.get(time));
         }
-//        TODO Use the TreeMap properties to have a faster estimation of the key.
+        //        TODO Use the TreeMap properties to have a faster estimation of the key.
         for(Map.Entry<Long, Long> entry : startToEnd.entrySet()){
             if(entry.getKey() <= time && time <= entry.getValue()){
                 return new Interval(entry.getKey(), entry.getValue());

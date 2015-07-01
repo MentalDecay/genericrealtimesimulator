@@ -36,6 +36,7 @@ import grts.core.taskset.HyperPeriod;
 import grts.core.taskset.TaskSet;
 import grts.core.taskset.TaskSetFactory;
 import grts.logger.EventLogger;
+import ilog.concert.IloLinearIntExpr;
 
 import java.io.IOException;
 import java.io.InputStream;
