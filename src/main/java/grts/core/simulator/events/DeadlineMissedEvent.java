@@ -15,7 +15,6 @@ public class DeadlineMissedEvent  extends AbstractEvent implements Event {
 
     @Override
     public void handle() {
-//        TODO logs
         getScheduler().addEvent(new SimulationStopEvent(getScheduler(), getTime()));
     }
 

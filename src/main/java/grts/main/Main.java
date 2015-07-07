@@ -26,20 +26,8 @@
 
 package grts.main;
 
-import grts.core.architecture.Architecture;
-import grts.core.json.parser.SimulatorJacksonParser;
-import grts.core.processor.policies.IProcessorPolicy;
-import grts.core.processor.policies.offline.LPDPM;
-import grts.core.simulator.Simulator;
-import grts.core.simulator.events.*;
-import grts.core.taskset.HyperPeriod;
-import grts.core.taskset.TaskSet;
-import grts.core.taskset.TaskSetFactory;
-import grts.logger.EventLogger;
-import ilog.concert.IloLinearIntExpr;
+import grts.core.generator.GlobalNetworkGenerator;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.*;
 
 /**
@@ -55,7 +43,7 @@ public class Main {
             System.exit(EXIT_FAILURE);
         }
 
-        InputStream inputStreamTasks;
+        /*InputStream inputStreamTasks;
         InputStream inputStreamArchitecture;
         SimulatorJacksonParser parser;
         TaskSet ts;
@@ -72,7 +60,7 @@ public class Main {
             logger = new EventLogger("logs", JobActivationEvent.class, DeadlineCheckEvent.class,
                     DeadlineMissedEvent.class, PreemptionEvent.class, JobExecutionStartEvent.class,
                     JobExecutionStopEvent.class, SimulationStopEvent.class);
-            Simulator simulator = new Simulator(ts/*, policy*/, processorPolicy, logger);
+            Simulator simulator = new Simulator(ts*//*, policy*//*, processorPolicy, logger);
             long timer = HyperPeriod.compute(ts);
             simulator.simulate(timer);
             logger.writeJson();
@@ -82,7 +70,15 @@ public class Main {
             System.exit(EXIT_FAILURE);
         } catch (IOException e) {
             e.printStackTrace();
+        }*/
+        for(int i = 0; i < 500; i++) {
+            GlobalNetworkGenerator globalNetworkGenerator = new GlobalNetworkGenerator(50, 10, 0.75, 0.75);
+            globalNetworkGenerator.generateGlobalNetwork(1000, 0.01);
         }
+//        PeriodicTasksGenerator uUnifast = new PeriodicTasksGenerator(50, 20, 1.);
+//        TaskSet taskSet = uUnifast.generateImplicitPeriodicTaskSet(1000, 0.1);
+//        taskSet.stream().forEach(System.out::println);
+
     }
 
     private static void usage() {

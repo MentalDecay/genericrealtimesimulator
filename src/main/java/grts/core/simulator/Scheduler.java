@@ -1,6 +1,5 @@
 package grts.core.simulator;
 
-import grts.core.priority.policies.IPriorityPolicy;
 import grts.core.processor.policies.IProcessorPolicy;
 import grts.core.schedulable.Job;
 import grts.core.simulator.events.Event;
@@ -13,17 +12,14 @@ import java.util.List;
 public class Scheduler {
     private List<Event> eventsToAdd;
     private boolean over;
-//    private final IPriorityPolicy priorityPolicy;
     private final IProcessorPolicy processorPolicy;
     private final HashMap<Job, Long> lastJobExecution = new HashMap<>();
 
     /**
      * Creates a new scheduler.
-//     * @param priorityPolicy the priority policy which should be used by the scheduler.
      * @param processorPolicy the processor policy which should be used by the scheduler.
      */
-    public Scheduler(/*IPriorityPolicy priorityPolicy, */IProcessorPolicy processorPolicy) {
-//        this.priorityPolicy = priorityPolicy;
+    public Scheduler(IProcessorPolicy processorPolicy) {
         this.processorPolicy = processorPolicy;
     }
 
@@ -111,15 +107,6 @@ public class Scheduler {
     public Job getExecutingJob(int processorId) {
         return processorPolicy.getExecutingJob(processorId);
     }
-
-
-    /**
-     * Get the priorityPolicy of the scheduler.
-     * @return the priorityPolicy of the scheduler.
-     */
-//    public IPriorityPolicy getPriorityPolicy() {
-//        return priorityPolicy;
-//    }
 
 
     /**

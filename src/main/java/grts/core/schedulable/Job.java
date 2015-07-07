@@ -156,7 +156,6 @@ public class Job {
                 && task.equals(job.task);
     }
 
-//    TODO real hashCode
     @Override
     public int hashCode() {
         int hash = 1;

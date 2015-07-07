@@ -14,7 +14,6 @@ import java.util.List;
 public class MonoProcessor implements IProcessorPolicy {
 
     private final Architecture architecture;
-    //    private final Processor processor;
     private final IPriorityPolicy policy;
     private final List<Job> activatedJobs = new LinkedList<>();
 

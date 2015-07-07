@@ -14,7 +14,7 @@ public abstract class AbstractRecurrentTask implements Schedulable {
     private boolean newJob = false;
 
     AbstractRecurrentTask(long minimumInterArrivalTime, long wcet, long deadline, long offset, String name) {
-        if(minimumInterArrivalTime <= 1 || wcet <= 0 || deadline <= 0 || offset < 0 || name.isEmpty()){
+        if(minimumInterArrivalTime < 1 || wcet <= 0 || deadline <= 0 || offset < 0 || name.isEmpty()){
             throw new IllegalArgumentException("Can't create a task with this parameters :" +
                     "\ninterArrivalTime : " + minimumInterArrivalTime +
                     "\nwcet : " + wcet +

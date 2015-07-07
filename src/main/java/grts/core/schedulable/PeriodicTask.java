@@ -88,4 +88,15 @@ public class PeriodicTask extends AbstractRecurrentTask implements Schedulable {
         hash = hash * 31 + getName().hashCode();
         return hash;
     }
+
+    @Override
+    public String toString() {
+//        long period, long wcet, long deadline, long offset, String name
+        return "Periodic Task : \n" +
+                "period : " + getPeriod() + "\n" +
+                "wcet : " + getWcet() + "\n" +
+                "deadline : " + getDeadline() + "\n" +
+                "offset : " + getOffset() + "\n" +
+                "name : " + getName();
+    }
 }
