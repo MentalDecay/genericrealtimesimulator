@@ -1,9 +1,11 @@
 package grts.core.tests;
 
 import grts.core.architecture.Architecture;
+import grts.core.schedulable.Schedulable;
 import grts.core.taskset.TaskSet;
 
 import java.util.Optional;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 public interface SchedulabilityTest {
@@ -13,13 +15,16 @@ public interface SchedulabilityTest {
      * @param taskSet The TaskSet to test.
      * @return true if the TaskSet is schedulable.
      */
-    boolean isTaskSetSchedulable(TaskSet taskSet);
+    boolean isSchedulable(TaskSet taskSet);
 
     /**
-     * Transforms the test of schedulability into a predicate.
-     * @return The predicate which represents the test of schedulability.
+     * Tests if the Schedulable can be scheduled on this TaskSet.
+     * @param schedulable The schedulable to test.
+     * @param taskSet The TaskSet where the schedulable should be added.
+     * @return true if the task is schedulable in this TaskSet.
      */
-    Predicate<TaskSet> getPredicate();
+    boolean isSchedulable(Schedulable schedulable, TaskSet taskSet);
+
 
     /**
      * Get the Architecture.

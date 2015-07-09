@@ -17,7 +17,7 @@ public class SchedulabilityTestFactory {
      */
     public SchedulabilityTestFactory(Architecture architecture){
         RateMonotonicTest rateMonotonicTest = new RateMonotonicTest();
-        map.put("Rate Monotonic", rateMonotonicTest.getPredicate());
+        map.put("Rate Monotonic", rateMonotonicTest::isSchedulable);
     }
 
     /**
@@ -25,9 +25,9 @@ public class SchedulabilityTestFactory {
      * @param name The name of the required test.
      * @return The predicate of TaskSet which is the test of schedulability.
      */
-    public Predicate<TaskSet> getTest(String name){
+    public Predicate<TaskSet> getTaskSetTest(String name){
         return map.getOrDefault(name, taskSet -> {
-            throw new IllegalArgumentException("The " + name + " is not implemented");
+            throw new UnsupportedOperationException("The " + name + " is not implemented");
         });
     }
 }

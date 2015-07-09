@@ -1,0 +1,25 @@
+{
+  "tasks" :
+  [
+    {
+      "Periodic task" :
+      {
+        "wcet" : "3",
+        "period" : "6",
+        "name" : "t1"
+      }
+    },
+    {
+      "Periodic task" :
+      {
+        "wcet" : "2",
+        "period" : "4",
+        "name" : "t2",
+        "options" :
+        {
+          "deadline" : "7"
+        }
+      }
+    }
+  ]
+}

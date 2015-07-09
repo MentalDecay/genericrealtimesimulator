@@ -1,7 +1,7 @@
 package grts.core.tests;
 
-import grts.core.priority.policies.RateMonotonic;
 import grts.core.schedulable.AbstractRecurrentTask;
+import grts.core.schedulable.Schedulable;
 import grts.core.taskset.TaskSet;
 import java.util.OptionalDouble;
 import java.util.function.Predicate;
@@ -15,7 +15,7 @@ public class RateMonotonicTest extends AbstractSchedulabilityTest implements Sch
     }
 
     @Override
-    public boolean isTaskSetSchedulable(TaskSet taskSet) {
+    public boolean isSchedulable(TaskSet taskSet) {
         int n = taskSet.getSchedulablesNumber();
         OptionalDouble testSum = taskSet.stream().mapToDouble(value -> {
             if(!(value instanceof AbstractRecurrentTask)){
@@ -31,7 +31,7 @@ public class RateMonotonicTest extends AbstractSchedulabilityTest implements Sch
     }
 
     @Override
-    public Predicate<TaskSet> getPredicate() {
-        return this::isTaskSetSchedulable;
+    public boolean isSchedulable(Schedulable schedulable, TaskSet taskSet) {
+        throw new UnsupportedOperationException("Can't test the schedulability in Rate Monotonic on a task");
     }
 }

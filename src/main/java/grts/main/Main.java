@@ -26,9 +26,30 @@
 
 package grts.main;
 
+import grts.core.architecture.Architecture;
 import grts.core.generator.GlobalNetworkGenerator;
+import grts.core.json.parser.SimulatorJacksonParser;
+import grts.core.priority.policies.ClassicOPA;
+import grts.core.priority.policies.DeadlineMonotonic;
+import grts.core.priority.policies.EarliestDeadlineFirst;
+import grts.core.priority.policies.RateMonotonic;
+import grts.core.processor.policies.IProcessorPolicy;
+import grts.core.processor.policies.MonoProcessor;
+import grts.core.processor.policies.offline.LPDPM;
+import grts.core.schedulable.Schedulable;
+import grts.core.simulator.Simulator;
+import grts.core.simulator.events.*;
+import grts.core.taskset.HyperPeriod;
+import grts.core.taskset.TaskSet;
+import grts.core.taskset.TaskSetFactory;
+import grts.core.tests.ResponseTimeTest;
+import grts.logger.EventLogger;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Tristan Fautrel
@@ -43,7 +64,7 @@ public class Main {
             System.exit(EXIT_FAILURE);
         }
 
-        /*InputStream inputStreamTasks;
+        InputStream inputStreamTasks;
         InputStream inputStreamArchitecture;
         SimulatorJacksonParser parser;
         TaskSet ts;
@@ -56,25 +77,32 @@ public class Main {
             ts = TaskSetFactory.createTaskSetFromParser(parser);
             architecture = parser.parseArchitecture();
             System.out.println("Hyper Period : " + HyperPeriod.compute(ts));
-            IProcessorPolicy processorPolicy = new LPDPM(architecture,  ts, HyperPeriod.compute(ts));
+            IProcessorPolicy processorPolicy = new MonoProcessor(architecture, new ClassicOPA(ts));
             logger = new EventLogger("logs", JobActivationEvent.class, DeadlineCheckEvent.class,
                     DeadlineMissedEvent.class, PreemptionEvent.class, JobExecutionStartEvent.class,
                     JobExecutionStopEvent.class, SimulationStopEvent.class);
-            Simulator simulator = new Simulator(ts*//*, policy*//*, processorPolicy, logger);
+            Simulator simulator = new Simulator(ts, processorPolicy, logger);
             long timer = HyperPeriod.compute(ts);
             simulator.simulate(timer);
             logger.writeJson();
+//            ResponseTimeTest responseTimeTest = new ResponseTimeTest();
+//            List<Schedulable> schedulables = ts.stream().collect(Collectors.toList());
+//            Schedulable taskToTest = schedulables.remove(1);
+//            System.out.println("taskToTest : " + taskToTest);
+//            responseTimeTest.isSchedulable(taskToTest, new TaskSet(schedulables));
+//            ClassicOPA opa = new ClassicOPA(ts);
         } catch (NoSuchFileException e) {
             System.err.println("File not found: " + e.getLocalizedMessage());
             usage();
             System.exit(EXIT_FAILURE);
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
-        for(int i = 0; i < 500; i++) {
-            GlobalNetworkGenerator globalNetworkGenerator = new GlobalNetworkGenerator(50, 10, 0.75, 0.75);
-            globalNetworkGenerator.generateGlobalNetwork(1000, 0.01);
         }
+
+//        for(int i = 0; i < 500; i++) {
+//            GlobalNetworkGenerator globalNetworkGenerator = new GlobalNetworkGenerator(50, 10, 0.75, 0.75);
+//            globalNetworkGenerator.generateGlobalNetwork(1000, 0.01);
+//        }
 //        PeriodicTasksGenerator uUnifast = new PeriodicTasksGenerator(50, 20, 1.);
 //        TaskSet taskSet = uUnifast.generateImplicitPeriodicTaskSet(1000, 0.1);
 //        taskSet.stream().forEach(System.out::println);

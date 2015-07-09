@@ -41,7 +41,7 @@ public class FirstFitDecreasingUtilizationPolicy implements IProcessorPolicy {
     }
 
     private void init(TaskSet taskSet) {
-        Predicate<TaskSet> taskSetPredicate = schedulabilityTestFactory.getTest(priorityPolicy.getPolicyName());
+        Predicate<TaskSet> taskSetPredicate = schedulabilityTestFactory.getTaskSetTest(priorityPolicy.getPolicyName());
         taskSet.stream().sorted((o1, o2) -> {
             if (!(o1 instanceof AbstractRecurrentTask) || !(o2 instanceof AbstractRecurrentTask)) {
                 throw new IllegalArgumentException("Can't use the First Fit Decreasing Utilization on a non recurrent taskSet");
