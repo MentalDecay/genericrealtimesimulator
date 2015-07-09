@@ -25,6 +25,8 @@ public interface SchedulabilityTest {
      */
     boolean isSchedulable(Schedulable schedulable, TaskSet taskSet);
 
+    boolean isSchedulable(Schedulable schedulable, Schedulable otherSchedulable, TaskSet taskSet);
+
 
     /**
      * Get the Architecture.

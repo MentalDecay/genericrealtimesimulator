@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
-public class ResponseTimeTest extends AbstractSchedulabilityTest implements SchedulabilityTest{
+public class OldResponseTimeTest extends AbstractSchedulabilityTest implements SchedulabilityTest{
 
-    public ResponseTimeTest() {
+    public OldResponseTimeTest() {
         super();
     }
 
@@ -72,6 +72,11 @@ public class ResponseTimeTest extends AbstractSchedulabilityTest implements Sche
         System.out.println(responseTimes.stream().max(Long::compare).get());
         return responseTimes.stream().max(Long::compare).get() <= schedulable.getDeadline();
 //        return false;
+    }
+
+    @Override
+    public boolean isSchedulable(Schedulable schedulable, Schedulable otherSchedulable, TaskSet taskSet) {
+        throw new UnsupportedOperationException("Can't test the schedulability in Rate Monotonic on two tasks");
     }
 
     private long computeResponseTime(long t, long m, AbstractRecurrentTask task, List<AbstractRecurrentTask> higherTasks){

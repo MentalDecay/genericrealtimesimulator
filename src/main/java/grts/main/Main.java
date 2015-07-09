@@ -27,22 +27,17 @@
 package grts.main;
 
 import grts.core.architecture.Architecture;
-import grts.core.generator.GlobalNetworkGenerator;
 import grts.core.json.parser.SimulatorJacksonParser;
 import grts.core.priority.policies.ClassicOPA;
-import grts.core.priority.policies.DeadlineMonotonic;
-import grts.core.priority.policies.EarliestDeadlineFirst;
-import grts.core.priority.policies.RateMonotonic;
 import grts.core.processor.policies.IProcessorPolicy;
 import grts.core.processor.policies.MonoProcessor;
-import grts.core.processor.policies.offline.LPDPM;
 import grts.core.schedulable.Schedulable;
 import grts.core.simulator.Simulator;
 import grts.core.simulator.events.*;
 import grts.core.taskset.HyperPeriod;
 import grts.core.taskset.TaskSet;
 import grts.core.taskset.TaskSetFactory;
-import grts.core.tests.ResponseTimeTest;
+import grts.core.tests.PreemptiveResponseTimeTest;
 import grts.logger.EventLogger;
 
 import java.io.IOException;
@@ -85,11 +80,14 @@ public class Main {
             long timer = HyperPeriod.compute(ts);
             simulator.simulate(timer);
             logger.writeJson();
-//            ResponseTimeTest responseTimeTest = new ResponseTimeTest();
+//            PreemptiveResponseTimeTest responseTimeTest = new PreemptiveResponseTimeTest();
 //            List<Schedulable> schedulables = ts.stream().collect(Collectors.toList());
-//            Schedulable taskToTest = schedulables.remove(1);
+//            Schedulable taskToTest = schedulables.remove(2);
 //            System.out.println("taskToTest : " + taskToTest);
-//            responseTimeTest.isSchedulable(taskToTest, new TaskSet(schedulables));
+//            System.out.println(responseTimeTest.isSchedulable(taskToTest, new TaskSet(schedulables)));
+//            taskToTest = schedulables.remove(0);
+//            System.out.println("taskToTest : " + taskToTest);
+//            System.out.println(responseTimeTest.isSchedulable(taskToTest, new TaskSet(schedulables)));
 //            ClassicOPA opa = new ClassicOPA(ts);
         } catch (NoSuchFileException e) {
             System.err.println("File not found: " + e.getLocalizedMessage());

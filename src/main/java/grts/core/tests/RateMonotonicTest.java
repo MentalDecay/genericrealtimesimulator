@@ -34,4 +34,9 @@ public class RateMonotonicTest extends AbstractSchedulabilityTest implements Sch
     public boolean isSchedulable(Schedulable schedulable, TaskSet taskSet) {
         throw new UnsupportedOperationException("Can't test the schedulability in Rate Monotonic on a task");
     }
+
+    @Override
+    public boolean isSchedulable(Schedulable schedulable, Schedulable otherSchedulable, TaskSet taskSet) {
+        throw new UnsupportedOperationException("Can't test the schedulability in Rate Monotonic on two tasks");
+    }
 }
