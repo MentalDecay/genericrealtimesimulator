@@ -1,5 +1,6 @@
 package grts.core.priority.policies;
 
+import grts.core.exceptions.UnschedulableException;
 import grts.core.schedulable.AbstractRecurrentTask;
 import grts.core.schedulable.Job;
 import grts.core.schedulable.Schedulable;
@@ -10,16 +11,17 @@ import java.util.*;
 
 public class ClassicOPA extends AbstractPriorityPolicy implements IPriorityPolicy {
 
-    private final HashMap<Schedulable, Integer> priorities = new HashMap<>();
+    private final HashMap<AbstractRecurrentTask, Integer> priorities = new HashMap<>();
     private final NonPreemptiveResponseTimeTest responseTimeTest = new NonPreemptiveResponseTimeTest();
 
 
-    public ClassicOPA(TaskSet taskSet) {
+    public ClassicOPA(TaskSet taskSet) throws UnschedulableException {
         super("Classic OPA", taskSet);
         if(!init(taskSet)){
-            throw new IllegalArgumentException("Can't assign priorities with a classic OPA for this TaskSet");
+            throw new UnschedulableException();
+//            throw new IllegalArgumentException("Can't assign priorities with a classic OPA for this TaskSet");
         }
-        System.out.println(priorities);
+//        System.out.println(priorities);
     }
 
     private boolean init(TaskSet taskSet){
@@ -64,5 +66,9 @@ public class ClassicOPA extends AbstractPriorityPolicy implements IPriorityPolic
             return job.get();
         }
         return null;
+    }
+
+    public Map<AbstractRecurrentTask, Integer> getPriorities() {
+        return Collections.unmodifiableMap(priorities);
     }
 }

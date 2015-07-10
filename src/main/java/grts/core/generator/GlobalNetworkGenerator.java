@@ -1,5 +1,6 @@
 package grts.core.generator;
 
+import grts.core.schedulable.AbstractRecurrentTask;
 import grts.core.schedulable.PeriodicTask;
 import grts.core.schedulable.Schedulable;
 import grts.core.taskset.CANNetwork;
@@ -89,8 +90,8 @@ public class GlobalNetworkGenerator {
                 distantUtilizations = new ArrayList<>();
                 endLoop = generateUtilizations(localUtilizations, distantUtilizations);
             }
-            TreeMap<Integer, List<Schedulable>> localTasks = null;
-            HashMap<Integer, List<Map.Entry<Schedulable, Integer>>> distantTasks = null;
+            TreeMap<Integer, List<AbstractRecurrentTask>> localTasks = null;
+            HashMap<Integer, List<Map.Entry<AbstractRecurrentTask, Integer>>> distantTasks = null;
             endLoop = false;
             while (!endLoop) {
                 localTasks = new TreeMap<>();
@@ -126,7 +127,7 @@ public class GlobalNetworkGenerator {
      * @param threshold The threshold of the total utilization of the GlobalNetwork.
      * @return True if the map are completed correctly, false otherwise.
      */
-    private boolean completeMaps(TreeMap<Integer, List<Schedulable>> localTasks, HashMap<Integer, List<Map.Entry<Schedulable, Integer>>> distantTasks,
+    private boolean completeMaps(TreeMap<Integer, List<AbstractRecurrentTask>> localTasks, HashMap<Integer, List<Map.Entry<AbstractRecurrentTask, Integer>>> distantTasks,
                                  ArrayList<Double> localUtilizations, ArrayList<Double> distantUtilizations,
                                  long maxPeriod, double threshold){
 

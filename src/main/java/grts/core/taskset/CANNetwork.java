@@ -1,23 +1,23 @@
 package grts.core.taskset;
 
+import grts.core.schedulable.AbstractRecurrentTask;
 import grts.core.schedulable.PeriodicTask;
 import grts.core.schedulable.Schedulable;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.function.ToDoubleFunction;
 
 public class CANNetwork {
 //    XXX unsafe object. Its construction is not completely done after the new
-    private final HashMap<Schedulable, CANNetwork> externalSchedulables = new HashMap<>();
-    private final List<Schedulable> internalSchedulables;
+    private final HashMap<AbstractRecurrentTask, CANNetwork> externalSchedulables = new HashMap<>();
+    private final List<AbstractRecurrentTask> internalSchedulables;
+    private final Map<AbstractRecurrentTask, Integer> priorities = new HashMap<>();
 
-    public CANNetwork(List<Schedulable> internalSchedulables) {
-        this.internalSchedulables = internalSchedulables;
+    public CANNetwork(List<AbstractRecurrentTask> internalSchedulables) {
+        this.internalSchedulables = Objects.requireNonNull(internalSchedulables);
     }
 
-    public void addExternalSchedulable(Schedulable schedulable, CANNetwork source){
+    public void addExternalSchedulable(AbstractRecurrentTask schedulable, CANNetwork source){
         if(externalSchedulables.containsKey(schedulable)){
             throw new IllegalArgumentException("The external schedulable is already in the CANNetwork");
         }
@@ -25,15 +25,16 @@ public class CANNetwork {
     }
 
     public double totalUtilization(){
-        ToDoubleFunction<? super Schedulable> fun = schedulable -> {
-            PeriodicTask task = (PeriodicTask) schedulable;
-            return (double) task.getWcet() / (double) task.getPeriod();
-        };
+        ToDoubleFunction<? super AbstractRecurrentTask> fun = schedulable -> (double) schedulable.getWcet() / (double) schedulable.getMinimumInterArrivalTime();
         return internalSchedulables.stream().mapToDouble(fun).sum() + externalSchedulables.keySet().stream().mapToDouble(fun).sum();
     }
 
-    public List<Schedulable> getInternalSchedulables() {
+    public List<AbstractRecurrentTask> getInternalSchedulables() {
         return Collections.unmodifiableList(internalSchedulables);
+    }
+
+    public Map<AbstractRecurrentTask, CANNetwork> getExternalSchedulables() {
+        return Collections.unmodifiableMap(externalSchedulables);
     }
 
     @Override
@@ -45,5 +46,20 @@ public class CANNetwork {
             externalSchedulables.keySet().stream().forEach(schedulable -> str.append(schedulable).append("\n"));
         }
         return str.toString();
+    }
+
+    public TaskSet getTaskSetFromSchedulables(){
+        LinkedList<Schedulable> list = new LinkedList<>();
+        list.addAll(internalSchedulables);
+        externalSchedulables.keySet().forEach(list::add);
+        return new TaskSet(list);
+    }
+
+    public void addPriorities(Map<AbstractRecurrentTask, Integer> priorities){
+        this.priorities.putAll(priorities);
+    }
+
+    public Map<AbstractRecurrentTask, Integer> getPriorities() {
+        return Collections.unmodifiableMap(priorities);
     }
 }

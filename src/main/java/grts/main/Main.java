@@ -27,22 +27,26 @@
 package grts.main;
 
 import grts.core.architecture.Architecture;
+import grts.core.generator.GlobalNetworkGenerator;
+import grts.core.generator.PeriodicTasksGenerator;
 import grts.core.json.parser.SimulatorJacksonParser;
 import grts.core.priority.policies.ClassicOPA;
 import grts.core.processor.policies.IProcessorPolicy;
 import grts.core.processor.policies.MonoProcessor;
+import grts.core.schedulable.AbstractRecurrentTask;
+import grts.core.schedulable.PeriodicTask;
 import grts.core.schedulable.Schedulable;
 import grts.core.simulator.Simulator;
 import grts.core.simulator.events.*;
-import grts.core.taskset.HyperPeriod;
-import grts.core.taskset.TaskSet;
-import grts.core.taskset.TaskSetFactory;
+import grts.core.taskset.*;
+import grts.core.tests.GlobalNetworkSchedulabilityTest;
 import grts.core.tests.PreemptiveResponseTimeTest;
 import grts.logger.EventLogger;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.*;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,7 +69,7 @@ public class Main {
         TaskSet ts;
         Architecture architecture;
         EventLogger logger;
-        try {
+        /*try {
             inputStreamTasks = Files.newInputStream(Paths.get(args[0]), StandardOpenOption.READ);
             inputStreamArchitecture = Files.newInputStream(Paths.get(args[1]), StandardOpenOption.READ);
             parser = new SimulatorJacksonParser(inputStreamTasks, inputStreamArchitecture);
@@ -95,15 +99,27 @@ public class Main {
             System.exit(EXIT_FAILURE);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
-//        for(int i = 0; i < 500; i++) {
-//            GlobalNetworkGenerator globalNetworkGenerator = new GlobalNetworkGenerator(50, 10, 0.75, 0.75);
-//            globalNetworkGenerator.generateGlobalNetwork(1000, 0.01);
-//        }
-//        PeriodicTasksGenerator uUnifast = new PeriodicTasksGenerator(50, 20, 1.);
-//        TaskSet taskSet = uUnifast.generateImplicitPeriodicTaskSet(1000, 0.1);
-//        taskSet.stream().forEach(System.out::println);
+//        GlobalNetworkGenerator globalNetworkGenerator = new GlobalNetworkGenerator(5, 2, 0.5, 0.75);
+//        GlobalNetwork globalNetwork = globalNetworkGenerator.generateGlobalNetwork(1000, 0.01);
+        List<CANNetwork> networks = new LinkedList<>();
+        AbstractRecurrentTask task1 = new PeriodicTask(6, 2, 6, 0, "t1");
+        AbstractRecurrentTask task2 = new PeriodicTask(7, 3, 7, 0, "t2");
+        AbstractRecurrentTask task3 = new PeriodicTask(14, 4, 13, 0, "t3");
+        List<AbstractRecurrentTask> tasksR1 = new LinkedList<>();
+        tasksR1.add(task1);
+        tasksR1.add(task3);
+        List<AbstractRecurrentTask> tasksR2 = new LinkedList<>();
+        tasksR2.add(task2);
+        networks.add(new CANNetwork(tasksR1));
+        networks.add(new CANNetwork(tasksR2));
+        networks.get(1).addExternalSchedulable(task3, networks.get(0));
+        GlobalNetwork globalNetwork = new GlobalNetwork(networks);
+
+        GlobalNetworkSchedulabilityTest test = new GlobalNetworkSchedulabilityTest();
+        System.out.println(test.isSchedulable(globalNetwork));
+
 
     }
 

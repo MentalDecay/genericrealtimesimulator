@@ -1,5 +1,6 @@
 package grts.core.taskset;
 
+import java.util.Collections;
 import java.util.List;
 
 public class GlobalNetwork {
@@ -12,5 +13,9 @@ public class GlobalNetwork {
     @Override
     public String toString() {
         return "Global Network : \n" + networks.stream().map(canNetwork -> canNetwork.toString()+"\n");
+    }
+
+    public List<CANNetwork> getNetworks() {
+        return Collections.unmodifiableList(networks);
     }
 }
