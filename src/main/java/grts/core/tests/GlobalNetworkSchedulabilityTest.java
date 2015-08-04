@@ -5,27 +5,19 @@ import grts.core.priority.policies.ClassicOPA;
 import grts.core.schedulable.AbstractRecurrentTask;
 import grts.core.schedulable.PeriodicTask;
 import grts.core.schedulable.Schedulable;
-import grts.core.taskset.CANNetwork;
-import grts.core.taskset.GlobalNetwork;
+import grts.core.network.CANNetwork;
+import grts.core.network.GlobalNetwork;
 import grts.core.taskset.TaskSet;
 
 import java.util.*;
-import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 public class GlobalNetworkSchedulabilityTest {
 
-    private final BiFunction<Schedulable, Map.Entry<CANNetwork, CANNetwork>, Map.Entry<Long, Long>> computeDeadlines;
 
     public GlobalNetworkSchedulabilityTest() {
-        computeDeadlines = this::deadlineSplitWithResponseTime;
     }
 
-    private Map.Entry<Long, Long> fairDeadlinesSplit(Schedulable schedulable, Map.Entry<CANNetwork, CANNetwork> networks){
-        long deadline = schedulable.getDeadline();
-//      -1 is the traveling time
-        return new AbstractMap.SimpleEntry<>(deadline / 2 - 1, deadline / 2);
-    }
 
     private Map.Entry<Long, Long> deadlineSplitWithResponseTime(Schedulable schedulable, Map.Entry<CANNetwork, CANNetwork> networks){
         long totalDeadline = schedulable.getDeadline();
@@ -48,6 +40,9 @@ public class GlobalNetworkSchedulabilityTest {
         long toDeadline = totalDeadline - (responseTime + 1);
 //        System.out.println("from deadline : " + responseTime);
 //        System.out.println("to deadline : " + toDeadline);
+        if(responseTime == 0 || toDeadline <= 0){
+            return null;
+        }
         return new AbstractMap.SimpleEntry<>(responseTime, toDeadline);
     }
 
@@ -59,11 +54,16 @@ public class GlobalNetworkSchedulabilityTest {
         try {
             initLocalAndDistantMaps(networks, localTasks, distantTasks);
         } catch (UnschedulableException e) {
+//            System.err.println("unschedulable 1");
             return false;
         }
 //        System.out.println("localTasks : " + localTasks);
-//        HashMap<AbstractRecurrentTask, Map.Entry<AbstractRecurrentTask, AbstractRecurrentTask>> oldSchedulableToNews = new HashMap<>();
-        HashMap<CANNetwork, List<Map.Entry<AbstractRecurrentTask, CANNetwork>>> newDistantTasks = createNewTasks(localTasks, distantTasks/*, oldSchedulableToNews*/);
+        HashMap<CANNetwork, List<Map.Entry<AbstractRecurrentTask, CANNetwork>>> newDistantTasks;
+        newDistantTasks = createNewTasks(localTasks, distantTasks/*, oldSchedulableToNews*/);
+        if(newDistantTasks == null){
+//            System.err.println("unschedulable 2");
+            return false;
+        }
         HashMap<CANNetwork, CANNetwork> oldToNewNetworks = new HashMap<>();
         localTasks.forEach((canNetwork, abstractRecurrentTasks) -> oldToNewNetworks.put(canNetwork, new CANNetwork(abstractRecurrentTasks)));
         newDistantTasks.forEach((canNetwork, entries) -> {
@@ -80,6 +80,8 @@ public class GlobalNetworkSchedulabilityTest {
             try {
                 opa = new ClassicOPA(canNetwork.getTaskSetFromSchedulables());
             } catch (UnschedulableException e) {
+//                System.err.println("network : " + canNetwork);
+//                System.err.println("unschedulable 3");
                 return false;
             }
             canNetwork.addPriorities(opa.getPriorities());
@@ -90,15 +92,20 @@ public class GlobalNetworkSchedulabilityTest {
     private HashMap<CANNetwork, List<Map.Entry<AbstractRecurrentTask, CANNetwork>>> createNewTasks(HashMap<CANNetwork, List<AbstractRecurrentTask>> localTasks,
                                                  HashMap<AbstractRecurrentTask, Map.Entry<CANNetwork, CANNetwork>> distantTasks){
         HashMap<CANNetwork, List<Map.Entry<AbstractRecurrentTask, CANNetwork>>> newDistantTasks = new HashMap<>();
-        distantTasks.forEach((task, canNetworkCANNetworkEntry) -> {
-            Map.Entry<Long, Long> deadlines = computeDeadlines.apply(task, canNetworkCANNetworkEntry);
+        for(Map.Entry<AbstractRecurrentTask, Map.Entry<CANNetwork, CANNetwork>> entry : distantTasks.entrySet()){
+            AbstractRecurrentTask task = entry.getKey();
+            Map.Entry<CANNetwork, CANNetwork> canNetworkCANNetworkEntry = entry.getValue();
+            Map.Entry<Long, Long> deadlines = deadlineSplitWithResponseTime(task, canNetworkCANNetworkEntry);
+            if(deadlines == null){
+                return null;
+            }
 //            System.out.println("deadlines : " + deadlines);
             PeriodicTask fromTask = new PeriodicTask(task.getMinimumInterArrivalTime(), task.getWcet(), deadlines.getKey(), task.getOffset(), task.getName()+"from");
             PeriodicTask toTask = new PeriodicTask(task.getMinimumInterArrivalTime(), task.getWcet(), deadlines.getValue(), task.getOffset(), task.getName()+"to");
             localTasks.get(canNetworkCANNetworkEntry.getKey()).add(fromTask);
             newDistantTasks.computeIfAbsent(canNetworkCANNetworkEntry.getValue(), canNetwork -> new LinkedList<>());
             newDistantTasks.get(canNetworkCANNetworkEntry.getValue()).add(new AbstractMap.SimpleEntry<>(toTask, canNetworkCANNetworkEntry.getKey()));
-        });
+        }
         return newDistantTasks;
 
     }
@@ -114,7 +121,9 @@ public class GlobalNetworkSchedulabilityTest {
             networkDistantTasks.entrySet().forEach(schedulableCANNetworkEntry -> {
 //                System.out.println("try remove : " + schedulableCANNetworkEntry.getKey());
 //                System.out.println("from : " + network);
-                localTasks.get(schedulableCANNetworkEntry.getValue()).remove(schedulableCANNetworkEntry.getKey());
+                if(localTasks.containsKey(schedulableCANNetworkEntry.getValue())) {
+                    localTasks.get(schedulableCANNetworkEntry.getValue()).remove(schedulableCANNetworkEntry.getKey());
+                }
                 distantTasks.put(schedulableCANNetworkEntry.getKey(), new AbstractMap.SimpleEntry<>(schedulableCANNetworkEntry.getValue(), network));
             });
         }

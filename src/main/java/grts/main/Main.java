@@ -27,6 +27,7 @@
 package grts.main;
 
 import grts.core.architecture.Architecture;
+import grts.core.exceptions.UnschedulableException;
 import grts.core.generator.GlobalNetworkGenerator;
 import grts.core.generator.PeriodicTasksGenerator;
 import grts.core.json.parser.SimulatorJacksonParser;
@@ -40,6 +41,7 @@ import grts.core.simulator.Simulator;
 import grts.core.simulator.events.*;
 import grts.core.taskset.*;
 import grts.core.tests.GlobalNetworkSchedulabilityTest;
+import grts.core.tests.NonPreemptiveResponseTimeTest;
 import grts.core.tests.PreemptiveResponseTimeTest;
 import grts.logger.EventLogger;
 
@@ -49,6 +51,7 @@ import java.nio.file.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 /**
  * @author Tristan Fautrel
@@ -101,9 +104,7 @@ public class Main {
             e.printStackTrace();
         }*/
 
-//        GlobalNetworkGenerator globalNetworkGenerator = new GlobalNetworkGenerator(5, 2, 0.5, 0.75);
-//        GlobalNetwork globalNetwork = globalNetworkGenerator.generateGlobalNetwork(1000, 0.01);
-        List<CANNetwork> networks = new LinkedList<>();
+        /*List<CANNetwork> networks = new LinkedList<>();
         AbstractRecurrentTask task1 = new PeriodicTask(6, 2, 6, 0, "t1");
         AbstractRecurrentTask task2 = new PeriodicTask(7, 3, 7, 0, "t2");
         AbstractRecurrentTask task3 = new PeriodicTask(14, 4, 13, 0, "t3");
@@ -117,8 +118,33 @@ public class Main {
         networks.get(1).addExternalSchedulable(task3, networks.get(0));
         GlobalNetwork globalNetwork = new GlobalNetwork(networks);
 
+//        for(int i = 0; i < 50000; i++) {
+//        GlobalNetworkGenerator globalNetworkGenerator = new GlobalNetworkGenerator(5, 2, 0.5, 0.75);
+//        GlobalNetwork globalNetwork = globalNetworkGenerator.generateGlobalNetwork(1000, 0.01);
+//            System.out.println("validity : " + globalNetwork.checkValidity());
         GlobalNetworkSchedulabilityTest test = new GlobalNetworkSchedulabilityTest();
-        System.out.println(test.isSchedulable(globalNetwork));
+        System.out.println(test.isSchedulable(globalNetwork));*/
+
+        AbstractRecurrentTask task1 = new PeriodicTask(12, 2, 12, 0, "t1");
+        AbstractRecurrentTask task2 = new PeriodicTask(14, 3, 14, 0, "t2");
+        AbstractRecurrentTask task3 = new PeriodicTask(14, 4, 13, 0, "t3");
+
+//        NonPreemptiveResponseTimeTest test = new NonPreemptiveResponseTimeTest();
+        LinkedList<Schedulable> tasks = new LinkedList<>();
+        tasks.add(task2);
+        tasks.add(task3);
+        tasks.add(task1);
+//        System.out.println(test.computeResponseTime(task1, null, new TaskSet(tasks)));
+        ClassicOPA opa;
+        try {
+            opa = new ClassicOPA(new TaskSet(tasks));
+        } catch (UnschedulableException e) {
+            System.out.println("no result");
+            return;
+        }
+        System.out.println("result : ");
+        System.out.println(opa.getPriorities());
+        //        }
 
 
     }

@@ -1,17 +1,29 @@
-package grts.core.taskset;
+package grts.core.network;
 
 import grts.core.schedulable.AbstractRecurrentTask;
-import grts.core.schedulable.PeriodicTask;
 import grts.core.schedulable.Schedulable;
+import grts.core.taskset.TaskSet;
 
 import java.util.*;
 import java.util.function.ToDoubleFunction;
 
 public class CANNetwork {
 //    XXX unsafe object. Its construction is not completely done after the new
-    private final HashMap<AbstractRecurrentTask, CANNetwork> externalSchedulables = new HashMap<>();
+
+    private class MyHashMap<K,V> extends HashMap<K,V>{
+        @Override
+        public int hashCode() {
+            int h = 0;
+            for (Entry<K, V> kvEntry : entrySet()) {
+                h += kvEntry.getKey().hashCode();
+            }
+            return h;
+        }
+
+    }
+    private final HashMap<AbstractRecurrentTask, CANNetwork> externalSchedulables = new MyHashMap<>();
     private final List<AbstractRecurrentTask> internalSchedulables;
-    private final Map<AbstractRecurrentTask, Integer> priorities = new HashMap<>();
+    private Map<AbstractRecurrentTask, Integer> priorities = new HashMap<>();
 
     public CANNetwork(List<AbstractRecurrentTask> internalSchedulables) {
         this.internalSchedulables = Objects.requireNonNull(internalSchedulables);
@@ -56,10 +68,41 @@ public class CANNetwork {
     }
 
     public void addPriorities(Map<AbstractRecurrentTask, Integer> priorities){
-        this.priorities.putAll(priorities);
+        if(priorities.size() != externalSchedulables.size() + internalSchedulables.size()){
+            throw new IllegalArgumentException("The size of priorities should correspond to the number of tasks in this CAN Network");
+        }
+        this.priorities = priorities;
     }
 
     public Map<AbstractRecurrentTask, Integer> getPriorities() {
         return Collections.unmodifiableMap(priorities);
+    }
+
+    public Integer getTaskPriority(AbstractRecurrentTask task){
+        if(!priorities.containsKey(task)){
+            throw new IllegalArgumentException("This task isn't in this network or has no priority");
+        }
+        return priorities.get(task);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof CANNetwork)) {
+            return false;
+        }
+        CANNetwork canNetwork = (CANNetwork) obj;
+        return this == canNetwork ||
+                externalSchedulables.equals(canNetwork.externalSchedulables) &&
+                        internalSchedulables.equals(canNetwork.internalSchedulables) &&
+                        priorities.equals(canNetwork.priorities);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 1;
+        hash = hash * 31 + internalSchedulables.hashCode();
+        hash = hash * 31 + externalSchedulables.hashCode();
+        hash = hash * 31 + priorities.hashCode();
+        return hash;
     }
 }

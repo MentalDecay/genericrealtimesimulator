@@ -2,9 +2,8 @@ package grts.core.generator;
 
 import grts.core.schedulable.AbstractRecurrentTask;
 import grts.core.schedulable.PeriodicTask;
-import grts.core.schedulable.Schedulable;
-import grts.core.taskset.CANNetwork;
-import grts.core.taskset.GlobalNetwork;
+import grts.core.network.CANNetwork;
+import grts.core.network.GlobalNetwork;
 
 import java.util.*;
 import java.util.stream.Collectors;
