@@ -17,58 +17,64 @@ public class Order {
     private void findOrders(TaskSet taskSet) throws Exception {
         orders.add(new HashMap<>());
 
-        NonPreemptiveResponseTimeTest responseTimeTest = new NonPreemptiveResponseTimeTest();
-        //Extraire la liste des tâches
+        //Extract a copy of the list of tasks.
         ArrayList<AbstractRecurrentTask> schedulables = new ArrayList<>();
         taskSet.stream().forEach(schedulable -> schedulables.add((AbstractRecurrentTask) schedulable));
 
-        //Liste des plus hauts priorités => liste des tâches qui n'ont pas encore été assignées pour chaque branche de l'arbre
+        //The list of tasks of higher priorities for each order found. (higher priorities means task not scheduled yet by OPA).
         ArrayList<ArrayList<AbstractRecurrentTask>> higherTasks = new ArrayList<>();
         higherTasks.add(new ArrayList<>());
+        //Init the list with all the tasks.
         higherTasks.get(0).addAll(schedulables);
 
-        //Liste des tâches déjà assignées pour chaque branche de l'arbre
+        //The list of tasks of lower priorities for each order found. (lower priorities means task already scheduled by OPA).
         ArrayList<ArrayList<AbstractRecurrentTask>> lowerTasks = new ArrayList<>();
+        //This list is empty at the beginning.
         lowerTasks.add(new ArrayList<>());
 
+
+        //This loop is from 0 to the total number of tasks.
         for(int i = 0; i < schedulables.size(); i++){
-            /*
-            * @param schedulable The schedulable to test.
-            * @param otherSchedulable The schedulable with a lower priority with the biggest cost.
-            * @param taskSet The set of tasks with higher priorities than schedulable.
-             */
             if(higherTasks.size() != lowerTasks.size() || orders.size() != higherTasks.size()){
                 throw new IllegalStateException("higherTasks.size() != lowerTasks.size() != ret.size()");
             }
+
+            //Get the number of orders
             int  maxSize = higherTasks.size();
+            //This loop is from 0 to the number of orders
             for(int j = 0; j < maxSize; j++){
+                //Local variable to have a easier access to the higher and lower tasks of the order.
                 ArrayList<AbstractRecurrentTask> ht = higherTasks.get(j);
                 ArrayList<AbstractRecurrentTask> lt = lowerTasks.get(j);
+
+                //Get the total number of higher task of the order studied.
                 int htSize = ht.size();
                 List<AbstractRecurrentTask> availableTasks = new LinkedList<>();
+                //Foreach higher task of the order.
                 for(int k = 0; k < htSize; k++){
+                    //Copy of the higher tasks (this list will be modified)
                     List<Schedulable> htcp = new ArrayList<>(ht);
                     AbstractRecurrentTask taskToTest = (AbstractRecurrentTask) htcp.remove(k);
-                    Optional<AbstractRecurrentTask> optional = lt.stream().max((o1, o2) -> Long.compare(o1.getWcet(), o2.getWcet()));
-                    AbstractRecurrentTask lowerTask;
-                    if(!optional.isPresent()){
-                        lowerTask = null;
+                    if(!taskIsSchedulable(taskToTest, lt, htcp)){
+                        System.out.println("Can't set the task" + taskToTest.getName() + " at this priority");
                     }
                     else{
-                        lowerTask = optional.get();
-                    }
-                    if(responseTimeTest.isSchedulable(taskToTest, lowerTask, new TaskSet(htcp))){
                         availableTasks.add(taskToTest);
                     }
-                    else{
-                        System.err.println("One task in less");
-                    }
                 }
+
+                //If there is no task available at this priority.
                 if(availableTasks.size() == 0){
                     throw new Exception("Can't schedule this taskset");
                 }
+
+                //In the list of tasks available at this priority lvl, the first is taken
                 AbstractRecurrentTask taskToAdd = availableTasks.remove(0);
+
+                //List of indexes of the order in which the task has to be added.
                 List<Integer> ints = new LinkedList<>();
+
+                //Finds the indexes
                 for(int k = 0; k < availableTasks.size(); k++){
                     int index = higherTasks.size();
                     ints.add(index);
@@ -79,11 +85,21 @@ public class Order {
                     lowerTasks.add(new ArrayList<>());
                     lowerTasks.get(index).addAll(new ArrayList<>(lowerTasks.get(j)));
                 }
+
+                //Finds the priority level (the orders have all the same priority level at this time)
                 int priority = orders.get(j).size() + 1;
+
+                //Adds the task to the order with the right priority.
                 orders.get(j).put(taskToAdd, priority);
+
+                //The task is no longer in higher priorities, its priority is fixed.
                 ht.remove(taskToAdd);
+
+                //The tasks will have a lower priority according to the next tasks.
                 lt.add(taskToAdd);
                 int intsSize = ints.size();
+
+                //Same three previous steps to the other tasks available at this priority level.
                 for(int k = 0; k < intsSize; k++){
                     int index = ints.remove(0);
                     AbstractRecurrentTask task = availableTasks.remove(0);
@@ -95,8 +111,17 @@ public class Order {
         }
     }
 
-    private static void properPrint(){
-
+    private  boolean taskIsSchedulable(AbstractRecurrentTask taskToTest, List<AbstractRecurrentTask> lt, List<Schedulable> htcp){
+        Optional<AbstractRecurrentTask> optional = lt.stream().max((o1, o2) -> Long.compare(o1.getWcet(), o2.getWcet()));
+        AbstractRecurrentTask lowerTask;
+        if(!optional.isPresent()){
+            lowerTask = null;
+        }
+        else{
+            lowerTask = optional.get();
+        }
+        NonPreemptiveResponseTimeTest responseTimeTest = new NonPreemptiveResponseTimeTest();
+        return responseTimeTest.isSchedulable(taskToTest, lowerTask, new TaskSet(htcp));
     }
 
     @Override
@@ -107,7 +132,7 @@ public class Order {
             str.append("Priorities order nb : ").append(i).append("\n");
             HashMap<AbstractRecurrentTask, Integer> map = orders.get(i);
             //            map.forEach((abstractRecurrentTask, integer) -> System.out.println(abstractRecurrentTask.getName() + " at priority : " + integer));
-            //Sort pour rendre plus visible le résultat.
+            //Sort to have a more readable print
             map.entrySet().stream()
                     .sorted((o1, o2) ->
                             o1.getKey().getName().compareTo(o2.getKey().getName()))
