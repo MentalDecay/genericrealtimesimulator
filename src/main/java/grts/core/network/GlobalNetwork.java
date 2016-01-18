@@ -31,5 +31,4 @@ public class GlobalNetwork {
             return !network.getInternalSchedulables().contains(task);
         }));
     }
-
 }
