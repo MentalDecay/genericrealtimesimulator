@@ -56,7 +56,7 @@ public class Order {
                     List<Schedulable> htcp = new ArrayList<>(ht);
                     AbstractRecurrentTask taskToTest = (AbstractRecurrentTask) htcp.remove(k);
                     if(!taskIsSchedulable(taskToTest, lt, htcp)){
-                        System.out.println("Can't set the task" + taskToTest.getName() + " at this priority");
+//                        System.out.println("Can't set the task" + taskToTest.getName() + " at this priority");
                     }
                     else{
                         availableTasks.add(taskToTest);
@@ -141,5 +141,9 @@ public class Order {
 //                            System.out.println(abstractRecurrentTaskIntegerEntry.getKey().getName() + " at priority : " + abstractRecurrentTaskIntegerEntry.getValue()));
         }
         return str.toString();
+    }
+
+    public int nbOrders(){
+        return orders.size();
     }
 }
