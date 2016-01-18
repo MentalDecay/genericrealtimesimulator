@@ -1,6 +1,5 @@
 package grts.core.tests;
 
-import grts.core.architecture.Architecture;
 import grts.core.schedulable.Schedulable;
 import grts.core.taskset.TaskSet;
 

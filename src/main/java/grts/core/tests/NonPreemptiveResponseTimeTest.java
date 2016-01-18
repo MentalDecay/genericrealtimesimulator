@@ -13,7 +13,7 @@ public class NonPreemptiveResponseTimeTest extends AbstractSchedulabilityTest im
     private final double delta = 0.1;
 
     public NonPreemptiveResponseTimeTest(){
-        super(null);
+        super();
     }
 
     @Override
@@ -84,6 +84,8 @@ public class NonPreemptiveResponseTimeTest extends AbstractSchedulabilityTest im
                             .sum()
                     + wcet;
             if(nextW == previousW){
+//                System.out.println("task : " + task);
+//                System.out.println("w : " + (nextW - q * task.getMinimumInterArrivalTime()));
                 return nextW - q * task.getMinimumInterArrivalTime();
             }
             if (nextW > q * task.getMinimumInterArrivalTime() + task.getDeadline()) {
