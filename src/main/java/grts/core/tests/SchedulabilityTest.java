@@ -4,10 +4,6 @@ import grts.core.architecture.Architecture;
 import grts.core.schedulable.Schedulable;
 import grts.core.taskset.TaskSet;
 
-import java.util.Optional;
-import java.util.function.BiPredicate;
-import java.util.function.Predicate;
-
 public interface SchedulabilityTest {
 
     /**
@@ -26,11 +22,4 @@ public interface SchedulabilityTest {
     boolean isSchedulable(Schedulable schedulable, TaskSet taskSet);
 
     boolean isSchedulable(Schedulable schedulable, Schedulable otherSchedulable, TaskSet taskSet);
-
-
-    /**
-     * Get the Architecture.
-     * @return An optional of Architecture which is empty if the test doesn't need to know the architecture.
-     */
-    Optional<Architecture> getArchitecture();
 }
