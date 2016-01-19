@@ -146,4 +146,13 @@ public class Order {
     public int nbOrders(){
         return orders.size();
     }
+
+    // NOT SAFE, NOT A COPY
+    public ArrayList<HashMap<AbstractRecurrentTask, Integer>> getOrders(){
+        return orders;
+    }
+
+    public HashMap<AbstractRecurrentTask, Integer> getOrderNumber(int nb){
+        return orders.get(nb);
+    }
 }
