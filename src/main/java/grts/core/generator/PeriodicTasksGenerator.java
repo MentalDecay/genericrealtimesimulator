@@ -52,10 +52,10 @@ public class PeriodicTasksGenerator {
     }
 
     /**
-     * Generates the GlobalNetwork according to the PeriodicTasksGenerator.
+     * Generates the taskset according to the PeriodicTasksGenerator.
      * @param maxPeriod The maximum period of the task generated.
      * @param threshold The threshold of the total utilization.
-     * @return A new GlobalNetwork randomly created.
+     * @return A new taskset randomly created.
      */
     public TaskSet generateImplicitPeriodicTaskSet(int maxPeriod, double threshold){
         return new TaskSet(createsPeriodicImplicitTasks(maxPeriod, threshold));
