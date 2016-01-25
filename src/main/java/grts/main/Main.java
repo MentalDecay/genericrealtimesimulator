@@ -58,44 +58,58 @@ public class Main {
         }
         System.out.println("Nb with two orders : " + valid);
         System.out.println("Nb hyper periods : " + nbHyperPeriods.size());*/
-        UUnifastMonoProc generator = new UUnifastMonoProc(5, 0.8);
-        TaskSet taskSet;
-        Order order;
-        long hyperPeriod;
-        while(true){
-            taskSet = generator.generateUUnifastMonoProc(20, 0.1);
-            try{
-                order = new Order(taskSet);
-                hyperPeriod = HyperPeriod.compute(taskSet);
-                if(order.nbOrders() == 2 && hyperPeriod < 2000){
-                    break;
+
+        for(int j = 1; j <= 100; j++) {
+            UUnifastMonoProc generator = new UUnifastMonoProc(5, 0.8);
+            TaskSet taskSet;
+            Order order;
+            long hyperPeriod;
+            while (true) {
+                taskSet = generator.generateUUnifastMonoProc(20, 0.1);
+                try {
+                    order = new Order(taskSet);
+                    hyperPeriod = HyperPeriod.compute(taskSet);
+                    if (order.nbOrders() == 2 && hyperPeriod < 2000) {
+                        break;
+                    }
+                } catch (Exception e) {
+                    //Nothing to do, generate another tasks set.
                 }
-            } catch (Exception e) {
-                //Nothing to do, generate another tasks set.
+            }
+
+            System.out.println("TaskSet : ");
+            taskSet.stream().forEach(schedulable -> System.out.println(schedulable + "\n"));
+            System.out.println("Orders : \n" + order);
+            AbstractRecurrentTask tasksToCompare[] = getTasksToCompare(order);
+            AbstractRecurrentTask taskFromFirstOrderToCompare = tasksToCompare[0];
+            AbstractRecurrentTask taskFromSecondOrderToCompare = tasksToCompare[1];
+            System.out.println("Tasks to compare : " + taskFromFirstOrderToCompare.getName() + " and " + taskFromSecondOrderToCompare.getName());
+
+            long[] valuesOrder1 = Formula.apply(hyperPeriod, taskFromFirstOrderToCompare, order.getOrderNumber(0));
+            long[] valuesOrder2 = Formula.apply(hyperPeriod, taskFromSecondOrderToCompare, order.getOrderNumber(1));
+
+            System.out.println("Values order 1 : ");
+            for (int i = 0; i < valuesOrder1.length; i++) {
+                System.out.print("f : " + i + "(t) = ");
+                System.out.println(valuesOrder1[i]);
+            }
+//            String firstFile = "workload1.dat";
+            String firstFile = "results/workload"+j+".1.dat";
+//            String secondFile = "workload2.dat";
+            String secondFile = "results/workload"+j+".2.dat";
+            String gpFileName = "results/workload"+j+".gp";
+            String pdfFileName = "results/workload"+j+".pdf";
+            generateGPFile(gpFileName, pdfFileName, 50, firstFile, secondFile);
+            generateDatFile(firstFile, valuesOrder1);
+            generateDatFile(secondFile, valuesOrder2);
+            writeTaskSet("results/taskset"+j+".txt", taskSet);
+            try {
+                Runtime.getRuntime().exec("gnuplot " + gpFileName);
+            } catch (IOException e) {
+                System.err.println("Can't apply gnuplot cmd");
+                return;
             }
         }
-
-        System.out.println("TaskSet : ");
-        taskSet.stream().forEach(schedulable -> System.out.println(schedulable + "\n"));
-        System.out.println("Orders : \n" + order);
-        AbstractRecurrentTask tasksToCompare[] = getTasksToCompare(order);
-        AbstractRecurrentTask taskFromFirstOrderToCompare = tasksToCompare[0];
-        AbstractRecurrentTask taskFromSecondOrderToCompare = tasksToCompare[1];
-        System.out.println("Tasks to compare : " + taskFromFirstOrderToCompare.getName() + " and " + taskFromSecondOrderToCompare.getName());
-
-        long[] valuesOrder1 = Formula.apply(hyperPeriod, taskFromFirstOrderToCompare, order.getOrderNumber(0));
-        long[] valuesOrder2 = Formula.apply(hyperPeriod, taskFromSecondOrderToCompare, order.getOrderNumber(1));
-
-        System.out.println("Values order 1 : ");
-        for(int i = 0; i < valuesOrder1.length; i++){
-            System.out.print("f : " + i+"(t) = ");
-            System.out.println(valuesOrder1[i]);
-        }
-        String firstFile = "workload1.dat";
-        String secondFile = "workload2.dat";
-        generateGPFile("workload.gp", "workload.pdf", 20, firstFile, secondFile);
-        generateDatFile(firstFile, valuesOrder1);
-        generateDatFile(secondFile, valuesOrder2);
 
 
 
@@ -108,6 +122,17 @@ public class Main {
         //        taskSet.stream().forEach(schedulable -> System.out.println(schedulable + "\n"));
 
 
+    }
+
+    private static void writeTaskSet(String fileName, TaskSet taskSet){
+        List<String> lines = new LinkedList<>();
+        taskSet.stream().forEach(schedulable -> lines.add(schedulable.toString()));
+        try {
+            Files.write(Paths.get(fileName), lines);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Can't write the taskset file");
+        }
     }
 
     private static AbstractRecurrentTask[] getTasksToCompare(Order order){
