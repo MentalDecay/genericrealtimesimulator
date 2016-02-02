@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class NonPreemptiveResponseTimeTest extends AbstractSchedulabilityTest implements SchedulabilityTest {
-//    TODO refactor the isSchedulable and computeResponseTime.
+    //    TODO refactor the isSchedulable and computeResponseTime.
     private final double delta = 0.1;
 
     public NonPreemptiveResponseTimeTest(){
@@ -61,7 +61,7 @@ public class NonPreemptiveResponseTimeTest extends AbstractSchedulabilityTest im
             }
             q++;
         }
-//        System.out.println(responseTimes.stream().max(Long::compare).get());
+        //        System.out.println(responseTimes.stream().max(Long::compare).get());
         return responseTimes.stream().max(Long::compare).get() <= schedulable.getDeadline();
     }
 
@@ -84,8 +84,8 @@ public class NonPreemptiveResponseTimeTest extends AbstractSchedulabilityTest im
                             .sum()
                     + wcet;
             if(nextW == previousW){
-//                System.out.println("task : " + task);
-//                System.out.println("w : " + (nextW - q * task.getMinimumInterArrivalTime()));
+                //                System.out.println("task : " + task);
+                //                System.out.println("w : " + (nextW - q * task.getMinimumInterArrivalTime()));
                 return nextW - q * task.getMinimumInterArrivalTime();
             }
             if (nextW > q * task.getMinimumInterArrivalTime() + task.getDeadline()) {
@@ -129,7 +129,7 @@ public class NonPreemptiveResponseTimeTest extends AbstractSchedulabilityTest im
             }
             q++;
         }
-//        System.out.println(responseTimes.stream().max(Long::compare).get());
+        //        System.out.println(responseTimes.stream().max(Long::compare).get());
         return responseTimes.stream().max(Long::compare).get();
     }
 }

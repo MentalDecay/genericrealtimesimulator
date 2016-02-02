@@ -3,6 +3,7 @@ package grts.core.order;
 import grts.core.schedulable.AbstractRecurrentTask;
 import grts.core.schedulable.Schedulable;
 import grts.core.taskset.TaskSet;
+import grts.core.tests.NonPreemptiveResponseTime;
 import grts.core.tests.NonPreemptiveResponseTimeTest;
 
 import java.util.*;
@@ -50,11 +51,17 @@ public class Order {
                 //Get the total number of higher task of the order studied.
                 int htSize = ht.size();
                 List<AbstractRecurrentTask> availableTasks = new LinkedList<>();
+                System.out.println("\n\nPriority nb : " + j);
+                System.out.println("Higher tasks : ");
+                ht.forEach(abstractRecurrentTask -> System.out.println(abstractRecurrentTask.getName()));
+                System.out.println("Lower tasks : ");
+                lt.forEach(abstractRecurrentTask -> System.out.println(abstractRecurrentTask.getName()));
                 //Foreach higher task of the order.
                 for(int k = 0; k < htSize; k++){
                     //Copy of the higher tasks (this list will be modified)
                     List<Schedulable> htcp = new ArrayList<>(ht);
                     AbstractRecurrentTask taskToTest = (AbstractRecurrentTask) htcp.remove(k);
+                    System.out.println("taskToTest : " + taskToTest.getName());
                     if(!taskIsSchedulable(taskToTest, lt, htcp)){
 //                        System.out.println("Can't set the task" + taskToTest.getName() + " at this priority");
                     }
@@ -67,7 +74,8 @@ public class Order {
                 if(availableTasks.size() == 0){
                     throw new Exception("Can't schedule this taskset");
                 }
-
+                System.out.println("\nAvailables : ");
+                availableTasks.forEach(abstractRecurrentTask -> System.out.println(abstractRecurrentTask.getName()));
                 //In the list of tasks available at this priority lvl, the first is taken
                 AbstractRecurrentTask taskToAdd = availableTasks.remove(0);
 
@@ -120,7 +128,8 @@ public class Order {
         else{
             lowerTask = optional.get();
         }
-        NonPreemptiveResponseTimeTest responseTimeTest = new NonPreemptiveResponseTimeTest();
+        NonPreemptiveResponseTime responseTimeTest = new NonPreemptiveResponseTime();
+//        NonPreemptiveResponseTimeTest responseTimeTest = new NonPreemptiveResponseTimeTest();
         return responseTimeTest.isSchedulable(taskToTest, lowerTask, new TaskSet(htcp));
     }
 
@@ -135,7 +144,9 @@ public class Order {
             //Sort to have a more readable print
             map.entrySet().stream()
                     .sorted((o1, o2) ->
-                            o1.getKey().getName().compareTo(o2.getKey().getName()))
+                            //o1.getKey().getName().compareTo(o2.getKey().getName())
+                            Integer.compare(o1.getValue(), o2.getValue())
+                            )
                     .forEach(abstractRecurrentTaskIntegerEntry ->
                             str.append(abstractRecurrentTaskIntegerEntry.getKey().getName()).append(" at priority : ").append(abstractRecurrentTaskIntegerEntry.getValue()).append("\n"));
 //                            System.out.println(abstractRecurrentTaskIntegerEntry.getKey().getName() + " at priority : " + abstractRecurrentTaskIntegerEntry.getValue()));
