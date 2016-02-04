@@ -61,7 +61,7 @@ public class Main {
         System.out.println("Nb with two orders : " + valid);
         System.out.println("Nb hyper periods : " + nbHyperPeriods.size());*/
 
-        /*for(int j = 1; j <= 100; j++) {
+        for(int j = 1; j <= 100; j++) {
             UUnifastMonoProc generator = new UUnifastMonoProc(5, 0.8);
             TaskSet taskSet;
             Order order;
@@ -69,18 +69,32 @@ public class Main {
             while (true) {
                 taskSet = generator.generateUUnifastMonoProc(50, 0.1);
                 try {
-                    System.out.println("begin");
                     order = new Order(taskSet);
                     hyperPeriod = HyperPeriod.compute(taskSet);
-                    if (order.nbOrders() == 2 && hyperPeriod < 2000) {
+                    if (order.nbOrders() > 2 && hyperPeriod < 2000 && order.nbOrders() < 10) {
+                        System.out.println(order);
+                        AbstractRecurrentTask[] tasksToCompare = getTasksToCompare(order);
+                        writeTaskSet("results/taskset " + j + ".txt", taskSet);
+                        generateGPFile("results/workload" + j + ".gp", "results/workload" + j + ".pdf", hyperPeriod, order.nbOrders(), "results/workload" + j);
+                        for(int i = 1; i <= tasksToCompare.length; i++){
+                            long[] valuesOrder = Formula.apply(hyperPeriod, tasksToCompare[i-1], order.getOrderNumber(i - 1));
+                            generateDatFile("results/workload" + j + "_order_" + i + ".dat", valuesOrder);
+                        }
+                        try {
+                            Runtime.getRuntime().exec("gnuplot " + "results/workload" + j + ".gp");
+                        } catch (IOException e) {
+                            System.err.println("Can't apply gnuplot cmd");
+                            return;
+                        }
                         break;
                     }
                 } catch (Exception e) {
                     //Nothing to do, generate another tasks set.
                 }
             }
+        }
 
-            System.out.println("TaskSet : ");
+            /*System.out.println("TaskSet : ");
             taskSet.stream().forEach(schedulable -> System.out.println(schedulable + "\n"));
             System.out.println("Orders : \n" + order);
             AbstractRecurrentTask tasksToCompare[] = getTasksToCompare(order);
@@ -188,7 +202,7 @@ public class Main {
         }
     }
 
-    private static AbstractRecurrentTask[] getTasksToCompare(Order order){
+    /*private static AbstractRecurrentTask[] getTasksToCompare(Order order){
         AbstractRecurrentTask[] ret = new AbstractRecurrentTask[2];
         if(order.nbOrders() != 2){
             throw new IllegalArgumentException("Comparison of two orders without two orders");
@@ -224,9 +238,43 @@ public class Main {
             }
         }
         throw new IllegalArgumentException("Can't find the tasks to compare");
+    }*/
+
+    private static AbstractRecurrentTask[] getTasksToCompare(Order order){
+        AbstractRecurrentTask[] ret = new AbstractRecurrentTask[order.nbOrders()];
+        if(order.nbOrders() <= 1){
+            throw new IllegalArgumentException("Not enough orders on this Order");
+        }
+        ArrayList<HashMap<AbstractRecurrentTask, Integer>> orders = order.getOrders();
+        ArrayList<HashMap<Integer, AbstractRecurrentTask>> reversedOrders = new ArrayList<>();
+        for(int i = 0; i < orders.size(); i++){
+            int j = i;
+            reversedOrders.add(new HashMap<>());
+            orders.get(j)
+                    .forEach((abstractRecurrentTask, integer) -> reversedOrders.get(j).put(integer, abstractRecurrentTask));
+        }
+        HashMap<Integer, AbstractRecurrentTask> ref = reversedOrders.remove(0);
+        boolean done = false;
+        for(int i = 1; i <= ref.size(); i++){
+            AbstractRecurrentTask taskToCompare = ref.get(i);
+            for (HashMap<Integer, AbstractRecurrentTask> reversedOrder : reversedOrders) {
+                if (!reversedOrder.get(i).equals(taskToCompare)) {
+                    done = true;
+                    break;
+                }
+            }
+            if(done){
+                ret[0] = taskToCompare;
+                for(int j = 1; j < order.nbOrders(); j++){
+                    ret[j] = reversedOrders.get(j-1).get(i);
+                }
+                break;
+            }
+        }
+        return ret;
     }
 
-    private static void generateGPFile(String gpFileName, String pdfName, long hyperPeriod, String firstFileName, String secondFileName){
+    /*private static void generateGPFile(String gpFileName, String pdfName, long hyperPeriod, String firstFileName, String secondFileName){
         List<String> lines = new LinkedList<>();
         lines.add("#!/usr/bin/env gnuplot\n" +
                 "\n" +
@@ -250,6 +298,47 @@ public class Main {
                 "  '"+firstFileName+"' with steps linetype 2 title 'order 1', \\\n" +
 //                "  'workload2.dat' with steps linetype 3 title 'order 2'");
                 "  '"+secondFileName+"' with steps linetype 3 title 'order 2'");
+        try {
+            Files.write(Paths.get(gpFileName), lines);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Can't write the .gp file");
+        }
+    }*/
+
+
+    private static void generateGPFile(String gpFileName, String pdfName, long hyperPeriod, int nbOrders, String beginningDatFiles){
+        List<String> lines = new LinkedList<>();
+        lines.add("#!/usr/bin/env gnuplot\n" +
+                "\n" +
+                "set terminal pdfcairo\n" +
+                "set output '" + pdfName +"'\n" +
+                //                "set output 'workload.pdf'\n" +
+                "\n" +
+                "set key left\n" +
+                "set xrange [0:"+50+"]\n" +
+                "set yrange [0:"+50+"]\n" +
+                "set pointsize 0.5\n" +
+                "\n" +
+                "set linetype 1 linecolor rgb \"black\"        linewidth 2 pointtype 7\n" +
+                "set linetype 2 linecolor rgb \"blue\"        linewidth 2 pointtype 7\n" +
+                "set linetype 3 linecolor rgb \"dark-violet\"        linewidth 2 pointtype 7\n" +
+                "set linetype 4 linecolor rgb \"green\"        linewidth 2 pointtype 7\n" +
+                "set linetype 5 linecolor rgb \"red\"        linewidth 2 pointtype 7\n" +
+                "set linetype 6 linecolor rgb \"cyan\"        linewidth 2 pointtype 7\n" +
+                "set linetype 7 linecolor rgb \"dark-green\"        linewidth 2 pointtype 7\n" +
+                "set linetype 8 linecolor rgb \"dark-orange\"       linewidth 2 pointtype 7\n" +
+                "set linetype 9 linecolor rgb \"pink\"       linewidth 2 pointtype 7\n" +
+                "set linetype 10 linecolor rgb \"gold\"      linewidth 2 pointtype 7\n" +
+                "\n" +
+                "f(x)=x\n" +
+                "\n" +
+                "plot \\");
+        for(int i = 1; i <= nbOrders; i++){
+            lines.add("'"+beginningDatFiles + "_order_" + i + ".dat' with steps linetype " + i + " title 'order " + i + "', \\" );
+        }
+//        lines.add("'"+beginningDatFiles + "_order_" + nbOrders + ".dat' with steps linetype " + nbOrders + " title 'order " + nbOrders + "', \\" );
+
         try {
             Files.write(Paths.get(gpFileName), lines);
         } catch (IOException e) {

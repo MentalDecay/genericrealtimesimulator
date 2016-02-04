@@ -49,7 +49,7 @@ public class NonPreemptiveResponseTime {
                 prevW = currW;
             }
         }
-        System.out.println("Response Time : " + responseTimes.stream().max(Long::compare).get());
+//        System.out.println("Response Time : " + responseTimes.stream().max(Long::compare).get());
         return responseTimes.stream().max(Long::compare).get() <= schedulable.getDeadline();
     }
 
