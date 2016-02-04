@@ -32,12 +32,11 @@ public class NonPreemptiveResponseTime {
             cost = otherSchedulable.getWcet() - 1;
         }
 
-        long maxQ = (long) Math.floor((double)computeLi(task, cost, schedulables) / task.getMinimumInterArrivalTime());
+        long maxQ = (long) Math.floor((double)computeLi(task, cost, schedulables) / (double) task.getMinimumInterArrivalTime());
 
         long prevW = 0;
         long currW;
-        System.out.println("maxQ = " + maxQ);
-        /*for(int q = 0; q <= maxQ; q++){
+        for(int q = 0; q <= maxQ; q++){
             while(true){
                 long prevWCp = prevW;
                 currW = cost + q * task.getWcet() + schedulables.stream()
@@ -49,17 +48,6 @@ public class NonPreemptiveResponseTime {
                 }
                 prevW = currW;
             }
-        }*/
-        for(int q = 0; q <= maxQ; q++){
-            long prevWCp = prevW;
-            currW = cost + q * task.getWcet() + schedulables.stream()
-                    .mapToLong(value -> (1l + (long) (Math.floor((double) prevWCp / (double) value.getMinimumInterArrivalTime()))) * value.getWcet())
-                    .sum();
-            //            if(prevW == currW){
-            responseTimes.add(currW + task.getWcet() - q * task.getMinimumInterArrivalTime());
-            //                break;
-            //            }
-            prevW = currW;
         }
         System.out.println("Response Time : " + responseTimes.stream().max(Long::compare).get());
         return responseTimes.stream().max(Long::compare).get() <= schedulable.getDeadline();
@@ -68,11 +56,11 @@ public class NonPreemptiveResponseTime {
     private long computeLi(AbstractRecurrentTask task, long cost, List<AbstractRecurrentTask> higherTasks){
         long currL;
         long prevL = 1;
-        higherTasks.add(task);
-        System.out.println("cost :" + cost);
+        LinkedList<AbstractRecurrentTask> tasks = new LinkedList<>(higherTasks);
+        tasks.add(task);
         while(true){
             long prevLcp = prevL;
-            currL = cost + higherTasks.stream()
+            currL = cost + tasks.stream()
                     .mapToLong(value -> ((long) Math.ceil((double) prevLcp / (double) value.getMinimumInterArrivalTime())) * value.getWcet())
                     .sum();
             if(currL == prevL){

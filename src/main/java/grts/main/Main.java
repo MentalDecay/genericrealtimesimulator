@@ -154,7 +154,7 @@ public class Main {
         //        System.out.println("TaskSet : ");
         //        taskSet.stream().forEach(schedulable -> System.out.println(schedulable + "\n"));
 
-        PeriodicTask t1 = new PeriodicTask(25, 1, 25, 0, "t1");
+        /*PeriodicTask t1 = new PeriodicTask(25, 1, 25, 0, "t1");
         PeriodicTask t2 = new PeriodicTask(16, 1, 16, 0, "t2");
         PeriodicTask t3 = new PeriodicTask(35, 12, 35, 0, "t3");
         PeriodicTask t4 = new PeriodicTask(15, 2, 15, 0, "t4");
@@ -174,7 +174,7 @@ public class Main {
             e.printStackTrace();
             return;
         }
-        System.out.println(order);
+        System.out.println(order);*/
     }
 
     private static void writeTaskSet(String fileName, TaskSet taskSet){
