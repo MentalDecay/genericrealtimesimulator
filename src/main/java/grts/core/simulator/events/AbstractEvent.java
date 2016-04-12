@@ -9,15 +9,18 @@ public abstract class  AbstractEvent implements Event {
 
     private final Scheduler scheduler;
     private final long time;
+    private final int priority;
 
     /**
      * Creates a new event. The event is linked to a scheduler to handle itself. It also has a time : when the event perform.
      * @param scheduler The scheduler linked to the event to let the event handles itself.
      * @param time The time when the event should perform.
+     * @param priority the priority when the event should perform.
      */
-    protected AbstractEvent(Scheduler scheduler, long time) {
+    protected AbstractEvent(Scheduler scheduler, long time, int priority) {
         this.scheduler = scheduler;
         this.time = time;
+        this.priority = priority;
     }
 
 
@@ -74,6 +77,16 @@ public abstract class  AbstractEvent implements Event {
         rootNode.put("event name", getName());
         rootNode.put("time", String.valueOf(getTime()));
         return rootNode;
+    }
+
+    /**
+     * Get the priority of the event. It's used to sort events. For example, the SimulationStopEvent has the biggest
+     * priority because it should perform before the others. Its priority is 1.
+     * @return the priority of the event.
+     */
+    @Override
+    public int getPriority() {
+        return priority;
     }
 
     @Override

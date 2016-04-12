@@ -16,16 +16,17 @@ public abstract class AbstractEventOnJob  extends AbstractEvent implements Event
      * Creates a new event linked to a job.
      * @param scheduler the scheduler linked to the event.
      * @param time the time of the event.
+     * @param priority the priority of the event.
      * @param job the job of the event.
      */
-    protected AbstractEventOnJob(Scheduler scheduler, long time, Job job) {
-        super(scheduler, time);
+    protected AbstractEventOnJob(Scheduler scheduler, long time, int priority, Job job) {
+        super(scheduler, time, priority);
         this.job = job;
         this.processorId = -1;
     }
 
-    protected AbstractEventOnJob(Scheduler scheduler, long time, Job job, int processorId) {
-        super(scheduler, time);
+    protected AbstractEventOnJob(Scheduler scheduler, long time, int priority, Job job, int processorId) {
+        super(scheduler, time, priority);
         this.job = job;
         this.processorId = processorId;
     }

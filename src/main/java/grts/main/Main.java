@@ -55,6 +55,7 @@ public class Main {
 
         InputStream inputStreamTasks;
         InputStream inputStreamArchitecture;
+        InputStream inputStreamEvents;
         SimulatorJacksonParser parser;
         TaskSet ts;
         Architecture architecture;
@@ -62,9 +63,11 @@ public class Main {
         try {
             inputStreamTasks = Files.newInputStream(Paths.get(args[0]), StandardOpenOption.READ);
             inputStreamArchitecture = Files.newInputStream(Paths.get(args[1]), StandardOpenOption.READ);
-            parser = new SimulatorJacksonParser(inputStreamTasks, inputStreamArchitecture);
+            inputStreamEvents = Files.newInputStream(Paths.get(args[2]), StandardOpenOption.READ);
+            parser = new SimulatorJacksonParser(inputStreamTasks, inputStreamArchitecture, inputStreamEvents);
             ts = TaskSetFactory.createTaskSetFromParser(parser);
             architecture = parser.parseArchitecture();
+            parser.parseEvents();
             System.out.println("Hyper Period : " + HyperPeriod.compute(ts));
             IProcessorPolicy processorPolicy = new InnocentGlobalPolicy(architecture, new EarliestDeadlineFirst(ts));
             logger = new EventLogger("logs", JobActivationEvent.class, DeadlineCheckEvent.class,
@@ -80,6 +83,10 @@ public class Main {
             System.exit(EXIT_FAILURE);
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(EXIT_FAILURE);
+        } catch (ClassNotFoundException e) {
+            System.err.println("Class not found in the json describing the events");
+            System.exit(EXIT_FAILURE);
         }
 
     }
@@ -95,7 +102,7 @@ public class Main {
         } else {
             sb.append("-cp").append(' ').append(target).append(' ').append(Main.class.getCanonicalName());
         }
-        sb.append(' ').append("TASKSET.json").append(' ').append("ARCHITECTURE.json");
+        sb.append(' ').append("TASKSET.json").append(' ').append("ARCHITECTURE.json").append(' ').append("EVENTS.json");
         System.out.println(sb.toString());
     }
 

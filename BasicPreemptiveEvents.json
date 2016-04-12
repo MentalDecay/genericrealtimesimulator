@@ -1,0 +1,49 @@
+{
+  "events": [
+    {
+      "name": "SimulatorStop",
+      "class": "grts.core.simulator.events.SimulatorStopEvent",
+      "priority": 1
+    },
+    {
+      "name": "Preemption",
+      "class": "grts.core.simulator.events.PreemptionEvent",
+      "priority": 8
+    },
+    {
+      "name": "JobExecutionStop",
+      "class": "grts.core.simulator.events.JobExecutionStopEvent",
+      "priority": 1
+    },
+    {
+      "name": "JobExecutionStart",
+      "class": "grts.core.simulator.events.JobExecutionStartEvent",
+      "priority": 9
+    },
+    {
+      "name": "JobActivation",
+      "class": "grts.core.simulator.events.JobActivationEvent",
+      "priority": 6
+    },
+    {
+      "name": "DeadlineMissed",
+      "class": "grts.core.simulator.events.DeadlineMissedEvent",
+      "priority": 4
+    },
+    {
+      "name": "DeadlineCheck",
+      "class": "grts.core.simulator.events.DeadlineCheckEvent",
+      "priority": 5
+    },
+    {
+      "name": "ContinueOrStopExecution",
+      "class": "grts.core.simulator.events.ContinueOrStopExecutionEvent",
+      "priority": 0
+    },
+    {
+      "name": "ChooseJob",
+      "class": "grts.core.simulator.events.ChooseJobEvent",
+      "priority": 7
+    }
+  ]
+}

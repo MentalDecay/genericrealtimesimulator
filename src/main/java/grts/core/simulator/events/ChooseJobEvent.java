@@ -4,6 +4,8 @@ package grts.core.simulator.events;
 import grts.core.schedulable.Job;
 import grts.core.simulator.Scheduler;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.AbstractMap;
 import java.util.List;
 
@@ -13,9 +15,10 @@ public class ChooseJobEvent extends AbstractEvent implements Event {
      * Creates a new Choose Job Event. This event is made to allow the scheduler to chose the job(s) to execute.
      * @param scheduler The scheduler which created the event.
      * @param time The time of the event.
+     * @param priority the priority of the event.
      */
-    public ChooseJobEvent(Scheduler scheduler, long time) {
-        super(scheduler, time);
+    public ChooseJobEvent(Scheduler scheduler, long time, int priority) {
+        super(scheduler, time, priority);
     }
 
     @Override
@@ -47,10 +50,38 @@ public class ChooseJobEvent extends AbstractEvent implements Event {
         if(!list.isEmpty()){
             list.forEach(entry -> {
                 if(getScheduler().getExecutingJob(entry.getValue()) == null){
-                    getScheduler().addEvent(new JobExecutionStartEvent(getScheduler(), getTime(), entry.getKey(), entry.getValue()));
+                    Constructor<?> constructorJobStart = null;
+                    try {
+                        constructorJobStart = EventMap.getEvent("JobExecutionStart").getConstructor(Scheduler.class, Long.class, Integer.class, Job.class, Integer.class);
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        getScheduler().addEvent((Event) constructorJobStart.newInstance(getScheduler(), getTime(), EventMap.getPriority("JobExecutionStart"), entry.getKey(), entry.getValue()));
+                    } catch (InstantiationException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else if (getScheduler().getExecutingJob(entry.getValue()) != entry.getKey()){
-                    getScheduler().addEvent(new PreemptionEvent(getScheduler(), getTime(), entry.getKey(), entry.getValue()));
+                    Constructor<?> constructorpreemption = null;
+                    try {
+                        constructorpreemption = EventMap.getEvent("Preemption").getConstructor(Scheduler.class, Long.class, Integer.class, Job.class, Integer.class);
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        getScheduler().addEvent((Event) constructorpreemption.newInstance(getScheduler(), getTime(), EventMap.getPriority("Preemption"), entry.getKey(), entry.getValue()));
+                    } catch (InstantiationException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }
@@ -60,11 +91,6 @@ public class ChooseJobEvent extends AbstractEvent implements Event {
     @Override
     public String toString() {
         return "ChooseJobEvent : time : " + getTime();
-    }
-
-    @Override
-    public int getPriority() {
-        return 7;
     }
 
     @Override

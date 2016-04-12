@@ -6,17 +6,21 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import grts.core.schedulable.Job;
 import grts.core.simulator.Scheduler;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 public class PreemptionEvent extends AbstractEventOnJob implements Event {
 
     /**
      * Creates a new Preemption Event.
      * @param scheduler The scheduler which created the event.
      * @param time the time of the event.
+     * @param priority the priority of the event.
      * @param job The job associated to the event.
      * @param processorId The id of the processor associated to the event.
      */
-    public PreemptionEvent(Scheduler scheduler, long time, Job job, int processorId) {
-        super(scheduler, time, job, processorId);
+    public PreemptionEvent(Scheduler scheduler, long time, int priority, Job job, int processorId) {
+        super(scheduler, time, priority, job, processorId);
     }
 
     @Override
@@ -48,19 +52,42 @@ public class PreemptionEvent extends AbstractEventOnJob implements Event {
     @Override
     public void handle() {
         Job executingJob = getScheduler().getExecutingJob(getProcessorId());
-        getScheduler().addEvent(new JobExecutionStopEvent(getScheduler(), getTime(), executingJob, getProcessorId()));
+        Constructor<?> constructorJobStop = null;
+        try {
+            constructorJobStop = EventMap.getEvent("JobExecutionStop").getConstructor(Scheduler.class, Long.class, Integer.class, Job.class, Integer.class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        try {
+            getScheduler().addEvent((Event) constructorJobStop.newInstance(getScheduler(), getTime(), EventMap.getPriority("JobExecutionStop"), executingJob, getProcessorId()));
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
         getScheduler().executeJob(getJob(), getProcessorId());
-        getScheduler().addEvent(new JobExecutionStartEvent(getScheduler(), getTime(), getJob(), getProcessorId()));
+        Constructor<?> constructorJobStart = null;
+        try {
+            constructorJobStart = EventMap.getEvent("JobExecutionStart").getConstructor(Scheduler.class, Long.class, Integer.class, Job.class, Integer.class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        try {
+            getScheduler().addEvent((Event) constructorJobStart.newInstance(getScheduler(), getTime(), EventMap.getPriority("JobExecutionStart"), executingJob, getProcessorId()));
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public String toString() {
         return "PreemptionEvent : " + getJob() + " on processor : " + getProcessorId() + " time : " + getTime();
-    }
-
-    @Override
-    public int getPriority() {
-        return 8;
     }
 
     @Override

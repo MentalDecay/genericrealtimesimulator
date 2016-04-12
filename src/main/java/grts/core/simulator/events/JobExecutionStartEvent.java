@@ -3,17 +3,21 @@ package grts.core.simulator.events;
 import grts.core.schedulable.Job;
 import grts.core.simulator.Scheduler;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 public class JobExecutionStartEvent extends AbstractEventOnJob implements Event {
 
     /**
      * Creates a new Start Job Execution.
      * @param scheduler The scheduler which created the event.
      * @param time The time of the event.
+     * @param priority the priority of the event.
      * @param job The job associated to the event.
      * @param processorId The id of the processor associated to the event where the job should execute.
      */
-    public JobExecutionStartEvent(Scheduler scheduler, long time, Job job, int processorId) {
-        super(scheduler, time, job, processorId);
+    public JobExecutionStartEvent(Scheduler scheduler, long time, int priority, Job job, int processorId) {
+        super(scheduler, time, priority, job, processorId);
     }
 
     @Override
@@ -25,18 +29,27 @@ public class JobExecutionStartEvent extends AbstractEventOnJob implements Event 
     public void handle() {
         getScheduler().executeJob(getJob(), getProcessorId());
         getScheduler().putLastJobExecution(getJob(), getTime());
-        getScheduler().addEvent(new ContinueOrStopExecutionEvent(getScheduler(), getTime() + getJob().getRemainingTime(), getJob(), getProcessorId()));
+        Constructor<?> constructorContinueOrStop = null;
+        try {
+            constructorContinueOrStop = EventMap.getEvent("ContinueOrStopExecution").getConstructor(Scheduler.class, Long.class, Integer.class, Job.class, Integer.class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        try {
+            getScheduler().addEvent((Event) constructorContinueOrStop.newInstance(getScheduler(), getTime() + getJob().getRemainingTime(), EventMap.getPriority("ContinueOrStopExecution"), getJob(), getProcessorId()));
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public String toString() {
         return "JobExecutionStartEvent : " + getJob() + " on processor : " + getProcessorId() + " time : " + getTime();
-    }
-
-    @Override
-    public int getPriority() {
-        return 9;
     }
 
     @Override

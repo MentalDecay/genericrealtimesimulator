@@ -2,30 +2,43 @@ package grts.core.simulator.events;
 
 import grts.core.simulator.Scheduler;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 public class DeadlineMissedEvent  extends AbstractEvent implements Event {
 
     /**
      * Creates a new Deadline Missed Event.
      * @param scheduler The scheduler which created the event.
      * @param time The time of th event.
+     * @param priority the priority of the event.
      */
-    public DeadlineMissedEvent(Scheduler scheduler, long time) {
-        super(scheduler, time);
+    public DeadlineMissedEvent(Scheduler scheduler, long time, int priority) {
+        super(scheduler, time, priority);
     }
 
     @Override
     public void handle() {
-        getScheduler().addEvent(new SimulationStopEvent(getScheduler(), getTime()));
+        Constructor<?> constructorSimulationStop = null;
+        try {
+            constructorSimulationStop = EventMap.getEvent("SimulationStop").getConstructor(Scheduler.class, Long.class, Integer.class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        try {
+            getScheduler().addEvent((Event) constructorSimulationStop.newInstance(getScheduler(), getTime(), EventMap.getPriority("SimulationStop")));
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public String toString() {
         return "DeadlineMissedEvent : time : " + getTime();
-    }
-
-    @Override
-    public int getPriority() {
-        return 4;
     }
 
     @Override

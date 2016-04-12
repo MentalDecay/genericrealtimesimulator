@@ -5,11 +5,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import grts.core.architecture.Architecture;
 import grts.core.json.parser.architecture.ArchitectureParser;
+import grts.core.json.parser.events.EventMapParser;
 import grts.core.json.parser.task.PeriodicTaskParser;
 import grts.core.json.parser.task.SporadicTaskParser;
 import grts.core.json.parser.task.TaskParser;
 import grts.core.json.parser.task.TaskParserFactory;
 import grts.core.schedulable.Schedulable;
+import grts.core.simulator.events.EventMap;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +26,7 @@ public class SimulatorJacksonParser {
 
     private final HashMap<String, String> taskNameToTaskParserName= new HashMap<>();
     private final ArchitectureParser architectureParser;
+    private final EventMapParser eventsParser;
 
     private final JsonNode rootTaskParser;
 
@@ -31,9 +34,10 @@ public class SimulatorJacksonParser {
      * Creates a new SimulatorJacksonParser.
      * @param inputStreamTaskSet The inputStream to analyze to parse the tasks set from the json.
      * @param inputStreamArchitecture The inputStream to analyze to parse the architecture from the json.
+     * @param inputStreamEvents The inputStream to analyze to parse the events from the json.
      * @throws IOException if there is an error with the file.
      */
-    public SimulatorJacksonParser(InputStream inputStreamTaskSet, InputStream inputStreamArchitecture) throws IOException {
+    public SimulatorJacksonParser(InputStream inputStreamTaskSet, InputStream inputStreamArchitecture, InputStream inputStreamEvents) throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
         rootTaskParser = mapper.readValue(inputStreamTaskSet, JsonNode.class);
@@ -43,6 +47,10 @@ public class SimulatorJacksonParser {
 
         ObjectMapper mapperArchitecture = new ObjectMapper();
         architectureParser = new ArchitectureParser(mapperArchitecture.readValue(inputStreamArchitecture, JsonNode.class));
+
+        ObjectMapper mapperEvents = new ObjectMapper();
+        eventsParser = EventMapParser.create(mapperEvents.readValue(inputStreamEvents, JsonNode.class));
+
         inputStreamArchitecture.close();
         inputStreamTaskSet.close();
     }
@@ -91,5 +99,13 @@ public class SimulatorJacksonParser {
      */
     public Architecture parseArchitecture(){
         return architectureParser.parse();
+    }
+
+    /**
+     * Parse the events from the json file.
+     * @throws ClassNotFoundException when the class in the json is not found
+     */
+    public void parseEvents() throws ClassNotFoundException {
+        eventsParser.parseEvents();
     }
 }

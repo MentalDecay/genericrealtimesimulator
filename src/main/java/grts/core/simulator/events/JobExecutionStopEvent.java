@@ -5,17 +5,21 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import grts.core.schedulable.Job;
 import grts.core.simulator.Scheduler;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 public class JobExecutionStopEvent extends AbstractEventOnJob implements Event {
 
     /**
      * Creates a new Stop Job Execution Event.
      * @param scheduler The scheduler which created the event.
      * @param time The time of the event.
+     * @param priority the priority of the event.
      * @param job The job associated to the event.
      * @param processorId The id of the processor associated to the event.
      */
-    public JobExecutionStopEvent(Scheduler scheduler, long time, Job job, int processorId) {
-        super(scheduler, time, job, processorId);
+    public JobExecutionStopEvent(Scheduler scheduler, long time, int priority, Job job, int processorId) {
+        super(scheduler, time, priority, job, processorId);
     }
 
     @Override
@@ -30,7 +34,21 @@ public class JobExecutionStopEvent extends AbstractEventOnJob implements Event {
         getScheduler().stopJobExecution(getJob(), getProcessorId());
         if(getJob().getRemainingTime() == 0) {
             getScheduler().deleteActiveJob(getJob());
-            getScheduler().addEvent(new ChooseJobEvent(getScheduler(), getTime()));
+            Constructor<?> constructorChoose = null;
+            try {
+                constructorChoose = EventMap.getEvent("ChooseJob").getConstructor(Scheduler.class, Long.class, Integer.class);
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+            try {
+                getScheduler().addEvent((Event) constructorChoose.newInstance(getScheduler(), getTime(), EventMap.getPriority("ChooseJob")));
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -45,11 +63,6 @@ public class JobExecutionStopEvent extends AbstractEventOnJob implements Event {
     @Override
     public String toString() {
         return "JobExecutionStopEvent : " + getJob() + " on processor : " + getProcessorId() + " time : " + getTime();
-    }
-
-    @Override
-    public int getPriority() {
-        return 1;
     }
 
     @Override

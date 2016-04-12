@@ -9,9 +9,10 @@ public class SimulationStopEvent extends AbstractEvent implements Event {
      * Creates a new Stop Simulation Event. This event stops the simulation.
      * @param scheduler The scheduler which created this event.
      * @param time The time of the event.
+     * @param priority the priority of the event.
      */
-    public SimulationStopEvent(Scheduler scheduler, long time) {
-        super(scheduler, time);
+    public SimulationStopEvent(Scheduler scheduler, long time, int priority) {
+        super(scheduler, time, priority);
     }
 
     public void handle() {
@@ -21,11 +22,6 @@ public class SimulationStopEvent extends AbstractEvent implements Event {
     @Override
     public String toString() {
         return "SimulationStopEvent : time : " + getTime();
-    }
-
-    @Override
-    public int getPriority() {
-        return 1;
     }
 
     @Override

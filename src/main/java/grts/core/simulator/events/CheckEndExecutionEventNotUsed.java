@@ -5,8 +5,8 @@ import grts.core.simulator.Scheduler;
 
 public class CheckEndExecutionEventNotUsed extends AbstractEventOnJob implements Event {
 
-    protected CheckEndExecutionEventNotUsed(Scheduler scheduler, long time, Job job) {
-        super(scheduler, time, job);
+    protected CheckEndExecutionEventNotUsed(Scheduler scheduler, long time, int priority, Job job) {
+        super(scheduler, time, priority, job);
     }
 
     @Override
@@ -16,10 +16,11 @@ public class CheckEndExecutionEventNotUsed extends AbstractEventOnJob implements
 
     @Override
     public void handle() {
+        /*LEGACY
         if(getJob().getRemainingTime() == 0) {
             getScheduler().deleteActiveJob(getJob());
             getScheduler().addEvent(new ChooseJobEvent(getScheduler(), getTime()));
-        }
+        }*/
     }
 
     @Override
