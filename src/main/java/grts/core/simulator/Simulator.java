@@ -28,12 +28,15 @@ package grts.core.simulator;
 
 import grts.core.processor.policies.IProcessorPolicy;
 import grts.core.schedulable.Job;
+import grts.core.simulator.events.EventMap;
 import grts.core.simulator.events.JobActivationEvent;
 import grts.core.simulator.events.Event;
 import grts.core.simulator.events.EventQueue;
 import grts.core.taskset.TaskSet;
 import grts.logger.EventLogger;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 
@@ -98,7 +101,21 @@ public class Simulator {
         taskSet.forEach(task -> {
             Job firstJob = task.getFirstJob();
             System.out.println(firstJob);
-            eventQueue.offer(new JobActivationEvent(scheduler, firstJob.getActivationTime(), firstJob));
+            Constructor<?> constructorActivation = null;
+            try {
+                constructorActivation = EventMap.getEvent("Activation").getConstructor(Scheduler.class, Long.class, Integer.class, Job.class);
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+            try {
+                eventQueue.offer((Event) constructorActivation.newInstance(scheduler, firstJob.getActivationTime(), EventMap.getPriority("Activation"), firstJob));
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
         });
     }
 

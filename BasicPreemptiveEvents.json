@@ -21,7 +21,7 @@
       "priority": 9
     },
     {
-      "name": "JobActivation",
+      "name": "Activation",
       "class": "grts.core.simulator.events.JobActivationEvent",
       "priority": 6
     },
