@@ -1,0 +1,33 @@
+Le simulateur fonctionnant par événement, chaque Event doit en lancer d'autres (ou non au besoin) continuer l'exécution du programme.
+
+Voici un guide simple sur la façon d'ajouter un événement.
+
+EventMap
+
+Cette classe statique contient deux map prenant en clé un nom d'événement et un objet Class<?> et une priorité. Ces deux map statiques sont initialisés au démarrage du simulateur via un fichier json donné en argument.
+Pour plus d'information sur la façon d'initialiser les deux map, veuillez-vous référer au fichier de documentation FormatEventsJson.
+
+Avant d'ajouter un Event, il faut récupérer l'objet Class<?> correspondant et en faire un Constructor<?> avec les arguments nécessaires à la création de l'Event.
+Exemple :
+Constructor<?> constructor = EventMap.getEvent("ContinueOrStopExecution").getConstructor(Scheduler.class, Long.class, Integer.class, Job.class, Integer.class);
+Il est possible de créer le Constructor avec 3, 4 ou 5 arguments en fonction des besoins.
+Scheduler.class : Représente le Scheduler, obligatoire.
+Long.class : Représente le temps en Long quand l'Event doit se produire, obligatoire.
+Integer.class : Représente la priorité en Integer de l'Event, obligatoire.
+Job.class : Représente le job exécuté par l'Event, optionnel.
+Integer.class : Représente le processeur où l'Event est exécuté, optionnel.
+
+Exception
+
+Créer le Constructor<?> peut lancer un NoSuchMethodException.
+//TODO plus de précisions sur la façon de le gérer.
+
+A partir du Constructor<?>, il est possible de créer l'objet via la méthode newInstance() qui prend en argument les vraies valeurs des objets précisés dans le Constructor<?>.
+Cette instance est un Event qu'il convient de cast. Vous pouvez alors l'ajouter à la liste des Event.
+Exemple :
+getScheduler.addEvent((Event) constructor.newInstance(getScheduler(), getTime() + getJob().getRemainingTime(), EventMap.getPriority("ContinueOrStopExecution"), getJob(), getProcessorId()));
+
+Exceptions
+
+Récupérer l'instance de l'Event dynamiquement peut lancer 3 exceptions, InstantiationException, IllegalAccessException et InvocationTargetException.
+//TODO plus de précisions sur la façon de les gérer.

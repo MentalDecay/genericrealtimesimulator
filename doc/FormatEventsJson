@@ -1,0 +1,63 @@
+This file is written is Json format. The parser first needs to know that the file is supposed to be well formed so the first object is "events".
+The "events" field is an array of events.
+
+Each event has 3 necessary fields : name, class and priority
+The "name" of an event is a unique String. Two same name in the same configuration will make the program use the last name encountered.
+The "class" of an event is a String that reference the class used for the event with the packages.
+The "priority" of an event is a Integer giving the priority of this event if two or more events trigger at the same time, the lowest Integer being the highest priority.
+
+For the program to work, a event named "Activation" is necessary, it is the first event to trigger the simulation.
+Events may have the same priority, it is up to the developer to make sure this two events won't trigger at the same time.
+It is also possible and recommended to use the same name as other configuration if some classes you need already exist, but pointing ot other classes if needed.
+
+An example of events for the basic algorithms with preemption is given :
+
+{
+  "events": [
+    {
+      "name": "SimulatorStop",
+      "class": "grts.core.simulator.events.SimulatorStopEvent",
+      "priority": 1
+    },
+    {
+      "name": "Preemption",
+      "class": "grts.core.simulator.events.PreemptionEvent",
+      "priority": 8
+    },
+    {
+      "name": "JobExecutionStop",
+      "class": "grts.core.simulator.events.JobExecutionStopEvent",
+      "priority": 1
+    },
+    {
+      "name": "JobExecutionStart",
+      "class": "grts.core.simulator.events.JobExecutionStartEvent",
+      "priority": 9
+    },
+    {
+      "name": "Activation",
+      "class": "grts.core.simulator.events.JobActivationEvent",
+      "priority": 6
+    },
+    {
+      "name": "DeadlineMissed",
+      "class": "grts.core.simulator.events.DeadlineMissedEvent",
+      "priority": 4
+    },
+    {
+      "name": "DeadlineCheck",
+      "class": "grts.core.simulator.events.DeadlineCheckEvent",
+      "priority": 5
+    },
+    {
+      "name": "ContinueOrStopExecution",
+      "class": "grts.core.simulator.events.ContinueOrStopExecutionEvent",
+      "priority": 0
+    },
+    {
+      "name": "ChooseJob",
+      "class": "grts.core.simulator.events.ChooseJobEvent",
+      "priority": 7
+    }
+  ]
+}
