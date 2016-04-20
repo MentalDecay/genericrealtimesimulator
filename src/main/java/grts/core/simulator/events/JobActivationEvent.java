@@ -26,7 +26,7 @@ public class JobActivationEvent extends AbstractEventOnJob implements Event {
         Constructor<?> constructorChooseJob = null;
         Constructor<?> constructorJobActivation = null;
         try {
-            constructorDeadlineCheck = EventMap.getEvent("DeadlineCheck").getConstructor(Scheduler.class, Long.class, Integer.class, Job.class);
+            constructorDeadlineCheck = EventMap.getEvent("DeadlineCheck").getConstructor(Scheduler.class, long.class, int.class, Job.class);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -40,7 +40,7 @@ public class JobActivationEvent extends AbstractEventOnJob implements Event {
             e.printStackTrace();
         }
         try {
-            constructorChooseJob = EventMap.getEvent("ChooseJob").getConstructor(Scheduler.class, Long.class, Integer.class);
+            constructorChooseJob = EventMap.getEvent("ChooseJob").getConstructor(Scheduler.class, long.class, int.class);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -55,7 +55,7 @@ public class JobActivationEvent extends AbstractEventOnJob implements Event {
         }
         Job nextJob = getJob().getTask().getRealNextJob(getTime());
         try {
-            constructorJobActivation = EventMap.getEvent("JobActivation").getConstructor(Scheduler.class, Long.class, Integer.class, Job.class);
+            constructorJobActivation = EventMap.getEvent("JobActivation").getConstructor(Scheduler.class, long.class, int.class, Job.class);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }

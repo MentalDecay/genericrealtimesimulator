@@ -86,6 +86,7 @@ public class Main {
             System.exit(EXIT_FAILURE);
         } catch (ClassNotFoundException e) {
             System.err.println("Class not found in the json describing the events");
+            e.printStackTrace();
             System.exit(EXIT_FAILURE);
         }
 

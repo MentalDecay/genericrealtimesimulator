@@ -1,8 +1,8 @@
 {
   "events": [
     {
-      "name": "SimulatorStop",
-      "class": "grts.core.simulator.events.SimulatorStopEvent",
+      "name": "SimulationStop",
+      "class": "grts.core.simulator.events.SimulationStopEvent",
       "priority": 1
     },
     {
@@ -21,7 +21,7 @@
       "priority": 9
     },
     {
-      "name": "Activation",
+      "name": "JobActivation",
       "class": "grts.core.simulator.events.JobActivationEvent",
       "priority": 6
     },

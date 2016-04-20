@@ -36,7 +36,7 @@ public class ContinueOrStopExecutionEvent extends AbstractEventOnJob implements 
             if(getJob().getRemainingTime() == 0){
                 Constructor<?> constructorJobStop = null;
                 try {
-                    constructorJobStop = EventMap.getEvent("JobExecutionStop").getConstructor(Scheduler.class, Long.class, Integer.class, Job.class, Integer.class);
+                    constructorJobStop = EventMap.getEvent("JobExecutionStop").getConstructor(Scheduler.class, long.class, int.class, Job.class, int.class);
                 } catch (NoSuchMethodException e) {
                     e.printStackTrace();
                 }
@@ -53,7 +53,7 @@ public class ContinueOrStopExecutionEvent extends AbstractEventOnJob implements 
             else{
                 Constructor<?> constructorContinueOrStop = null;
                 try {
-                    constructorContinueOrStop = EventMap.getEvent("ContinueOrStopExecution").getConstructor(Scheduler.class, Long.class, Integer.class, Job.class, Integer.class);
+                    constructorContinueOrStop = EventMap.getEvent("ContinueOrStopExecution").getConstructor(Scheduler.class, long.class, int.class, Job.class, int.class);
                 } catch (NoSuchMethodException e) {
                     e.printStackTrace();
                 }

@@ -52,7 +52,7 @@ public class ChooseJobEvent extends AbstractEvent implements Event {
                 if(getScheduler().getExecutingJob(entry.getValue()) == null){
                     Constructor<?> constructorJobStart = null;
                     try {
-                        constructorJobStart = EventMap.getEvent("JobExecutionStart").getConstructor(Scheduler.class, Long.class, Integer.class, Job.class, Integer.class);
+                        constructorJobStart = EventMap.getEvent("JobExecutionStart").getConstructor(Scheduler.class, long.class, int.class, Job.class, int.class);
                     } catch (NoSuchMethodException e) {
                         e.printStackTrace();
                     }
@@ -69,7 +69,7 @@ public class ChooseJobEvent extends AbstractEvent implements Event {
                 else if (getScheduler().getExecutingJob(entry.getValue()) != entry.getKey()){
                     Constructor<?> constructorpreemption = null;
                     try {
-                        constructorpreemption = EventMap.getEvent("Preemption").getConstructor(Scheduler.class, Long.class, Integer.class, Job.class, Integer.class);
+                        constructorpreemption = EventMap.getEvent("Preemption").getConstructor(Scheduler.class, long.class, int.class, Job.class, int.class);
                     } catch (NoSuchMethodException e) {
                         e.printStackTrace();
                     }

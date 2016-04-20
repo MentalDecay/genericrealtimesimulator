@@ -103,12 +103,12 @@ public class Simulator {
             System.out.println(firstJob);
             Constructor<?> constructorActivation = null;
             try {
-                constructorActivation = EventMap.getEvent("Activation").getConstructor(Scheduler.class, Long.class, Integer.class, Job.class);
+                constructorActivation = EventMap.getEvent("JobActivation").getConstructor(Scheduler.class, long.class, int.class, Job.class);
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }
             try {
-                eventQueue.offer((Event) constructorActivation.newInstance(scheduler, firstJob.getActivationTime(), EventMap.getPriority("Activation"), firstJob));
+                eventQueue.offer((Event) constructorActivation.newInstance(scheduler, firstJob.getActivationTime(), EventMap.getPriority("JobActivation"), firstJob));
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {

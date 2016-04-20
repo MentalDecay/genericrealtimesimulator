@@ -34,7 +34,7 @@ public class DeadlineCheckEvent extends AbstractEventOnJob implements Event {
             System.out.println("remaining : " + getJob().getRemainingTime());
             Constructor<?> constructorDeadlineMissed = null;
             try {
-                constructorDeadlineMissed = EventMap.getEvent("DeadlineMissed").getConstructor(Scheduler.class, Long.class, Integer.class);
+                constructorDeadlineMissed = EventMap.getEvent("DeadlineMissed").getConstructor(Scheduler.class, long.class, int.class);
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }

@@ -54,7 +54,7 @@ public class PreemptionEvent extends AbstractEventOnJob implements Event {
         Job executingJob = getScheduler().getExecutingJob(getProcessorId());
         Constructor<?> constructorJobStop = null;
         try {
-            constructorJobStop = EventMap.getEvent("JobExecutionStop").getConstructor(Scheduler.class, Long.class, Integer.class, Job.class, Integer.class);
+            constructorJobStop = EventMap.getEvent("JobExecutionStop").getConstructor(Scheduler.class, long.class, int.class, Job.class, int.class);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -70,7 +70,7 @@ public class PreemptionEvent extends AbstractEventOnJob implements Event {
         getScheduler().executeJob(getJob(), getProcessorId());
         Constructor<?> constructorJobStart = null;
         try {
-            constructorJobStart = EventMap.getEvent("JobExecutionStart").getConstructor(Scheduler.class, Long.class, Integer.class, Job.class, Integer.class);
+            constructorJobStart = EventMap.getEvent("JobExecutionStart").getConstructor(Scheduler.class, long.class, int.class, Job.class, int.class);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }

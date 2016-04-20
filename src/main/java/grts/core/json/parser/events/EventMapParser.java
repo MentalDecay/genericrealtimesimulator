@@ -51,6 +51,7 @@ public class EventMapParser {
             }
             String name = nameNode.textValue();
             String className = classNode.textValue();
+            System.out.println("className : " + className);
             Class<?> eventClass = Class.forName(className);
             int priority = priorityNode.intValue();
             EventMap.putEvent(name, eventClass);

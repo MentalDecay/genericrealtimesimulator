@@ -9,13 +9,13 @@ Pour plus d'information sur la façon d'initialiser les deux map, veuillez-vous 
 
 Avant d'ajouter un Event, il faut récupérer l'objet Class<?> correspondant et en faire un Constructor<?> avec les arguments nécessaires à la création de l'Event.
 Exemple :
-Constructor<?> constructor = EventMap.getEvent("ContinueOrStopExecution").getConstructor(Scheduler.class, Long.class, Integer.class, Job.class, Integer.class);
+Constructor<?> constructor = EventMap.getEvent("ContinueOrStopExecution").getConstructor(Scheduler.class, long.class, int.class, Job.class, int.class);
 Il est possible de créer le Constructor avec 3, 4 ou 5 arguments en fonction des besoins.
 Scheduler.class : Représente le Scheduler, obligatoire.
-Long.class : Représente le temps en Long quand l'Event doit se produire, obligatoire.
-Integer.class : Représente la priorité en Integer de l'Event, obligatoire.
+long.class : Représente le temps en Long quand l'Event doit se produire, obligatoire.
+int.class : Représente la priorité en Integer de l'Event, obligatoire.
 Job.class : Représente le job exécuté par l'Event, optionnel.
-Integer.class : Représente le processeur où l'Event est exécuté, optionnel.
+int.class : Représente le processeur où l'Event est exécuté, optionnel.
 
 Exception
 

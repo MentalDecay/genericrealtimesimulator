@@ -36,7 +36,7 @@ public class JobExecutionStopEvent extends AbstractEventOnJob implements Event {
             getScheduler().deleteActiveJob(getJob());
             Constructor<?> constructorChoose = null;
             try {
-                constructorChoose = EventMap.getEvent("ChooseJob").getConstructor(Scheduler.class, Long.class, Integer.class);
+                constructorChoose = EventMap.getEvent("ChooseJob").getConstructor(Scheduler.class, long.class, int.class);
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }

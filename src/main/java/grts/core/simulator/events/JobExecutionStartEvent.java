@@ -31,7 +31,7 @@ public class JobExecutionStartEvent extends AbstractEventOnJob implements Event 
         getScheduler().putLastJobExecution(getJob(), getTime());
         Constructor<?> constructorContinueOrStop = null;
         try {
-            constructorContinueOrStop = EventMap.getEvent("ContinueOrStopExecution").getConstructor(Scheduler.class, Long.class, Integer.class, Job.class, Integer.class);
+            constructorContinueOrStop = EventMap.getEvent("ContinueOrStopExecution").getConstructor(Scheduler.class, long.class, int.class, Job.class, int.class);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }

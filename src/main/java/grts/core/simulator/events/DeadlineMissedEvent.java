@@ -21,7 +21,7 @@ public class DeadlineMissedEvent  extends AbstractEvent implements Event {
     public void handle() {
         Constructor<?> constructorSimulationStop = null;
         try {
-            constructorSimulationStop = EventMap.getEvent("SimulationStop").getConstructor(Scheduler.class, Long.class, Integer.class);
+            constructorSimulationStop = EventMap.getEvent("SimulationStop").getConstructor(Scheduler.class, long.class, int.class);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
