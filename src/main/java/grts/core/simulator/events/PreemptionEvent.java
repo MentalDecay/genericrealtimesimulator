@@ -75,7 +75,7 @@ public class PreemptionEvent extends AbstractEventOnJob implements Event {
             e.printStackTrace();
         }
         try {
-            getScheduler().addEvent((Event) constructorJobStart.newInstance(getScheduler(), getTime(), EventMap.getPriority("JobExecutionStart"), executingJob, getProcessorId()));
+            getScheduler().addEvent((Event) constructorJobStart.newInstance(getScheduler(), getTime(), EventMap.getPriority("JobExecutionStart"), getJob(), getProcessorId()));
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
