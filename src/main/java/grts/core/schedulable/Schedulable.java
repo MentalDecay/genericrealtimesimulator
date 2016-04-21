@@ -26,6 +26,8 @@
 
 package grts.core.schedulable;
 
+import java.util.List;
+
 /**
  * This interface represents a generic schedulable object.
  * @author Tristan Fautrel
@@ -71,11 +73,12 @@ public interface Schedulable {
     Job getNextJob(long time);
 
     /**
-     * Get the next job according to the time. If the time is equal or superior to the next job returned, a new job is created.
+     * Get the next job(s) according to the time. If the time is equal or superior to the next job returned, a new job is created.
+     * Several jobs may be returned according to the task model.
      * @param time when the task should return a new job
      * @return the new Job created by the task or previously created if the time is inferior to the activation of the next job
      */
-    Job getRealNextJob(long time);
+    List<Job> getRealNextJob(long time);
 
     /**
      * Get the first job of the task. Should be used only one time.

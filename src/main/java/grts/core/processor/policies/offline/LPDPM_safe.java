@@ -1,3 +1,4 @@
+/*
 package grts.core.processor.policies.offline;
 
 import grts.core.architecture.Architecture;
@@ -399,3 +400,4 @@ public class LPDPM_safe implements IProcessorPolicy{
         return interval.get();
     }
 }
+*/

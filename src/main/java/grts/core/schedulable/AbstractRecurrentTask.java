@@ -1,5 +1,6 @@
 package grts.core.schedulable;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -136,7 +137,7 @@ public abstract class AbstractRecurrentTask implements Schedulable {
      * @return the next job which has to be activated after time
      */
     @Override
-    public abstract Job getRealNextJob(long time);
+    public abstract List<Job> getRealNextJob(long time);
 
     @Override
     public Job getFirstJob() {

@@ -1,6 +1,7 @@
 package grts.core.schedulable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DAGStretched extends AbstractRecurrentTask implements Schedulable{
@@ -37,7 +38,7 @@ public class DAGStretched extends AbstractRecurrentTask implements Schedulable{
     }
 
     @Override
-    public Job getRealNextJob(long time) {
+    public List<Job> getRealNextJob(long time) {
         return null;
         //TODO
     }

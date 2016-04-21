@@ -72,14 +72,17 @@ public class SporadicTask extends AbstractRecurrentTask implements Schedulable {
     }
 
     @Override
-    public Job getRealNextJob(long time) {
+    public List<Job> getRealNextJob(long time) {
+        List<Job> ret = new LinkedList<>();
         if(realNextJob != null && time < realNextJob.getActivationTime()){
-            return realNextJob;
+            ret.add(realNextJob);
+            return ret;
         }
         else{
             long activationTime = (long) (ExponentialGen.nextDouble(randomStream, 6) * getMinimumInterArrivalTime()) + getMinimumInterArrivalTime() + realNextJob.getActivationTime();
             realNextJob = createJob(activationTime, activationTime + getDeadline(), getWcet());
-            return realNextJob;
+            ret.add(realNextJob);
+            return ret;
         }
     }
 

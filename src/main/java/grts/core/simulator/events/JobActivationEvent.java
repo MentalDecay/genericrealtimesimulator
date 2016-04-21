@@ -5,6 +5,7 @@ import grts.core.simulator.Scheduler;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 public class JobActivationEvent extends AbstractEventOnJob implements Event {
 
@@ -53,21 +54,24 @@ public class JobActivationEvent extends AbstractEventOnJob implements Event {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        Job nextJob = getJob().getTask().getRealNextJob(getTime());
+        List<Job> nextJobs = getJob().getTask().getRealNextJob(getTime());
         try {
             constructorJobActivation = EventMap.getEvent("JobActivation").getConstructor(Scheduler.class, long.class, int.class, Job.class);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        try {
-            getScheduler().addEvent((Event) constructorJobActivation.newInstance(getScheduler(), nextJob.getActivationTime(), EventMap.getPriority("JobActivation"), nextJob));
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        Constructor<?> finalConstructorJobActivation = constructorJobActivation;
+        nextJobs.forEach(nextJob -> {
+            try {
+                getScheduler().addEvent((Event) finalConstructorJobActivation.newInstance(getScheduler(), nextJob.getActivationTime(), EventMap.getPriority("JobActivation"), nextJob));
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
