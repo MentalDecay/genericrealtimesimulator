@@ -31,6 +31,7 @@ import grts.core.json.parser.SimulatorJacksonParser;
 import grts.core.priority.policies.EarliestDeadlineFirst;
 import grts.core.processor.policies.IProcessorPolicy;
 import grts.core.processor.policies.InnocentGlobalPolicy;
+import grts.core.schedulable.DAGStretched;
 import grts.core.simulator.Simulator;
 import grts.core.simulator.events.*;
 import grts.core.taskset.*;
@@ -39,6 +40,8 @@ import grts.logger.EventLogger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.*;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * @author Tristan Fautrel
@@ -48,7 +51,7 @@ public class Main {
     private final static int EXIT_FAILURE = 1;
 
     public static void main(String[] args) {
-        if (args.length < 2) {
+        /*if (args.length < 2) {
             usage();
             System.exit(EXIT_FAILURE);
         }
@@ -88,8 +91,29 @@ public class Main {
             System.err.println("Class not found in the json describing the events");
             e.printStackTrace();
             System.exit(EXIT_FAILURE);
-        }
-
+        }*/
+        HashMap<Integer, HashSet<Integer>> relations = new HashMap<>();
+        relations.put(0, new HashSet<>());
+        relations.put(1, new HashSet<>());
+        relations.put(2, new HashSet<>());
+        relations.put(3, new HashSet<>());
+        relations.put(4, new HashSet<>());
+        relations.get(0).add(3);
+        relations.get(1).add(3);
+        relations.get(2).add(5);
+        relations.get(3).add(5);
+        relations.get(3).add(6);
+        relations.get(4).add(6);
+        long[] costs = new long[7];
+        costs[0] = 6;
+        costs[1] = 6;
+        costs[2] = 4;
+        costs[3] = 2;
+        costs[4] = 4;
+        costs[5] = 4;
+        costs[6] = 2;
+        DAGStretched dagStretched = new DAGStretched(20, 28, 20, 0, "dag", 7, relations, costs);
+        System.out.println(dagStretched);
     }
 
     private static void usage() {
