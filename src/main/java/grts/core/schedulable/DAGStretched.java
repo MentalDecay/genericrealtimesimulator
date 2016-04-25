@@ -263,7 +263,6 @@ public class DAGStretched extends AbstractRecurrentTask implements Schedulable{
                             System.out.println("k : " + k + " cost : " + (segment.to - segment.from));
                             masterThread.addCost(segment.to - segment.from);
                         }
-//                    masterThread.addCost();
                         long wcet;
                         long offset;
                         long deadline;
@@ -284,19 +283,10 @@ public class DAGStretched extends AbstractRecurrentTask implements Schedulable{
                             deadline = (long) ((1 + segmentFactor) * segment.to - segment.from) +offset;
                             otherJobs.add(new StretchedJob(offset, deadline, wcet));
                         }
-                        //probably failed.
-//                        previousOffset = previousDeadline + previousOffset;
                     }
                     previousDeadline = masterThread.wcet + getOffset();
                 }
             }
         }
-
-
-/*        MTS mts = new MTS(relations);
-        System.out.println("Final segments : ");
-        for (Segment segment : mts.segments) {
-            System.out.println("Segment : " + "from : " + segment.from + " to : " + segment.to + " tasks : " + segment.substasksContained);
-        }*/
     }
 }
