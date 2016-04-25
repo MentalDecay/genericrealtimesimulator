@@ -114,6 +114,12 @@ public class Main {
         costs[6] = 2;
         DAGStretched dagStretched = new DAGStretched(20, 28, 20, 0, "dag", 7, relations, costs);
         System.out.println(dagStretched);
+        System.out.println("-1 : ");
+        System.out.println(dagStretched.getRealNextJob(-1));
+        System.out.println("5 : ");
+        System.out.println(dagStretched.getRealNextJob(5));
+        System.out.println("21 : ");
+        System.out.println(dagStretched.getRealNextJob(21));
     }
 
     private static void usage() {

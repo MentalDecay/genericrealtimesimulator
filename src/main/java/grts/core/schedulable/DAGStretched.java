@@ -6,10 +6,13 @@ public class DAGStretched extends AbstractRecurrentTask implements Schedulable{
     private final int subtasksNumber;
     private final HashMap<Integer, HashSet<Integer>> relations;
     private final long[] substasksCosts;
+    private StretchedJob masterThread;
+    private List<StretchedJob> otherJobs = new ArrayList<>();
+    private final List<Job> nextJobs = new LinkedList<>();
 
     private class StretchedJob{
-        private long offset;
-        private long deadline;
+        private final long offset;
+        private final long deadline;
         private long wcet;
 
         private StretchedJob(long offset, long deadline, long wcet) {
@@ -22,13 +25,18 @@ public class DAGStretched extends AbstractRecurrentTask implements Schedulable{
             wcet += cost;
         }
 
-        private void addDeadline(long deadline){
-            this.deadline += deadline;
+        //Maybe not enough parameters in the equals.
+        @Override
+        public boolean equals(Object obj) {
+            if(!(obj instanceof StretchedJob)){
+                return false;
+            }
+            StretchedJob stretchedJob = (StretchedJob) obj;
+            return offset == stretchedJob.offset &&
+                    deadline == stretchedJob.deadline &&
+                    wcet == stretchedJob.deadline;
         }
     }
-
-    private StretchedJob masterThread;
-    private List<StretchedJob> otherJobs = new LinkedList<>();
 
     private class Segment {
         private final long from;
@@ -52,15 +60,11 @@ public class DAGStretched extends AbstractRecurrentTask implements Schedulable{
                 reversedRelations.put(i, new HashSet<>());
             }
             relations.forEach((integer, integers) -> integers.forEach(integer1 -> reversedRelations.get(integer1).add(integer)));
-//            computeSegments();
-            System.out.println("reversedRelations : " + reversedRelations);
             computeSegments(reversedRelations);
         }
 
         private void computeSegments(HashMap<Integer, HashSet<Integer>> reversedRelations){
             boolean[] subtaskWithEvent = new boolean[substasksCosts.length];
-//            HashMap<Integer, Long> subtaskStartedAt = new HashMap<>();
-//            HashMap<Integer, Long> subtaskEndedAt = new HashMap<>();
             long[] subtaskStartedAt = new long[substasksCosts.length];
             long[] subtaskEndedAt = new long[substasksCosts.length];
             TreeMap<Long, List<Integer>> events = new TreeMap<>();
@@ -71,7 +75,6 @@ public class DAGStretched extends AbstractRecurrentTask implements Schedulable{
                     time = entry.getKey();
                     entry.getValue().forEach(integer -> {
                         reversedRelations.remove(integer);
-//                        subtaskEndedAt.put(integer, entry.getKey());
                         subtaskEndedAt[integer] = entry.getKey();
                     });
                     reversedRelations.entrySet().forEach(integerHashSetEntry -> entry.getValue().forEach(integer -> integerHashSetEntry.getValue().remove(integer)));
@@ -80,7 +83,6 @@ public class DAGStretched extends AbstractRecurrentTask implements Schedulable{
                 reversedRelations.forEach((integer, integers) -> {
                     if(integers.isEmpty() && !subtaskWithEvent[integer]){
                         subtaskWithEvent[integer] = true;
-//                        subtaskStartedAt.put(integer, finalTime);
                         long eventTime = finalTime + substasksCosts[integer];
                         events.putIfAbsent(eventTime, new LinkedList<>());
                         events.get(eventTime).add(integer);
@@ -88,11 +90,6 @@ public class DAGStretched extends AbstractRecurrentTask implements Schedulable{
                     }
                 });
             }while(!events.isEmpty());
-            System.out.println("start and end foreach task : ");
-            for (int i = 0; i < subtaskStartedAt.length; i++) {
-                System.out.println("i : " + i);
-                System.out.println("from : " + subtaskStartedAt[i] + " to : " + subtaskEndedAt[i]);
-            }
             completeSegments(subtaskStartedAt, subtaskEndedAt);
         }
 
@@ -100,23 +97,14 @@ public class DAGStretched extends AbstractRecurrentTask implements Schedulable{
             segments = new Segment[(int) Arrays.stream(subtaskEndedAt).distinct().count()];
             List<Long> list = new LinkedList<>();
             list.add(0L);
-            System.out.println("stream array");
             Arrays.stream(subtaskEndedAt).distinct().sorted().forEach(value -> {
-                System.out.println(value);
                 list.add(value);
                 list.add(value);
             });
-            System.out.println("end stream array");
-            System.out.println("list : " + list);
             for (int i = 0; i < segments.length; i++) {
                 long from = list.remove(0);
                 long to = list.remove(0);
                 segments[i] = new Segment(from, to);
-            }
-            System.out.println("From and to of seg");
-            for (int i = 0; i < segments.length; i++) {
-                System.out.println("Seg " + i);
-                System.out.println("from : " + segments[i].from + " to : " + segments[i].to);
             }
             for (Segment segment : segments) {
                 for(int i = 0; i < subtaskStartedAt.length; i++){
@@ -129,7 +117,6 @@ public class DAGStretched extends AbstractRecurrentTask implements Schedulable{
                 }
             }
             longestPath = segments[segments.length - 1].to;
-            System.out.println("Li : " + segments[segments.length - 1].to);
         }
     }
 
@@ -142,6 +129,9 @@ public class DAGStretched extends AbstractRecurrentTask implements Schedulable{
         this.substasksCosts = new long[subtasksCosts.length];
         System.arraycopy(subtasksCosts, 0, this.substasksCosts, 0, subtasksCosts.length);
         applyDAGStretchingAlgorithm();
+        nextJobs.add(createJob(masterThread.offset, masterThread.deadline + offset, masterThread.wcet));
+        otherJobs.forEach(stretchedJob ->
+                nextJobs.add(createJob(stretchedJob.offset, stretchedJob.deadline + offset + stretchedJob.offset, stretchedJob.wcet)));
     }
 
     public DAGStretched(Map<String, Object> map) {
@@ -164,13 +154,27 @@ public class DAGStretched extends AbstractRecurrentTask implements Schedulable{
 
     @Override
     public List<Job> getRealNextJob(long time) {
-        return null;
-        //TODO
+        if(nextJobs.get(0) != null && time < nextJobs.get(0).getActivationTime()){
+            return nextJobs;
+        }
+        else{
+            List<Job> tmp = new LinkedList<>();
+            long masterActivationTime = nextJobs.remove(0).getActivationTime() + getNextInterArrivalTime();
+            tmp.add(createJob(masterActivationTime, masterActivationTime + getDeadline(), masterThread.wcet));
+            int size = nextJobs.size();
+            for (int i = 0; i < size; i++) {
+                long activationTime = nextJobs.remove(0).getActivationTime() + getNextInterArrivalTime();
+                tmp.add(createJob(activationTime, activationTime + otherJobs.get(i).deadline, otherJobs.get(i).wcet));
+            }
+            nextJobs.addAll(tmp);
+            return nextJobs;
+        }
     }
 
     @Override
     public Schedulable copy() {
-        return null;
+        return new DAGStretched(getMinimumInterArrivalTime(), getWcet(), getDeadline(), getOffset(), getName(),
+                subtasksNumber, relations, substasksCosts);
     }
 
     @Override
@@ -178,13 +182,17 @@ public class DAGStretched extends AbstractRecurrentTask implements Schedulable{
         if(!(obj instanceof DAGStretched)){
             return false;
         }
-        DAGStretched task = (DAGStretched) obj;
-        return getMinimumInterArrivalTime() == task.getMinimumInterArrivalTime() &&
-                getWcet()  == task.getWcet() &&
-                getDeadline() == task.getDeadline() &&
-                getOffset() == task.getOffset() &&
-                getName().equals(task.getName()) &&
-                getSubtasksNumber() == getSubtasksNumber();
+        DAGStretched dagStretched = (DAGStretched) obj;
+        return getMinimumInterArrivalTime() == dagStretched.getMinimumInterArrivalTime() &&
+                getWcet()  == dagStretched.getWcet() &&
+                getDeadline() == dagStretched.getDeadline() &&
+                getOffset() == dagStretched.getOffset() &&
+                getName().equals(dagStretched.getName()) &&
+                getSubtasksNumber() == getSubtasksNumber() &&
+                relations.equals(dagStretched.relations) &&
+                Arrays.equals(substasksCosts, dagStretched.substasksCosts) &&
+                masterThread.equals(dagStretched.masterThread) &&
+                otherJobs.equals(dagStretched.otherJobs);
     }
 
     @Override
@@ -195,13 +203,16 @@ public class DAGStretched extends AbstractRecurrentTask implements Schedulable{
         hash = hash * 31 + Float.floatToIntBits(getDeadline());
         hash = hash * 31 + Float.floatToIntBits(getOffset());
         hash = hash * 31 + getName().hashCode();
-        hash = hash * 31 + getSubtasksNumber();
+        hash = hash * 31 + Float.floatToIntBits(getSubtasksNumber());
+        hash = hash * 31 + relations.hashCode();
+        hash = hash * 31 + Arrays.hashCode(substasksCosts);
+        hash = hash * 31 + masterThread.hashCode();
+        hash = hash * 31 + otherJobs.hashCode();
         return hash;
     }
 
     @Override
     public String toString() {
-//        long period, long wcet, long deadline, long offset, String name
         StringBuilder stringBuilder = new StringBuilder("otherTasks : \n");
         otherJobs.forEach(stretchedJob -> {
             stringBuilder.append("\t\t\t offset : ").append(stretchedJob.offset).append("\n");
@@ -244,43 +255,32 @@ public class DAGStretched extends AbstractRecurrentTask implements Schedulable{
             else{
                 MTS mts = new MTS(relations);
                 double unitFactor = ((double)getDeadline() - (double) mts.longestPath) / ((double) getWcet() - (double) mts.longestPath);
-                System.out.println("unitFactor : " + unitFactor);
                 long previousDeadline = 0;
                 for (Segment segment : mts.segments) {
-                    System.out.println("new seg");
-                    System.out.println("previousDeadline : " + previousDeadline);
                     double segmentFactor = unitFactor * ((double) segment.substasksContained.size() - 1);
-                    System.out.println("segmentFactor : " + segmentFactor);
                     int nbOtherThreads = segment.substasksContained.size() - (int) Math.floor(segmentFactor) - 1;
-                    System.out.println("qi : " + nbOtherThreads);
                     if(nbOtherThreads == 0){
                         masterThread.addCost(segment.to - segment.from);
-                        System.out.println("cost : " + (segment.to - segment.from));
                     }
                     else {
                         int k;
                         for (k = 0; k < nbOtherThreads; k++) {
-                            System.out.println("k : " + k + " cost : " + (segment.to - segment.from));
                             masterThread.addCost(segment.to - segment.from);
                         }
                         long wcet;
                         long offset;
                         long deadline;
                         long addedJobTotalCost = segment.to - segment.from;
-                        System.out.println("addedJobTotalCost : " + addedJobTotalCost);
                         masterThread.addCost((long) ((segmentFactor - Math.floor(segmentFactor)) * addedJobTotalCost));
                         wcet = (long) ((1 + Math.floor(segmentFactor) - segmentFactor) * addedJobTotalCost);
                         offset = getOffset() + previousDeadline;
-                        deadline = (long) ((1 + Math.floor(segmentFactor)) * addedJobTotalCost) + offset;
-                        System.out.println("Last add to master : " + wcet);
-                        System.out.println("deadline : " + deadline);
-                        System.out.println("offset : " + offset);
+                        deadline = (long) ((1 + Math.floor(segmentFactor)) * addedJobTotalCost);
                         otherJobs.add(new StretchedJob(offset, deadline, wcet));
                         k++;
                         for (; k < segment.substasksContained.size(); k++) {
                             wcet = segment.to - segment.from;
                             offset = getOffset() + previousDeadline;
-                            deadline = (long) ((1 + segmentFactor) * segment.to - segment.from) +offset;
+                            deadline = (long) ((1 + segmentFactor) * segment.to - segment.from);
                             otherJobs.add(new StretchedJob(offset, deadline, wcet));
                         }
                     }
