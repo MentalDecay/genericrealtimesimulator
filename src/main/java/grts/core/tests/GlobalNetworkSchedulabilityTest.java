@@ -30,7 +30,7 @@ public class GlobalNetworkSchedulabilityTest {
         Optional<Schedulable> optional = networks.getKey().getTaskSetFromSchedulables().stream()
                 .filter(schedulable1 -> priorities.get((AbstractRecurrentTask) schedulable1) < taskPriority)
                 .max((o1, o2) -> Long.compare(o1.getWcet(), o2.getWcet()));
-        NonPreemptiveResponseTimeTest responseTimeTest = new NonPreemptiveResponseTimeTest();
+        NonPreemptiveResponseTimeTestFixed responseTimeTest = new NonPreemptiveResponseTimeTestFixed();
         Schedulable lowerTask = null;
         if(optional.isPresent()){
             lowerTask = optional.get();

@@ -6,13 +6,14 @@ import grts.core.schedulable.Job;
 import grts.core.schedulable.Schedulable;
 import grts.core.taskset.TaskSet;
 import grts.core.tests.NonPreemptiveResponseTimeTest;
+import grts.core.tests.NonPreemptiveResponseTimeTestFixed;
 
 import java.util.*;
 
 public class ClassicOPA extends AbstractPriorityPolicy implements IPriorityPolicy {
 
     private final HashMap<AbstractRecurrentTask, Integer> priorities = new HashMap<>();
-    private final NonPreemptiveResponseTimeTest responseTimeTest = new NonPreemptiveResponseTimeTest();
+    private final NonPreemptiveResponseTimeTestFixed responseTimeTest = new NonPreemptiveResponseTimeTestFixed();
 
 
     public ClassicOPA(TaskSet taskSet) throws UnschedulableException {

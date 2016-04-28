@@ -103,6 +103,36 @@ public class NonPreemptiveResponseTimeTest extends AbstractSchedulabilityTest im
      * @return The response time.
      */
     public long computeResponseTime(Schedulable schedulable, Schedulable otherSchedulable, TaskSet taskSet){
+        /*
+        if(schedulable.getOffset() != 0 || taskSet.stream().anyMatch(schedulable1 -> schedulable1.getOffset() != 0)){
+            throw new UnsupportedOperationException("Can't compute the response time on a task with an offset");
+        }
+        List<Long> responseTimes = new LinkedList<>();
+        List<AbstractRecurrentTask> schedulables = taskSet.stream().map(schedulable1 -> {
+            if(!(schedulable1 instanceof AbstractRecurrentTask)){
+                throw new IllegalArgumentException("Can't compute the response time if all the tasks are not recurrent");
+            }
+            return (AbstractRecurrentTask) schedulable1;
+        }).collect(Collectors.toList());
+        if(!(schedulable instanceof AbstractRecurrentTask) || (otherSchedulable != null && !(otherSchedulable instanceof AbstractRecurrentTask))){
+            throw new IllegalArgumentException("The task to test and the task with the lowest priority must be a recurrent one");
+        }
+        AbstractRecurrentTask task = (AbstractRecurrentTask) schedulable;
+        int q = 0;
+        while(true){
+            long w = computeW(task, (AbstractRecurrentTask) otherSchedulable, schedulables, q);
+            if(w == -1){
+                return false;
+            }
+            responseTimes.add(w - q * task.getMinimumInterArrivalTime());
+            if(w <= (q+1) * task.getMinimumInterArrivalTime()){
+                break;
+            }
+            q++;
+        }
+//        System.out.println(responseTimes.stream().max(Long::compare).get());
+        return responseTimes.stream().max(Long::compare).get() <= schedulable.getDeadline();
+         */
         if(schedulable.getOffset() != 0 || taskSet.stream().anyMatch(schedulable1 -> schedulable1.getOffset() != 0)){
             throw new UnsupportedOperationException("Can't compute the response time on a task with an offset");
         }

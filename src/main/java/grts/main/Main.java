@@ -31,6 +31,9 @@ import grts.core.exceptions.UnschedulableException;
 import grts.core.generator.GlobalNetworkGenerator;
 import grts.core.generator.PeriodicTasksGenerator;
 import grts.core.json.parser.SimulatorJacksonParser;
+import grts.core.network.CANNetwork;
+import grts.core.network.GlobalNetwork;
+import grts.core.network.PriorityMinimizer;
 import grts.core.priority.policies.ClassicOPA;
 import grts.core.processor.policies.IProcessorPolicy;
 import grts.core.processor.policies.MonoProcessor;
@@ -48,8 +51,10 @@ import grts.logger.EventLogger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.*;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -61,7 +66,7 @@ public class Main {
     private final static int EXIT_FAILURE = 1;
 
     public static void main(String[] args) {
-        if (args.length < 2) {
+        /*if (args.length < 2) {
             usage();
             System.exit(EXIT_FAILURE);
         }
@@ -71,7 +76,7 @@ public class Main {
         SimulatorJacksonParser parser;
         TaskSet ts;
         Architecture architecture;
-        EventLogger logger;
+        EventLogger logger;*/
         /*try {
             inputStreamTasks = Files.newInputStream(Paths.get(args[0]), StandardOpenOption.READ);
             inputStreamArchitecture = Files.newInputStream(Paths.get(args[1]), StandardOpenOption.READ);
@@ -144,6 +149,51 @@ public class Main {
         }
         System.out.println("result : ");
         System.out.println(opa.getPriorities());
+
+        /*AbstractRecurrentTask A = new PeriodicTask(15, 1, 15, 0, "A");
+        AbstractRecurrentTask B = new PeriodicTask(16, 2, 16, 0, "B");
+        AbstractRecurrentTask C = new PeriodicTask(17, 3, 17, 0, "C");
+        AbstractRecurrentTask D = new PeriodicTask(18, 4, 18, 0, "D");
+
+        List<AbstractRecurrentTask> internalsA = new LinkedList<>();
+        internalsA.add(A);
+        internalsA.add(B);
+        internalsA.add(D);
+        CANNetwork canNetwork1 = new CANNetwork(internalsA);
+        Map<AbstractRecurrentTask, Integer> prioritiesCAN1 = new HashMap<>();
+        prioritiesCAN1.put(A, 1);
+        prioritiesCAN1.put(B, 2);
+        prioritiesCAN1.put(D, 3);
+        canNetwork1.addPriorities(prioritiesCAN1);
+
+        List<AbstractRecurrentTask> internalsB = new LinkedList<>();
+        internalsB.add(C);
+        CANNetwork canNetwork2 = new CANNetwork(internalsB);
+        canNetwork2.addExternalSchedulable(B, canNetwork1);
+        Map<AbstractRecurrentTask, Integer> prioritiesCAN2 = new HashMap<>();
+        prioritiesCAN2.put(B, 1);
+        prioritiesCAN2.put(C, 2);
+        canNetwork2.addPriorities(prioritiesCAN2);
+
+        CANNetwork canNetwork3 = new CANNetwork(new LinkedList<>());
+        canNetwork3.addExternalSchedulable(C, canNetwork2);
+        canNetwork3.addExternalSchedulable(D, canNetwork1);
+        canNetwork3.addExternalSchedulable(A, canNetwork1);
+        Map<AbstractRecurrentTask, Integer> prioritiesCAN3 = new HashMap<>();
+        prioritiesCAN3.put(C, 1);
+        prioritiesCAN3.put(D, 2);
+        prioritiesCAN3.put(A, 3);
+        canNetwork3.addPriorities(prioritiesCAN3);
+
+        List<CANNetwork> networks = new LinkedList<>();
+        networks.add(canNetwork1);
+        networks.add(canNetwork2);
+        networks.add(canNetwork3);
+        GlobalNetwork globalNetwork = new GlobalNetwork(networks);
+        PriorityMinimizer priorityMinimizer = new PriorityMinimizer(globalNetwork);
+
+        System.out.println("minimized :\n" + priorityMinimizer.getMinimizedNetworkPriorities());*/
+
         //        }
 
 

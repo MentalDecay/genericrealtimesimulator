@@ -12,6 +12,9 @@ import java.util.stream.Stream;
 
 public class PriorityMinimizer {
 
+    /**
+     * Used to store the two priorities of a message
+     */
     public class Priorities {
         private final int internalPriority;
         private final Optional<Integer> externalPriority;
@@ -27,6 +30,9 @@ public class PriorityMinimizer {
         }
     }
 
+    /**
+     * Represents a message and the CANNetwork from which it comes.
+     */
     private class TaskNetwork implements Comparable<TaskNetwork> {
         private final AbstractRecurrentTask task;
         private final CANNetwork network;
@@ -122,6 +128,8 @@ public class PriorityMinimizer {
             //            System.out.println("this : " + this);
             //            System.out.println("compareTo : " + o);
             //            return 1;
+
+            //Useless complexity but avoid to implements a Dijkstra algorithm to extract the information.
             DijkstraShortestPath<TaskNetwork, DefaultEdge> path = new DijkstraShortestPath<>(graph, lowerPriority, o.lowerPriority);
             if(path.getPathEdgeList() != null){
                 System.out.println("path exist between " + lowerPriority.task.getName() + " and " + o.lowerPriority.task.getName());
@@ -246,6 +254,8 @@ public class PriorityMinimizer {
         HashSet<AbstractRecurrentTask> tasksToDelete = findTasksToDelete(taskCycleMap);
         System.out.println("tasksToDelete : ");
         tasksToDelete.forEach(abstractRecurrentTask -> System.out.println(abstractRecurrentTask.getName()));
+
+
         TreeSet<TasksNetworks> sortedSet = createSortedSet(tasksNetworksHashSet, tasksToDelete);
         //        deleteFromSortedSet(graph, sortedSet, tasksToDelete);
         System.out.println("sorted set : ");
